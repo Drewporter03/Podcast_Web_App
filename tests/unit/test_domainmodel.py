@@ -1,5 +1,5 @@
 import pytest
-from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Review
+from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Review
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
 
@@ -349,6 +349,46 @@ def test_podcast_subscription_hash(my_user, my_podcast):
     assert len(sub_set) == 1
 
 # TODO : Write Unit Tests for CSVDataReader, Episode, Review, Playlist classes
+
+
+def test_episode(my_podcast):
+    episode1 = Episode(1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
+    assert episode1.id == 1
+    assert episode1.title == "Ep1"
+    assert episode1.description == "once upon a time.."
+    assert episode1.date == "09-02-2005"
+    assert episode1.audio_length == 100
+
+    assert repr(episode1) == "<Episode 1: by <Author 1: Joe Toste>>"
+    with pytest.raises(ValueError):
+        episode2 = Episode(-1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode3 = Episode(1, "Ep1", -100, "09-02-2005", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode4 = Episode(1, "Ep1", 100, " ", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode5 = Episode(1, "Ep1", 100, "", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode6 = Episode(1, "", 100, "09-02-2005", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode7 = Episode(1, "Ep1", 100, "09-02-2005", "", my_podcast)
+
+    episode1.title = "Ep2"
+    episode1.date = "08-01-2004"
+    episode1.description = "twice upon a time.."
+    episode1.audio_length = 99
+
+    assert episode1.id == 1
+    assert episode1.title == "Ep2"
+    assert episode1.description == "twice upon a time.."
+    assert episode1.date == "08-01-2004"
+    assert episode1.audio_length == 99
+    
 
 def test_review_initialization():
     user1 = User(1, "   Shyamli", "pw12345")
