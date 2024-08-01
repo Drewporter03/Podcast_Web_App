@@ -320,9 +320,72 @@ class Episode:
 
 
 class Review:
-    # TODO: Complete the implementation of the Review class.
-    pass
+    def __init__(self, review_id: int, reviewer: User, podcast: Podcast, rating: int, comment: str = ""):
+        validate_non_negative_int(review_id)
+        if not isinstance(rating, int):
+            raise TypeError("Rating must be an int.")
+        if rating < 0 or rating > 10:
+            raise ValueError("Rating must be between 0 and 10.")
+        if not isinstance(reviewer, User):
+            raise TypeError("Reviewer must be an User object.")
+        if not isinstance(podcast, Podcast):
+            raise TypeError("Podcast must be a Podcast object.")
+        if not isinstance(comment, str):
+            raise TypeError("Comment must be a str.")
+        self._id = review_id
+        self._reviewer = reviewer
+        self._podcast = podcast
+        self._rating = rating
+        self._comment = comment.strip()
 
+    @property
+    def id(self):
+        return self._id
+    
+    @property
+    def reviewer(self):
+        return self._reviewer
+    
+    @property
+    def podcast(self):
+        return self._podcast
+    
+    @property
+    def rating(self):
+        return self._rating
+    
+    @rating.setter
+    def rating(self, updated_rating):
+        if not isinstance(updated_rating, int):
+            raise TypeError("Rating must be an int.")
+        if updated_rating < 0 or updated_rating > 10:
+            raise ValueError("Rating must be between 0 and 10.")
+        self._rating = updated_rating
+
+    @property
+    def comment(self):
+        return self._comment
+    
+    @comment.setter
+    def comment(self, updated_comment):
+        validate_non_empty_string(updated_comment, "Review comment")
+        self._comment = updated_comment
+
+    def __repr__(self):
+        return f"<Review {self.id}: Written by '{self.reviewer.username}' about '{self.podcast.title}'>"
+
+    def __eq__(self, other):
+        if not isinstance(other, Review):
+            return False
+        return self.id == other.id
+
+    def __lt__(self, other):
+        if not isinstance(other, Review):
+            return False
+        return self.id < other.id
+
+    def __hash__(self):
+        return hash(self.id)
 
 class Playlist:
     # TODO: Complete the implementation of the Playlist class.

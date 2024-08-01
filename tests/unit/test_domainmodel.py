@@ -1,5 +1,5 @@
 import pytest
-from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription
+from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Review
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
 
@@ -349,3 +349,116 @@ def test_podcast_subscription_hash(my_user, my_podcast):
     assert len(sub_set) == 1
 
 # TODO : Write Unit Tests for CSVDataReader, Episode, Review, Playlist classes
+
+def test_review_initialization():
+    user1 = User(1, "   Shyamli", "pw12345")
+    user2 = User(2, "asma", "pw67890")
+    user3 = User(3, "JeNNy  ", "pw87465")
+    author1 = Author(1, "Author A")
+    author2 = Author(2, "Author C")
+    author3 = Author(3, "Author B")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    podcast2 = Podcast(200, author2, "Voices in AI")
+    podcast3 = Podcast(101, author3, "Law Talk")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+    review2 = Review(2, user2, podcast2, 7, 'Goodbye World')
+    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
+
+    assert repr(review1) == "<Review 1: Written by 'shyamli' about 'Joe Toste Podcast - Sales Training Expert'>"
+    assert repr(review2) == "<Review 2: Written by 'asma' about 'Voices in AI'>"
+    assert repr(review3) == "<Review 3: Written by 'jenny' about 'Law Talk'>"
+    assert review3.rating == 9
+    assert review3.comment == "Lorem Ipsum"
+
+    with pytest.raises(TypeError):
+        review4 = Review(4, 3, podcast3, 6, 'Hellowork')
+
+    with pytest.raises(TypeError):
+        review5 = Review(5, user2, "hello", 1, "goodbye")
+
+    with pytest.raises(TypeError):
+        review6 = Review(6, user2, podcast2, 9, 33)
+
+    with pytest.raises(TypeError):
+        review7 = Review(7, user2, podcast1, user2, "Excellent podcast")
+        
+    with pytest.raises(ValueError):
+        review8 = Review("haha", user1, podcast1, 2, "meh")
+
+    with pytest.raises(ValueError):
+        review9 = Review(-3, user1, podcast3, 2, "ok")    
+
+    with pytest.raises(ValueError):
+        review10 = Review(9, user1, podcast3, 23, "funny")    
+
+def test_review_set_rating():
+    user1 = User(1, "   Shyamli", "pw12345")
+    author1 = Author(1, "Author A")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+    review1.rating = 4
+    assert review1.rating == 4
+
+    with pytest.raises(TypeError):
+        review1.rating = "not a rating"
+
+    with pytest.raises(ValueError):
+        review1.rating = 99
+
+def test_review_set_comment():
+    user1 = User(1, "   Shyamli", "pw12345")
+    author1 = Author(1, "Author A")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+
+    review1.comment = "Haha"
+    assert review1.comment == "Haha"
+
+    with pytest.raises(ValueError):
+        review1.comment = 93
+    
+def test_review_equality():
+    user1 = User(1, "   Shyamli", "pw12345")
+    user2 = User(2, "asma", "pw67890")
+    user3 = User(3, "JeNNy  ", "pw87465")
+    author1 = Author(1, "Author A")
+    author2 = Author(2, "Author C")
+    author3 = Author(3, "Author B")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    podcast2 = Podcast(200, author2, "Voices in AI")
+    podcast3 = Podcast(101, author3, "Law Talk")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+    review2 = Review(1, user2, podcast2, 7, 'Goodbye World')
+    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
+
+    assert review1 == review2
+    assert review1 != review3
+
+def test_review_lt():
+    user1 = User(1, "   Shyamli", "pw12345")
+    user2 = User(2, "asma", "pw67890")
+    user3 = User(3, "JeNNy  ", "pw87465")
+    author1 = Author(1, "Author A")
+    author2 = Author(2, "Author C")
+    author3 = Author(3, "Author B")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    podcast2 = Podcast(200, author2, "Voices in AI")
+    podcast3 = Podcast(101, author3, "Law Talk")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+    review2 = Review(2, user2, podcast2, 7, 'Goodbye World')
+    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
+
+    assert review2 > review1
+    assert review1 < review3
+    assert review2 < review3
+    review_list = [review2, review3, review1]
+    assert sorted(review_list) == [review1, review2, review3]
+
+def test_review_hash():
+    user1 = User(1, "   Shyamli", "pw12345")
+    author1 = Author(1, "Author A")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    review1 = Review(1, user1, podcast1, 3, 'Hello World')
+    review2 = Review(1, user1, podcast1, 4, 'Good Evening')
+    review_set = {review1, review2}
+    assert len(review_set) == 1
