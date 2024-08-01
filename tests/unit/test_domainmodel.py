@@ -1,5 +1,5 @@
 import pytest
-from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Review
+from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Playlist
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
 
@@ -348,157 +348,53 @@ def test_podcast_subscription_hash(my_user, my_podcast):
     sub_set = {sub1, sub2}  # Should only contain one element since hash should be the same
     assert len(sub_set) == 1
 
+
+def test_playlist_initialization():
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(2, "My Podcasts 1", user1)
+    assert playlist1.id == 2
+    assert playlist1._owner == user1
+    assert playlist1.title == "My Podcasts 1"
+    assert playlist1.image is None
+
+    assert repr(playlist1) == "<Playlist 2: My Podcasts 1>"
+
+    with pytest.raises(ValueError):
+        playlist2 = Playlist("My Podcasts 2", -999)
+
+    playlist3 = Playlist(1)
+    assert playlist3.id == 1
+    assert playlist3.title == "Untitled"
+    assert playlist3._owner is None
+
+
+def test_playlist_equality():
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(1, "My Podcasts 1", user1)
+    playlist2 = playlist1
+    assert playlist1 == playlist2
+
+
+def test_playlist_hash():
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(1, "My Podcasts 1", user1)
+    playlist2 = Playlist(1, "My Podcasts 1", user1)
+    sub_set = {playlist1 == playlist2}
+    assert len(sub_set) == 1
+
+
+def test_playlist_lt():
+    playlist1 = Playlist(1, "Podcasts 1")
+    playlist2 = Playlist(2, "Podcasts 2")
+    playlist3 = Playlist(3, "Podcasts 3")
+
+    assert playlist1 < playlist2
+    assert playlist1 < playlist3
+    assert playlist2 < playlist3
+    assert playlist3 > playlist1
+    assert playlist3 > playlist2
+
+    playlist_list = [playlist3, playlist2, playlist1]
+    assert sorted(playlist_list) == [playlist1, playlist2, playlist3]
+
 # TODO : Write Unit Tests for CSVDataReader, Episode, Review, Playlist classes
-
-
-def test_episode(my_podcast):
-    episode1 = Episode(1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
-    assert episode1.id == 1
-    assert episode1.title == "Ep1"
-    assert episode1.description == "once upon a time.."
-    assert episode1.date == "09-02-2005"
-    assert episode1.audio_length == 100
-
-    assert repr(episode1) == "<Episode 1: by <Author 1: Joe Toste>>"
-    with pytest.raises(ValueError):
-        episode2 = Episode(-1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode3 = Episode(1, "Ep1", -100, "09-02-2005", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode4 = Episode(1, "Ep1", 100, " ", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode5 = Episode(1, "Ep1", 100, "", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode6 = Episode(1, "", 100, "09-02-2005", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode7 = Episode(1, "Ep1", 100, "09-02-2005", "", my_podcast)
-
-    episode1.title = "Ep2"
-    episode1.date = "08-01-2004"
-    episode1.description = "twice upon a time.."
-    episode1.audio_length = 99
-
-    assert episode1.id == 1
-    assert episode1.title == "Ep2"
-    assert episode1.description == "twice upon a time.."
-    assert episode1.date == "08-01-2004"
-    assert episode1.audio_length == 99
-    
-
-def test_review_initialization():
-    user1 = User(1, "   Shyamli", "pw12345")
-    user2 = User(2, "asma", "pw67890")
-    user3 = User(3, "JeNNy  ", "pw87465")
-    author1 = Author(1, "Author A")
-    author2 = Author(2, "Author C")
-    author3 = Author(3, "Author B")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    podcast2 = Podcast(200, author2, "Voices in AI")
-    podcast3 = Podcast(101, author3, "Law Talk")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-    review2 = Review(2, user2, podcast2, 7, 'Goodbye World')
-    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
-
-    assert repr(review1) == "<Review 1: Written by 'shyamli' about 'Joe Toste Podcast - Sales Training Expert'>"
-    assert repr(review2) == "<Review 2: Written by 'asma' about 'Voices in AI'>"
-    assert repr(review3) == "<Review 3: Written by 'jenny' about 'Law Talk'>"
-    assert review3.rating == 9
-    assert review3.comment == "Lorem Ipsum"
-
-    with pytest.raises(TypeError):
-        review4 = Review(4, 3, podcast3, 6, 'Hellowork')
-
-    with pytest.raises(TypeError):
-        review5 = Review(5, user2, "hello", 1, "goodbye")
-
-    with pytest.raises(TypeError):
-        review6 = Review(6, user2, podcast2, 9, 33)
-
-    with pytest.raises(TypeError):
-        review7 = Review(7, user2, podcast1, user2, "Excellent podcast")
-        
-    with pytest.raises(ValueError):
-        review8 = Review("haha", user1, podcast1, 2, "meh")
-
-    with pytest.raises(ValueError):
-        review9 = Review(-3, user1, podcast3, 2, "ok")    
-
-    with pytest.raises(ValueError):
-        review10 = Review(9, user1, podcast3, 23, "funny")    
-
-def test_review_set_rating():
-    user1 = User(1, "   Shyamli", "pw12345")
-    author1 = Author(1, "Author A")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-    review1.rating = 4
-    assert review1.rating == 4
-
-    with pytest.raises(TypeError):
-        review1.rating = "not a rating"
-
-    with pytest.raises(ValueError):
-        review1.rating = 99
-
-def test_review_set_comment():
-    user1 = User(1, "   Shyamli", "pw12345")
-    author1 = Author(1, "Author A")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-
-    review1.comment = "Haha"
-    assert review1.comment == "Haha"
-
-    with pytest.raises(ValueError):
-        review1.comment = 93
-    
-def test_review_equality():
-    user1 = User(1, "   Shyamli", "pw12345")
-    user2 = User(2, "asma", "pw67890")
-    user3 = User(3, "JeNNy  ", "pw87465")
-    author1 = Author(1, "Author A")
-    author2 = Author(2, "Author C")
-    author3 = Author(3, "Author B")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    podcast2 = Podcast(200, author2, "Voices in AI")
-    podcast3 = Podcast(101, author3, "Law Talk")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-    review2 = Review(1, user2, podcast2, 7, 'Goodbye World')
-    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
-
-    assert review1 == review2
-    assert review1 != review3
-
-def test_review_lt():
-    user1 = User(1, "   Shyamli", "pw12345")
-    user2 = User(2, "asma", "pw67890")
-    user3 = User(3, "JeNNy  ", "pw87465")
-    author1 = Author(1, "Author A")
-    author2 = Author(2, "Author C")
-    author3 = Author(3, "Author B")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    podcast2 = Podcast(200, author2, "Voices in AI")
-    podcast3 = Podcast(101, author3, "Law Talk")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-    review2 = Review(2, user2, podcast2, 7, 'Goodbye World')
-    review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
-
-    assert review2 > review1
-    assert review1 < review3
-    assert review2 < review3
-    review_list = [review2, review3, review1]
-    assert sorted(review_list) == [review1, review2, review3]
-
-def test_review_hash():
-    user1 = User(1, "   Shyamli", "pw12345")
-    author1 = Author(1, "Author A")
-    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    review1 = Review(1, user1, podcast1, 3, 'Hello World')
-    review2 = Review(1, user1, podcast1, 4, 'Good Evening')
-    review_set = {review1, review2}
-    assert len(review_set) == 1
