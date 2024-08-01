@@ -378,4 +378,14 @@ def test_episode(my_podcast):
     with pytest.raises(ValueError):
         episode7 = Episode(1, "Ep1", 100, "09-02-2005", "", my_podcast)
 
+    episode1.title = "Ep2"
+    episode1.date = "08-01-2004"
+    episode1.description = "twice upon a time.."
+    episode1.audio_length = 99
 
+    assert episode1.id == 1
+    assert episode1.title == "Ep2"
+    assert episode1.description == "twice upon a time.."
+    assert episode1.date == "08-01-2004"
+    assert episode1.audio_length == 99
+    

@@ -367,11 +367,11 @@ class Episode:
 
     @audio_length.setter
     def audio_length(self, value: int):
-        self.audio_length = value
+        self._audio_length = value
 
     @date.setter
     def date(self, new_date: str):
-        self.date = new_date.strip()
+        self._date = new_date.strip()
 
     def __repr__(self) -> str:
         return f"<Episode {self._id}: by {self._podcast.author}>"
