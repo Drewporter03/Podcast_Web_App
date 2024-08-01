@@ -153,6 +153,11 @@ def my_subscription(my_user, my_podcast):
     return PodcastSubscription(1, my_user, my_podcast)
 
 
+@pytest.fixture
+def my_episode(my_podcast):
+    return Episode(1, "Episode 1", 60, "28-05-2003", "First Episode", my_podcast)
+
+
 def test_podcast_initialization():
     author1 = Author(1, "Doctor Squee")
     podcast1 = Podcast(2, author1, "My First Podcast")
@@ -354,13 +359,18 @@ def test_playlist_initialization():
     playlist1 = Playlist(2, "My Podcasts 1", user1)
     assert playlist1.id == 2
     assert playlist1._owner == user1
-    assert playlist1.title == "My Podcasts 1"
-    assert playlist1.image is None
+    assert playlist1._title == "My Podcasts 1"
+    assert playlist1._image is None
+    assert playlist1._podcast_list == []
 
-    assert repr(playlist1) == "<Playlist 2: My Podcasts 1>"
+    playlist2 = Playlist(3, "My Podcasts 2", user1)
+    assert repr(playlist2) == "<Playlist 3: My Podcasts 2>"
+
+    playlist2.title = "My new playlist"
+    assert playlist2.title == "My new playlist"
 
     with pytest.raises(ValueError):
-        playlist2 = Playlist("My Podcasts 2", -999)
+        playlist2 = Playlist(-1, "My Podcasts 2")
 
     playlist3 = Playlist(1)
     assert playlist3.id == 1
@@ -368,11 +378,42 @@ def test_playlist_initialization():
     assert playlist3._owner is None
 
 
+def test_playlist_title_change():
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(2, "My Podcasts 1", user1)
+    assert playlist1._title == "My Podcasts 1"
+    playlist1.title = "My new podcasts"
+    assert playlist1._title == "My new podcasts"
+
+
+def test_add_episode(my_episode):
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(1, "My podcasts", user1)
+    assert playlist1.podcast_list == []
+
+    playlist1.add_podcast(my_episode)
+    assert playlist1.podcast_list == [my_episode]
+
+def test_remove_episode(my_episode):
+    user1 = User(1, "Shyamli", "pw12345")
+    playlist1 = Playlist(1, "My podcasts", user1)
+    assert playlist1.podcast_list == []
+    playlist1.add_podcast(my_episode)
+    assert playlist1.podcast_list == [my_episode]
+    playlist1.remove_podcast(my_episode)
+    assert playlist1.podcast_list == []
+
+
 def test_playlist_equality():
     user1 = User(1, "Shyamli", "pw12345")
+    user2 = User(2, "asma", "pw67890")
     playlist1 = Playlist(1, "My Podcasts 1", user1)
-    playlist2 = playlist1
+    playlist2 = Playlist(1, "My Podcasts 2", user1)
+    playlist3 = Playlist(3, "My Podcasts 3", user2)
     assert playlist1 == playlist2
+    assert playlist1 != playlist3
+    assert playlist2 != playlist3
+    assert playlist3 == playlist3
 
 
 def test_playlist_hash():

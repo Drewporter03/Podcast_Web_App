@@ -457,7 +457,7 @@ class Review:
 
 
 class Playlist:
-    def __init__(self, playlist_id: str, title: str = "Untitled", owner: User = None, image: str = None):
+    def __init__(self, playlist_id: int, title: str = "Untitled", owner: User = None, image: str = None):
         validate_non_negative_int(playlist_id)
         validate_non_empty_string(title, "Playlist title")
         self._playlist_id = playlist_id
@@ -481,7 +481,7 @@ class Playlist:
     @title.setter
     def title(self, new_name: str):
         validate_non_empty_string(new_name, "New title")
-        self.title = new_name.strip()
+        self._title = new_name.strip()
 
     @image.setter
     def image(self, new_image: str):
@@ -490,7 +490,7 @@ class Playlist:
         self._image = new_image
 
     def add_podcast(self, episode: Episode):
-        if not isinstance(episode, Podcast):
+        if not isinstance(episode, Episode):
             raise TypeError("Expected a Episode instance.")
         if episode not in self._podcast_list:
             self._podcast_list.append(episode)
@@ -514,4 +514,8 @@ class Playlist:
         if not isinstance(other, Playlist):
             return False
         return self._playlist_id < other._playlist_id
+
+    @property
+    def podcast_list(self):
+        return self._podcast_list
 
