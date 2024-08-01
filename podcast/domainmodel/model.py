@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import podcast
+
 
 def validate_non_negative_int(value):
     if not isinstance(value, int) or value < 0:
@@ -315,8 +317,79 @@ class PodcastSubscription:
 
 
 class Episode:
-    # TODO: Complete the implementation of the Episode class.
-    pass
+    def __init__(self, ep_id: int, title: str, length: int, date, desc: str, podcast: Podcast):
+        validate_non_negative_int(ep_id)
+        validate_non_negative_int(length)
+        validate_non_empty_string(title, "Episode title")
+        validate_non_empty_string(desc, "Episode description")
+        validate_non_empty_string(date, "Episode published date(mm-dd-yyyy)")
+
+        if not isinstance(podcast, Podcast):
+            raise TypeError("Podcast must be a Podcast object.")
+
+        self._id = ep_id
+        self._title = title.strip()
+        self._podcast = podcast
+        self._description = desc.strip()
+        self._audio_length = length
+        self._date = date.strip()
+
+    @property
+    def id(self) -> int:
+        return self._id
+
+    @property
+    def title(self) -> str:
+        return self._title
+
+    @property
+    def description(self) -> str:
+        return self._description
+
+    @property
+    def audio_length(self) -> int:
+        validate_non_negative_int(self._audio_length)
+        return self._audio_length
+
+    @property
+    def date(self) -> int:
+        validate_non_empty_string(self._date, "Episode published date(mm-dd-yyyy)")
+        return self._date
+
+    @title.setter
+    def title(self, new_title: str):
+        validate_non_empty_string(new_title, "Episode title")
+        self._title = new_title.strip()
+
+    @description.setter
+    def description(self, value):
+        self._description = value
+
+    @audio_length.setter
+    def audio_length(self, value: int):
+        self.audio_length = value
+
+    @date.setter
+    def date(self, new_date: str):
+        self.date = new_date.strip()
+
+    def __repr__(self) -> str:
+        return f"<Episode {self._id}: by {self._podcast.author}>"
+
+    def __eq__(self, other):
+        if not isinstance(other, Episode):
+            return False
+        return self._id == other.id
+
+    def __hash__(self):
+        return hash(self._id)
+
+    def __lt__(self, other):
+        if not isinstance(other, Episode):
+            return False
+        return self.id < other.id
+
+
 
 
 class Review:
