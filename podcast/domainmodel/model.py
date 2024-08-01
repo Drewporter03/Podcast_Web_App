@@ -326,4 +326,34 @@ class Review:
 
 class Playlist:
     # TODO: Complete the implementation of the Playlist class.
+    def __init__(self, title: str, playlist_id: str = None):
+        validate_non_negative_int(playlist_id)
+        validate_non_empty_string(title, "Playlist title")
+        self.playlist_id = playlist_id
+        self.title = title.strip()
+        self.podcast_list = []
+
+    @property
+    def id(self):
+        return self.playlist_id
+
+    @property
+    def title(self):
+        return self.title
+
+    @title.setter
+    def title(self, new_name: str):
+        validate_non_empty_string(new_name, "New title")
+        self.title = new_name.strip()
+
+    def add_podcast(self, episode: Episode):
+        if not isinstance(episode, Podcast):
+            raise TypeError("Expected a Episode instance.")
+        if episode not in self.podcast_list:
+            self.podcast_list.append(episode)
+
+    def remove_podcast(self, episode: Episode):
+        if episode in self.podcast_list:
+            self.podcast_list.remove(episode)
+
     pass
