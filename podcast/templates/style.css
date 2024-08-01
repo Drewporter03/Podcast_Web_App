@@ -67,7 +67,7 @@ main{
     font-weight: 500;
 }
 
-.highlight span:hover{
+.highlight :hover{
     color: aliceblue;
     transition: 0.3s;
 }
@@ -152,14 +152,15 @@ main{
 }
 
 .explore_header h1{
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 .podcast{
     background-color: #27262e;
     height: 10rem;
     border-radius: 1rem;
     display: flex;
-    justify-content: row;
+    flex-direction: row;
+    align-items: center;
     margin: 1rem 0 1rem;
 
 }
