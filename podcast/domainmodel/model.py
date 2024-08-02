@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from datetime import date
 
 def validate_non_negative_int(value):
     if not isinstance(value, int) or value < 0:
@@ -315,26 +315,34 @@ class PodcastSubscription:
 
 
 class Episode:
-    def __init__(self, ep_id: int, title: str, length: int, date, desc: str, podcast: Podcast):
+    def __init__(self, ep_id: int, podcast_id: int, title: str, audio_link: str, length: int, date1: str, desc: str, podcast: Podcast):
         validate_non_negative_int(ep_id)
+        validate_non_negative_int(podcast_id)
         validate_non_negative_int(length)
         validate_non_empty_string(title, "Episode title")
         validate_non_empty_string(desc, "Episode description")
-        validate_non_empty_string(date, "Episode published date(mm-dd-yyyy)")
+        validate_non_empty_string(audio_link, "Episode Link")
+        validate_non_empty_string(date1, "Episode Date")
 
         if not isinstance(podcast, Podcast):
             raise TypeError("Podcast must be a Podcast object.")
 
         self._id = ep_id
+        self._podcast_id = podcast_id
         self._title = title.strip()
         self._podcast = podcast
         self._description = desc.strip()
         self._audio_length = length
-        self._date = date.strip()
+        self._audio_link = audio_link.strip()
+        self._date = date.fromisoformat(date1)
 
     @property
     def id(self) -> int:
         return self._id
+
+    @property
+    def podcast_id(self) -> int:
+        return self._podcast_id
 
     @property
     def title(self) -> str:
@@ -350,8 +358,12 @@ class Episode:
         return self._audio_length
 
     @property
-    def date(self) -> int:
-        validate_non_empty_string(self._date, "Episode published date(mm-dd-yyyy)")
+    def audio_link(self) -> str:
+        validate_non_empty_string(self._audio_link, "Episode Link")
+        return self._audio_link
+
+    @property
+    def date1(self) -> date:
         return self._date
 
     @title.setter
@@ -365,11 +377,18 @@ class Episode:
 
     @audio_length.setter
     def audio_length(self, value: int):
+        validate_non_negative_int(value)
         self._audio_length = value
 
-    @date.setter
-    def date(self, new_date: str):
-        self._date = new_date.strip()
+    @date1.setter
+    def date1(self, new_date: str):
+        validate_non_empty_string(new_date, "Episode date")
+        self._date = date.fromisoformat(new_date)
+
+    @audio_link.setter
+    def audio_link(self, value: str):
+        validate_non_empty_string(value, "Episode Link")
+        self._audio_link = value
 
     def __repr__(self) -> str:
         return f"<Episode {self._id}: by {self._podcast.author}>"

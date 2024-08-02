@@ -1,3 +1,4 @@
+from datetime import date, datetime
 import pytest
 from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Playlist, Review
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
@@ -438,42 +439,50 @@ def test_playlist_lt():
     playlist_list = [playlist3, playlist2, playlist1]
     assert sorted(playlist_list) == [playlist1, playlist2, playlist3]
 
+
 def test_episode(my_podcast):
-    episode1 = Episode(1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
+    episode1 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
+    assert episode1.podcast_id == 1
     assert episode1.id == 1
+    assert episode1.audio_link == "www.mywebsite.com"
     assert episode1.title == "Ep1"
     assert episode1.description == "once upon a time.."
-    assert episode1.date == "09-02-2005"
+    assert episode1.date1 == date.fromisoformat("2005-09-02")
     assert episode1.audio_length == 100
 
     assert repr(episode1) == "<Episode 1: by <Author 1: Joe Toste>>"
     with pytest.raises(ValueError):
-        episode2 = Episode(-1, "Ep1", 100, "09-02-2005", "once upon a time..", my_podcast)
+        episode2 = Episode(-1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
 
     with pytest.raises(ValueError):
-        episode3 = Episode(1, "Ep1", -100, "09-02-2005", "once upon a time..", my_podcast)
+        episode3 = Episode(1, -1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
 
     with pytest.raises(ValueError):
-        episode4 = Episode(1, "Ep1", 100, " ", "once upon a time..", my_podcast)
+        episode3 = Episode(1, 1, "", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
 
     with pytest.raises(ValueError):
-        episode5 = Episode(1, "Ep1", 100, "", "once upon a time..", my_podcast)
+        episode4 = Episode(1, 1, "Ep1", "", 100, "2005-09-02", "once upon a time..", my_podcast)
 
     with pytest.raises(ValueError):
-        episode6 = Episode(1, "", 100, "09-02-2005", "once upon a time..", my_podcast)
+        episode5 = Episode(1, 1, "Ep1", "www.mywebsite.com", -1, "2005-09-02", "once upon a time..", my_podcast)
 
     with pytest.raises(ValueError):
-        episode7 = Episode(1, "Ep1", 100, "09-02-2005", "", my_podcast)
+        episode6 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "", "once upon a time..", my_podcast)
+
+    with pytest.raises(ValueError):
+        episode7 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "", my_podcast)
 
     episode1.title = "Ep2"
-    episode1.date = "08-01-2004"
+    episode1.date = "2005-09-2"
     episode1.description = "twice upon a time.."
+    episode1.audio_link = "www.mywebsite.com1"
     episode1.audio_length = 99
 
     assert episode1.id == 1
     assert episode1.title == "Ep2"
     assert episode1.description == "twice upon a time.."
-    assert episode1.date == "08-01-2004"
+    assert episode1.date == "2005-09-2"
+    assert episode1.audio_link == "www.mywebsite.com1"
     assert episode1.audio_length == 99
     
 
