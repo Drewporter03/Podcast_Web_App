@@ -3,10 +3,38 @@
     text-decoration: none;
     list-style: none;
     margin: 0;
-    padding: 0;
-    
+    padding: 0;    
 }
 
+:root {
+    --background:#15141e;
+    --sections: #27262e;
+    --navbar-logo: #8c52ff;
+    --navbar-logo-hover: aliceblue;
+    --navbar-login-primary: aliceblue;
+    --navbar-login-secondary: #8c52ff;
+    --navbar-login-primary-hover: #8c52ff;
+    --navbar-login-secondary-hover: aliceblue;
+    --navbar-content: #4f4a75;
+    --navbar-content-hover: aliceblue;
+    --text: aliceblue;
+    --section-text: aliceblue;
+    --logo: #8c52ff;
+    --logo-hover: aliceblue;
+    --highlight: #8c52ff;
+    --highlight-hover: aliceblue;
+}
+
+.lightMode{
+    --background:#fbfbfb;
+    --sections: #8c52ff;
+    --navbar-logo: aliceblue;
+    --navbar-login-secondary: #cdb4ff;
+    --navbar-content: #cdb4ff;
+    --text: #15141e;
+    --logo-hover: #cdb4ff;
+    --highlight-hover: #cdb4ff;
+}
 
 a:visited{
     color: inherit;
@@ -16,7 +44,7 @@ a:visited{
 body{
     display: flex;
     flex-direction: column;
-    background-color: #15141e;
+    background-color: var(--background); 
     font-family: "League Spartan", sans-serif;
 }
 
@@ -26,7 +54,6 @@ main{
 }
 
 .content_left{
-    color: aliceblue;
     display: flex;
     flex-direction: column;
     width: 20vw;
@@ -36,7 +63,7 @@ main{
 }
 
 .content_right{
-    color: aliceblue;
+    color: var(--text);
     display: flex;
     flex-direction: column;
     width: 80vw;
@@ -62,33 +89,34 @@ main{
 }
 
 .highlight{
-    color: #8c52ff;
+    color: var(--highlight);
     font-weight: 500;
 }
 
 .highlight :hover{
-    color: aliceblue;
+    color: var(--highlight-hover);
     transition: 0.3s;
 }
 
 .navbar_logo{
     font-size: 3vw;
+    color: var(--navbar-logo);
     margin: 2vw 2vw 0.5vw;
 }
 
 .navbar_logo:hover{
-    color: aliceblue;
+    color: var(--navbar-logo-hover);
     transition: 0.3s;
 }
 
 
 .logo{
     font-weight: 700;
-    color: #8c52ff;
+    color: var(--logo);
 }
 
 .logo:hover{
-    color: aliceblue;
+    color: var(--logo-hover);
     transition: 0.3s;
 }
 
@@ -96,7 +124,7 @@ main{
     border-radius: 3em;
     display: flex;
     flex-direction: column;
-    background-color: #27262e;
+    background-color: var(--sections);
     height: 95%;
     width: 95%;
     align-items: center;
@@ -107,15 +135,15 @@ main{
     padding: .7vw 3vw .7vw;
     margin: 1vw;
     border-radius: 3rem;
-    background-color:#8c52ff;
+    background-color:var(--navbar-login-secondary);
     font-weight: 600;
-    color: aliceblue;
+    color: var(--navbar-login-primary);
 }
 
 .navbar_login:hover{
     transition-duration: 0.3s;
-    color: #8c52ff;
-    background-color: aliceblue;
+    color: var(--navbar-login-primary-hover);
+    background-color: var(--navbar-login-secondary-hover);
 }
 
 
@@ -128,25 +156,19 @@ main{
     font-size: 2vw;
     font-weight: 600;
     margin: 1vw 0 1vw;
-    color: #4f4a75;
     transition: 0.1s;
-}
-
-.navbar_link:hover{
-    color: aliceblue;
-    transition-duration: 0.3s;
 }
 
 .navbar_link a{
     font-size: 2vw;
     font-weight: 600;
     margin: 1vw 0 1vw;
-    color: #4f4a75;
+    color: var(--navbar-content);
     transition: 0.1s;
 }
 
 .navbar_link a:hover{
-    color: aliceblue;
+    color: var(--navbar-content-hover);
     transition-duration: 0.3s;
 }
 
@@ -168,7 +190,8 @@ main{
     font-size: 3.5rem;
 }
 .podcast{
-    background-color: #27262e;
+    background-color: var(--sections);
+    color: var(--section-text);
     height: 10rem;
     border-radius: 1rem;
     display: flex;
