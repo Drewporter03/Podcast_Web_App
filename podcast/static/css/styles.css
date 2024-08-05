@@ -109,6 +109,16 @@ main {
     transition: 0.3s;
 }
 
+#nav-footer {
+    color: var(--navbar-content);
+    margin-top: 25px;
+    margin-bottom: 50px;
+    position: absolute;
+    bottom: 0;
+    font-size: small;
+    text-align: center;
+    word-wrap: break-word;
+}
 
 .logo {
     font-weight: 700;
