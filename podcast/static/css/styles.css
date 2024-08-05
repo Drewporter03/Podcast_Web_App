@@ -1,13 +1,13 @@
-*{
+* {
     /* border: 1px solid white; */
     text-decoration: none;
     list-style: none;
     margin: 0;
-    padding: 0;    
+    padding: 0;
 }
 
 :root {
-    --background:#15141e;
+    --background: #15141e;
     --sections: #27262e;
     --navbar-logo: #8c52ff;
     --navbar-logo-hover: aliceblue;
@@ -25,8 +25,8 @@
     --highlight-hover: aliceblue;
 }
 
-.lightMode{
-    --background:#fbfbfb;
+.lightMode {
+    --background: #fbfbfb;
     --sections: #8c52ff;
     --navbar-logo: aliceblue;
     --navbar-login-secondary: #cdb4ff;
@@ -36,24 +36,24 @@
     --highlight-hover: #cdb4ff;
 }
 
-a:visited{
+a:visited {
     color: inherit;
 }
 
 
-body{
+body {
     display: flex;
     flex-direction: column;
-    background-color: var(--background); 
+    background-color: var(--background);
     font-family: "League Spartan", sans-serif;
 }
 
-main{
+main {
     display: flex;
     flex-direction: row;
 }
 
-.content_left{
+.content_left {
     display: flex;
     flex-direction: column;
     width: 20vw;
@@ -62,7 +62,7 @@ main{
     align-items: center;
 }
 
-.content_right{
+.content_right {
     color: var(--text);
     display: flex;
     flex-direction: column;
@@ -73,54 +73,54 @@ main{
 
 }
 
-.home_synopsis{
+.home_synopsis {
     margin: 10vw;
 }
 
-.home_synopsis h1{
+.home_synopsis h1 {
     font-weight: 500;
     font-size: 3vw;
     margin: 0 0 1rem;
 }
 
-.home_synopsis p{
+.home_synopsis p {
     font-size: 1vw;
     white-space: pre-line;
 }
 
-.highlight{
+.highlight {
     color: var(--highlight);
     font-weight: 500;
 }
 
-.highlight :hover{
+.highlight :hover {
     color: var(--highlight-hover);
     transition: 0.3s;
 }
 
-.navbar_logo{
+.navbar_logo {
     font-size: 3vw;
     color: var(--navbar-logo);
     margin: 2vw 2vw 0.5vw;
 }
 
-.navbar_logo:hover{
+.navbar_logo:hover {
     color: var(--navbar-logo-hover);
     transition: 0.3s;
 }
 
 
-.logo{
+.logo {
     font-weight: 700;
     color: var(--logo);
 }
 
-.logo:hover{
+.logo:hover {
     color: var(--logo-hover);
     transition: 0.3s;
 }
 
-.navbar{
+.navbar {
     border-radius: 3em;
     display: flex;
     flex-direction: column;
@@ -130,36 +130,36 @@ main{
     align-items: center;
 }
 
-.navbar_login{
+.navbar_login {
     font-size: 1vw;
     padding: .7vw 3vw .7vw;
     margin: 1vw;
     border-radius: 3rem;
-    background-color:var(--navbar-login-secondary);
+    background-color: var(--navbar-login-secondary);
     font-weight: 600;
     color: var(--navbar-login-primary);
 }
 
-.navbar_login:hover{
+.navbar_login:hover {
     transition-duration: 0.3s;
     color: var(--navbar-login-primary-hover);
     background-color: var(--navbar-login-secondary-hover);
 }
 
 
-.navbar_content{
+.navbar_content {
     height: 60%;
     width: 60%;
 }
 
-.navbar_link{
+.navbar_link {
     font-size: 2vw;
     font-weight: 600;
     margin: 1vw 0 1vw;
     transition: 0.1s;
 }
 
-.navbar_link a{
+.navbar_link a {
     font-size: 2vw;
     font-weight: 600;
     margin: 1vw 0 1vw;
@@ -167,18 +167,18 @@ main{
     transition: 0.1s;
 }
 
-.navbar_link a:hover{
+.navbar_link a:hover {
     color: var(--navbar-content-hover);
     transition-duration: 0.3s;
 }
 
-.explore{
+.explore {
     /* background-color: #8c52ff; */
     width: 95%;
     height: 95%;
 }
 
-.explore_header{
+.explore_header {
     width: 100%;
     height: 10%;
     display: flex;
@@ -186,13 +186,14 @@ main{
     justify-content: center;
 }
 
-.explore_header h1{
+.explore_header h1 {
     font-size: 3.5rem;
 }
-.podcast{
+
+.podcast {
     background-color: var(--sections);
     color: var(--section-text);
-    height: 10rem;
+    height: 11vh;
     border-radius: 1rem;
     display: flex;
     flex-direction: row;
@@ -201,9 +202,9 @@ main{
 
 }
 
-.podcast img{
+.podcast img {
     border-radius: 1rem;
-    width: 10rem;
+    width: 11vh;
     padding: 0;
     margin: 0;
     border: 0;
