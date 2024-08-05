@@ -1,6 +1,6 @@
 """Initialize Flask app."""
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 # TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -24,9 +24,21 @@ def create_app():
     app = Flask(__name__)
 
     @app.route('/')
-    def home():
-        some_podcast = create_some_podcast()
+    def redirect_internal():
         # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
-        return render_template('podcastDescription.html', podcast=some_podcast)
+        return redirect("/home")
+    
+    @app.route('/home')
+    def home():
+        # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
+        return render_template('home.html')
+    
+    @app.route('/explore')
+    def explore():
+        return render_template('explore.html')
+
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('404.html'), 404
 
     return app
