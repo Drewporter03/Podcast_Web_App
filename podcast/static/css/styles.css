@@ -219,3 +219,14 @@ main {
     margin: 0;
     border: 0;
 }
+
+#light-mode{
+    color: var(--text);
+    background-color: var(--navbar-logo);
+    border-radius: 3rem;
+    line-height: 30px;
+    font-size: 1vw;
+    padding: .5vw 2vw .5vw;
+    margin: 1vw;
+    font-weight: 200;
+}
