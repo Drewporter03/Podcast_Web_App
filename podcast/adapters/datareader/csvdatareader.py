@@ -1,6 +1,6 @@
 import os
 import csv
-from podcast.domainmodel.model import Podcast, Episode, Author, Category
+# from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from pathlib import Path
 
 
@@ -42,4 +42,3 @@ class CSVDataReader:
             # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
             episode_list.append([row[0], row[1], row[2], row[3], row[4], row[5], row[6]])
         return episode_list
-

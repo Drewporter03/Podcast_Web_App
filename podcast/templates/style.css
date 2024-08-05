@@ -32,8 +32,6 @@ main{
     height: 100vh;
     justify-content: center;
     align-items: center;
-    
-
 }
 
 .content_right{
@@ -129,7 +127,8 @@ main{
     font-size: 2vw;
     font-weight: 600;
     margin: 1vw 0 1vw;
-    color: #4f4a75
+    color: #4f4a75;
+    transition: 0.1s;
 }
 
 .navbar_link:hover{
