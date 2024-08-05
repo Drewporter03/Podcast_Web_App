@@ -1,6 +1,6 @@
 import os
 import csv
-# from podcast.domainmodel.model import Podcast, Episode, Author, Category
+from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from pathlib import Path
 
 
@@ -9,8 +9,12 @@ class CSVDataReader:
         # initialising lists to append to later, for info keeping
         self.__podcasts = []
         self.__episodes = []
-        self.__authors = {}
-        self.__categories = {}
+        self.__authors = set()
+        self.__categories = set()
+
+        # calling both functions to fill in the sets and lists
+        self.author_object()
+        self.podcast_object()
 
     def csv_read(self, path: Path):
         # reading csv file using module csv
@@ -42,3 +46,40 @@ class CSVDataReader:
             # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
             episode_list.append([row[0], row[1], row[2], row[3], row[4], row[5], row[6]])
         return episode_list
+
+    def author_object(self):
+        podcast_csv = CSVDataReader.get_podcastcsv(self)
+        for row in podcast_csv:
+            print(row)
+            if row[7] != "":
+                temp_author = Author(id(row[7]), row[7])
+            else:
+                temp_author = Author(id(row[7]), "unknown")
+            self.__authors.add(temp_author)
+
+    def podcast_object(self):
+        podcast_csv = CSVDataReader.get_podcastcsv(self)
+        author = self.__authors
+
+        for row in podcast_csv:
+            if row[7] != "":
+                temp_author = Author(id(row[7]), row[7])
+            else:
+                temp_author = Author(id(row[7]), "Unknown")
+
+            if temp_author in author:
+                pass
+            else:
+                self.__authors.add(temp_author)
+
+            temp_podcast = Podcast(int(row[0]), temp_author, row[1], row[2], row[3], row[6], int(row[8]), row[4])
+            self.__podcasts.append(temp_podcast)
+    @property
+    def authors(self):
+        return self.__authors
+
+    @property
+    def podcasts(self):
+        return self.__podcasts
+
+
