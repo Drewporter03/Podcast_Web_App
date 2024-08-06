@@ -41,6 +41,10 @@ def create_app():
     def settings():
         return render_template('settings.html')
 
+    @app.route('/subscriptions')
+    def subscriptions():
+        return render_template('subscriptions.html')
+
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('404.html'), 404
