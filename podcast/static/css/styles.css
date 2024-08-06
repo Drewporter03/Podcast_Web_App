@@ -36,6 +36,7 @@
     --highlight-hover: #cdb4ff;
 }
 
+
 a:visited {
     color: inherit;
 }
@@ -115,6 +116,17 @@ main {
     margin-bottom: 50px;
     position: absolute;
     bottom: 0;
+    font-size: small;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+#nav-header {
+    color: var(--navbar-content);
+    margin-top: 30px;
+    margin-bottom: 50px;
+    position: absolute;
+    top: 0;
     font-size: small;
     text-align: center;
     word-wrap: break-word;
