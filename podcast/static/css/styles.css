@@ -241,3 +241,32 @@ main {
     margin: 1vw;
     font-weight: 200;
 }
+
+.search-bar{
+    position: relative;
+    display: flex;
+    min-width: 100px;
+}
+
+.search-icon {
+    position: absolute;
+    top: 10px;
+    left: 8px;
+    width: 15px;
+}
+
+.search {
+    border: 1px var(--highlight)  solid;
+    border-radius: 5px;
+    height: 30px;
+    width: 50%;
+    padding: 2px 23px 2px 30px;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.search:hover, .search:focus {
+    border: 1px var(--highlight-hover) solid;
+    background-color: var(--navbar-logo-hover);
+    color: var(--navbar-logo);
+}
