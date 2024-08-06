@@ -36,6 +36,10 @@ def create_app():
     @app.route('/explore')
     def explore():
         return render_template('explore.html')
+    
+    @app.route('/settings')
+    def settings():
+        return render_template('settings.html')
 
     @app.errorhandler(404)
     def page_not_found(e):
