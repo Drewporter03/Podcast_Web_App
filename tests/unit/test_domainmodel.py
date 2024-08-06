@@ -450,7 +450,9 @@ def test_episode(my_podcast):
     assert episode1.date1 == date.fromisoformat("2005-09-02")
     assert episode1.audio_length == 100
 
-    assert repr(episode1) == "<Episode 1: by <Author 1: Joe Toste>>"
+    assert repr(episode1) == "<Episode 1: from Joe Toste Podcast - Sales Training Expert>"
+
+
     with pytest.raises(ValueError):
         episode2 = Episode(-1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
 

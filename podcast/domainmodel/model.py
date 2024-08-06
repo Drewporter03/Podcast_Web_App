@@ -391,7 +391,7 @@ class Episode:
         self._audio_link = value
 
     def __repr__(self) -> str:
-        return f"<Episode {self._id}: by {self._podcast.author}>"
+        return f"<Episode {self._id}: from {self._podcast.title}>"
 
     def __eq__(self, other):
         if not isinstance(other, Episode):
