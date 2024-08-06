@@ -33,9 +33,9 @@ def create_app():
         # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
         return render_template('home.html')
     
-    @app.route('/explore')
-    def explore():
-        return render_template('explore.html')
+    @app.route('/podcasts')
+    def podcasts():
+        return render_template('podcasts.html')
     
     @app.route('/settings')
     def settings():

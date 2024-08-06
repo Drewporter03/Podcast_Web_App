@@ -109,7 +109,7 @@ main {
     transition: 0.3s;
 }
 
-#nav-footer {
+.nav-footer {
     color: var(--navbar-content);
     margin-top: 25px;
     margin-bottom: 50px;
@@ -120,11 +120,10 @@ main {
     word-wrap: break-word;
 }
 
-#nav-header {
-    color: var(--navbar-content);
-    margin-top: 30px;
-    margin-bottom: 50px;
-    position: absolute;
+.nav-header {
+    color: var(--highlight-hover);
+    margin: 0;
+    padding: 0;
     top: 0;
     font-size: small;
     text-align: center;
