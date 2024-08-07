@@ -600,3 +600,12 @@ def test_review_hash():
     review2 = Review(1, user1, podcast1, 4, 'Good Evening')
     review_set = {review1, review2}
     assert len(review_set) == 1
+
+
+def test_csvdatareader():
+    test = CSVDataReader()
+    for author_objects in test.authors:
+        assert isinstance(author_objects, Author)
+
+
+

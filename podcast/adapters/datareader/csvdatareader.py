@@ -123,3 +123,5 @@ class CSVDataReader:
         return self.__episodes
 
 
+gg = CSVDataReader()
+print(gg.authors)
