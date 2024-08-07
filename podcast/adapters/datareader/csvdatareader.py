@@ -122,6 +122,3 @@ class CSVDataReader:
     def episodes(self):
         return self.__episodes
 
-
-gg = CSVDataReader()
-print(gg.authors)
