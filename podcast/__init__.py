@@ -24,7 +24,7 @@ def create_app():
     def redirect_internal():
         # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
         return redirect("/home")
-    
+
     @app.route('/home')
     def home():
         # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
