@@ -1,10 +1,6 @@
 """Initialize Flask app."""
+from flask import Flask, render_template
 
-from flask import Flask, render_template, redirect
-
-# TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
-#  stay here!
-from podcast.domainmodel.model import Podcast, Author
 
 
 # TODO: Access to the podcast should be implemented via the repository pattern and using blueprints, so this can not
