@@ -2,7 +2,7 @@
 from flask import Flask, render_template, redirect
 from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
-from podcast.home import home_bp
+from podcast.Home import home_bp
 
 
 # TODO: Access to the podcast should be imp``lemented via the repository pattern and using blueprints, so this can not
