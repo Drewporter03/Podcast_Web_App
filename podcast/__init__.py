@@ -2,6 +2,7 @@
 from flask import Flask, render_template, redirect
 from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
+from podcast.home import home_bp
 
 
 # TODO: Access to the podcast should be imp``lemented via the repository pattern and using blueprints, so this can not
@@ -19,16 +20,12 @@ def create_app():
 
     # Create the Flask app object.
     app = Flask(__name__)
+    app.register_blueprint(home_bp)
 
     @app.route('/')
     def redirect_internal():
         # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
         return redirect("/home")
-
-    @app.route('/home')
-    def home():
-        # Use Jinja to customize a predefined html page rendering the layout for showing a single podcast.
-        return render_template('home.html')
     
     @app.route('/podcasts')
     def podcasts():
