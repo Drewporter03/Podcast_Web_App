@@ -1,5 +1,5 @@
 """Initialize Flask app."""
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template
 from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 from podcast.home import home_bp
@@ -13,10 +13,6 @@ def create_app():
     app.register_blueprint(podcasts_bp)
     app.register_blueprint(settings_bp)
     app.register_blueprint(subscriptions_bp)
-
-    @app.route('/')
-    def redirect_internal():
-        return redirect("/home")
 
     @app.errorhandler(404)
     def page_not_found(e):
