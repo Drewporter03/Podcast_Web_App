@@ -4,4 +4,4 @@ subscriptions_bp = Blueprint('subscriptions_bp', __name__, template_folder='temp
 
 @subscriptions_bp.route('/subscriptions')
 def subscriptions():
-        return render_template('subscriptions.html')
+        return render_template('main.html', content_right = 'subscriptions.html')

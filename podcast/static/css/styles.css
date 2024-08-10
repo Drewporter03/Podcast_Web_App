@@ -96,13 +96,12 @@ main {
 /* Navbar styles */
 
 .navbar {
-    position: fixed;
     border-radius: 3em;
     display: flex;
     flex-direction: column;
     background-color: var(--sections);
     height: 95%;
-    width: 18%;
+    width: 95%;
     align-items: center;
 }
 

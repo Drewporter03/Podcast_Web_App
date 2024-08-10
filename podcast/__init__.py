@@ -17,9 +17,9 @@ def create_app():
     @app.route('/')
     def redirect_internal():
         return redirect("/home")
-
+    
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('404.html'), 404
+        return render_template('main.html', content_right = '404.html'), 404
 
     return app
