@@ -15,17 +15,24 @@
     --logo-hover: aliceblue;
     --highlight: #8c52ff;
     --highlight-hover: aliceblue;
+    --podcast-hover: #8c52ff;
+    --theme-name: aliceblue;
+    --toggle-hover: aliceblue;
 }
 
 .lightMode {
     --background: #fbfbfb;
     --sections: #8c52ff;
     --navbar-logo: aliceblue;
-    --navbar-login-secondary: #cdb4ff;
+    --navbar-login-primary: #8c52ff;
+    --navbar-login-secondary: aliceblue;
     --navbar-content: #cdb4ff;
     --text: #15141e;
     --logo-hover: #cdb4ff;
     --highlight-hover: #cdb4ff;
+    --podcast-hover: #cdb4ff;
+    --theme-name: #8c52ff;
+    --toggle-hover: #cdb4ff;
 }
 
 /* General styles */
@@ -212,6 +219,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: var(--theme-name);
 }
 
 .page_header h1 {
@@ -227,7 +235,12 @@ main {
     flex-direction: row;
     align-items: center;
     margin: 1rem 0 1rem;
+    transition: 0.3s;
 
+}
+
+.podcast:hover {
+    background-color: var(--podcast-hover);
 }
 
 .podcast_content {
@@ -250,14 +263,24 @@ main {
 }
 
 .theme_toggle {
-    color: var(--text);
-    background-color: var(--navbar-logo);
+    color: var(--navbar-login-primary);
+    background-color: var(--navbar-login-secondary);
     border-radius: 3rem;
     line-height: 30px;
     font-size: 1vw;
     padding: .5vw 2vw .5vw;
     margin: 1vw;
     font-weight: 200;
+    outline: none;
+    border: none;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.theme_toggle:hover {
+    background-color: var(--navbar-login-secondary-hover);
+    color: var(--navbar-login-primary-hover);
+    cursor: pointer;
 }
 
 .search-bar {
@@ -314,4 +337,25 @@ main {
     margin: 1rem;
     border: 3px var(--highlight) solid;
     border-radius: 20px;
+}
+
+.setting {
+    background-color: var(--sections);
+    color: var(--section-text);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem 1rem 1rem;
+    margin: 1rem 0 1rem;
+    transition: 0.3s;
+}
+
+.setting h1 {
+    font-weight: 500;
+    margin: 0 0 0.5rem;
+}
+
+.setting h2 {
+    font-weight: 400;
 }
