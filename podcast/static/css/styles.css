@@ -286,8 +286,8 @@ main {
 .search:hover,
 .search:focus {
     border: 1px var(--highlight-hover) solid;
-    background-color: var(--navbar-logo-hover);
-    color: var(--navbar-logo);
+    background-color: var(--background);
+    color: var(--text);
 }
 
 .subscriptions {
