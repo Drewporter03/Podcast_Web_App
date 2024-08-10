@@ -291,21 +291,14 @@ main {
 }
 
 .subscriptions {
+    width: fit-content;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0px;
     flex-wrap: wrap;
-    width: 95%;
-    height: 95%;
-}
-
-.subscription {
-    display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-    flex-wrap: wrap;
+    flex-direction: row;
+    max-height: 90%;
+    height: 90%;
+    overflow-y: scroll;
 }
 
 .sub_img {
@@ -316,9 +309,9 @@ main {
 }
 
 .sub_box {
-    width: 350px;
+    width: 21.5rem;
     height: 550px;
-    margin: 20px;
+    margin: 1rem;
     border: 3px var(--highlight) solid;
     border-radius: 20px;
 }
