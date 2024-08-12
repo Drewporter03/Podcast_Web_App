@@ -170,7 +170,7 @@ main {
     margin-bottom: 50px;
     position: absolute;
     bottom: 0;
-    font-size: small;
+    font-size: 0.8vw;
     text-align: center;
     word-wrap: break-word;
 }
@@ -180,7 +180,7 @@ main {
     margin: 0;
     padding: 0;
     top: 0;
-    font-size: small;
+    font-size: 0.8vw;
     text-align: center;
     word-wrap: break-word;
 }
