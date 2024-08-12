@@ -100,7 +100,7 @@ main {
 }
 
 
-/* Navbar styles */
+/* ---------------------Navbar styles------------------------------- */
 
 .navbar {
     border-radius: 3em;
@@ -185,7 +185,7 @@ main {
     word-wrap: break-word;
 }
 
-/* Miscellaneous styles */
+/* -----------------------------Miscellaneous styles----------------------------- */
 
 .highlight {
     color: var(--highlight);
@@ -283,6 +283,7 @@ main {
     cursor: pointer;
 }
 
+/*----------Search bar-------------------------------------*/
 .search-bar {
     position: relative;
     display: flex;
@@ -313,6 +314,7 @@ main {
     color: var(--text);
 }
 
+/*------------------subscriptions page-----------------------------*/
 .subscriptions {
     width: fit-content;
     display: flex;

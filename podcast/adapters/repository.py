@@ -52,7 +52,6 @@ class AbstractRepository(abc.ABC):
         # adds a review to the repository
         raise NotImplementedError
 
-
     @abc.abstractmethod
     def get_review(self):
         # returns reviews from the repository
