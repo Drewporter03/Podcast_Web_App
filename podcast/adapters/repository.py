@@ -47,3 +47,13 @@ class AbstractRepository(abc.ABC):
         # returns the category in repository
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def add_review(self, review: Review):
+        # adds a review to the repository
+        raise NotImplementedError
+
+
+    @abc.abstractmethod
+    def get_review(self):
+        # returns reviews from the repository
+        raise NotImplementedError
