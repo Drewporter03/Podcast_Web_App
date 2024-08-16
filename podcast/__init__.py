@@ -2,10 +2,19 @@
 from flask import Flask, render_template, redirect
 from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
-
-
+from pathlib import Path
+import podcast.adapters.repository as repo
+from podcast.adapters.memory_repository import MemoryRepository, populate
 def create_app():
     app = Flask(__name__)
+
+    file_path = Path('podcasts') / 'adapters' / 'data'
+
+    # create a new instance of memory repository
+    repo.repository = MemoryRepository()
+    # populate the repository with data from csv
+    populate(file_path, repo.repository)
+
 
     with app.app_context():
         from .home import home

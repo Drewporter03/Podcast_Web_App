@@ -5,7 +5,7 @@ from pathlib import Path
 from bisect import bisect_left, insort_left
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
-repo_instance = None
+repository = None
 
 class AbstractRepository(abc.ABC):
 
