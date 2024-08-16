@@ -81,9 +81,9 @@ class CSVDataReader:
         counter = 0
         for row in podcast_csv:
             if row[5] != "":
-                temp_category = Category(id(row[5]), row[5])
+                temp_category = Category(counter + 1, row[5])
             else:
-                temp_category = Category(id(row[5]), "Unknown")
+                temp_category = Category(counter + 1, "Unknown")
             self.__podcasts[counter].add_category(temp_category)
             counter += 1
             self.__categories.add(temp_category)
