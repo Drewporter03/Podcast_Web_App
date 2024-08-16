@@ -8,6 +8,7 @@
     </div>
     {% for podcast in podcasts %}
     <div class="podcast">
+        <a href="{{ url_for('description', podcast_id=loop.index0) }}">
         <img src="{{ podcast[2] }}" alt="">
         <div class="podcast_content">
             <h1 class="podcast_title">{{ podcast[1] }}</h1>

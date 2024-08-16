@@ -7,6 +7,12 @@ from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
 
 class AbstractRepository(abc.ABC):
+
+    @abc.abstractmethod
+    def add_author(self, author: Author):
+        # Adds a author to the repository
+        raise NotImplementedError
+
     @abc.abstractmethod
     def add_podcast(self, podcast: Podcast):
         # Adds a podcast to the repository
@@ -14,6 +20,11 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def get_podcast(self, podcast_id: int):
+        # returns podcasts from the repository
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_podcast_by_date(self, podcast_id: int):
         # returns podcasts from the repository
         raise NotImplementedError
 
@@ -56,3 +67,4 @@ class AbstractRepository(abc.ABC):
     def get_review(self):
         # returns reviews from the repository
         raise NotImplementedError
+
