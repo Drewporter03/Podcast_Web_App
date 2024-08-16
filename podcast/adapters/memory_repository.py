@@ -77,7 +77,7 @@ def load_podcasts(data_path: Path, repo: MemoryRepository):
 
     for row in csv_podcast:
         podcast = Podcast(
-            id=row[0],
+            podcast_id=row[0],
             author=row[1],
             title=row[2],
             image=row[3],
@@ -90,33 +90,43 @@ def load_podcasts(data_path: Path, repo: MemoryRepository):
 
 def load_author(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
-    csv_podcast = csv_data.podcasts
-    for row in csv_podcast:
+    csv_authors = csv_data.authors
+    for row in csv_authors:
         author = Author(
-            id=row[0],
+            author_id=row[0],
             name=row[1],
         )
-
         repo.add_author(author)
-
-
-def load_users(data_path: Path, repo: MemoryRepository):
+def load_category(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
-    csv_podcast = csv_data.podcasts
-
-    for row in csv_podcast:
-        podcast = Podcast(
-            id = row[0],
-            author=row[1],
-            title=row[2],
-            image=row[3],
-            description=row[4],
-            website=row[5],
-            itunes_id=row[6],
-            language=row[7],
+    csv_category = csv_data.category
+    for row in csv_category:
+        category = Category(
+            category_id=row[0],
+            name=row[1]
         )
-        repo.add_podcast(podcast)
+        repo.add_category(category)
 
+def load_episode(data_path: Path, repo: MemoryRepository):
+    csv_data = CSVDataReader()
+    csv_episode = csv_data.episodes
+    for row in csv_episode:
+        episode = Episode(
+            ep_id=row[0],
+            podcast_id=row[1],
+            title=row[2],
+            audio_link=row[3],
+            length=row[4],
+            date1=row[5],
+            desc=row[6],
+            podcast=row[7]
+        )
 
+        repo.add_episode(episode)
 
-
+def populate(data_path: Path, repo: MemoryRepository):
+    # load objects author to podcasts.
+    load_author(data_path, repo)
+    load_category(data_path, repo)
+    load_episode(data_path, repo)
+    load_podcasts(data_path, repo)
