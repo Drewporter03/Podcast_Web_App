@@ -4,11 +4,6 @@ from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
 
-def create_podcasts():
-    podcast_reader = CSVDataReader()
-    list_of_podcasts = podcast_reader.get_podcastcsv()
-
-
 def create_app():
     app = Flask(__name__)
 
