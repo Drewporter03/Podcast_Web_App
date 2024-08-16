@@ -5,6 +5,7 @@ from pathlib import Path
 from bisect import bisect_left, insort_left
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 
+repo_instance = None
 
 class AbstractRepository(abc.ABC):
 
@@ -23,10 +24,6 @@ class AbstractRepository(abc.ABC):
         # returns podcasts from the repository
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def get_podcast_by_date(self, podcast_id: int):
-        # returns podcasts from the repository
-        raise NotImplementedError
 
     @abc.abstractmethod
     def add_episode(self, episode: Episode, podcast: Podcast):
@@ -82,3 +79,4 @@ class AbstractRepository(abc.ABC):
     def get_category(self):
         # gets categories to repository
         raise NotImplementedError
+

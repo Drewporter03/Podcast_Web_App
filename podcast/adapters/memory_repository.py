@@ -4,9 +4,12 @@ from datetime import date, datetime
 from typing import List
 from bisect import bisect, bisect_left, insort_left
 from werkzeug.security import generate_password_hash
+
+import podcast
 from podcast.adapters.repository import AbstractRepository
 from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Review, Playlist
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
+
 
 class MemoryRepository(AbstractRepository, ABC):
     def __init__(self):
@@ -19,6 +22,7 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__playlists = list()
         self.__podcast_index = dict()
         self.__episode_index = dict()
+
     def add_author(self, author: Author):
         insort_left(self.__add_author, author)
         self.__users.append(author)
@@ -35,6 +39,7 @@ class MemoryRepository(AbstractRepository, ABC):
             podcast = None
 
         return podcast
+
 
     def add_episode(self, episode: Episode, podcast: Podcast):
         insort_left(self.__episodes, episode)
@@ -81,14 +86,14 @@ def load_podcasts(data_path: Path, repo: MemoryRepository):
 
     for row in csv_podcast:
         podcast = Podcast(
-            podcast_id=row[0],
-            author=row[1],
-            title=row[2],
-            image=row[3],
-            description=row[4],
-            website=row[5],
-            itunes_id=row[6],
-            language=row[7],
+            podcast_id=row.id,
+            author=row.author,
+            title=row.title,
+            image=row.image,
+            description=row.description,
+            website=row.website,
+            itunes_id=row.itunes_id,
+            language=row.language,
         )
         repo.add_podcast(podcast)
 
@@ -97,36 +102,38 @@ def load_author(data_path: Path, repo: MemoryRepository):
     csv_authors = csv_data.authors
     for row in csv_authors:
         author = Author(
-            author_id=row[0],
-            name=row[1],
+            author_id=row.id,
+            name=row.name,
         )
         repo.add_author(author)
+
 def load_category(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
     csv_category = csv_data.category
     for row in csv_category:
         category = Category(
-            category_id=row[0],
-            name=row[1]
+            category_id=row.id,
+            name=row.name
         )
         repo.add_category(category)
 
 def load_episode(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
     csv_episode = csv_data.episodes
+    csv_podcast = csv_data.podcasts
     for row in csv_episode:
         episode = Episode(
-            ep_id=row[0],
-            podcast_id=row[1],
-            title=row[2],
-            audio_link=row[3],
-            length=row[4],
-            date1=row[5],
-            desc=row[6],
-            podcast=row[7]
+            ep_id=row.id,
+            podcast_id=row.podcast_id,
+            title=row.title,
+            audio_link=row.audio_link,
+            length=row.audio_length,
+            date1=date.strftime(row.date1, '%Y-%m-%d'),
+            desc=row.description,
+            podcast=row._podcast
         )
 
-        repo.add_episode(episode)
+        repo.add_episode(episode, csv_podcast[row.podcast_id])
 
 def populate(data_path: Path, repo: MemoryRepository):
     # load objects author to podcasts.
@@ -134,3 +141,5 @@ def populate(data_path: Path, repo: MemoryRepository):
     load_category(data_path, repo)
     load_episode(data_path, repo)
     load_podcasts(data_path, repo)
+
+
