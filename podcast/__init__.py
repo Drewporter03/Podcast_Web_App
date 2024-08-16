@@ -9,7 +9,6 @@ def create_app():
     app = Flask(__name__)
 
     file_path = Path('podcasts') / 'adapters' / 'data'
-
     # create a new instance of memory repository
     repo.repository = MemoryRepository()
     # populate the repository with data from csv

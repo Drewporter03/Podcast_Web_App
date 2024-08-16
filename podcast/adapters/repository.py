@@ -35,15 +35,6 @@ class AbstractRepository(abc.ABC):
         # gets an episode from a podcast from the repository
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def add_user(self, user: User):
-        # adds a user to the repository
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_user(self, username):
-        # gets a user from a list of usernames from the repository
-        raise NotImplementedError
 
     @abc.abstractmethod
     def add_category(self, category: Category):
@@ -55,28 +46,4 @@ class AbstractRepository(abc.ABC):
         # returns the category in repository
         raise NotImplementedError
 
-    @abc.abstractmethod
-    def add_review(self, review: Review):
-        # adds a review to the repository
-
-        if review.reviewer is None or review.reviewer == "":
-            # raises error when review is not linked to reviewer
-            raise Exception("EROR: Review not linked to a user")
-
-        raise NotImplementedError
-
-    @abc.abstractmethod
-    def get_review(self):
-        # returns reviews from the repository
-        raise NotImplementedError
-
-
-    @abc.abstractmethod
-    def add_category(self, category: Category):
-        # adds categories to repository
-        raise NotImplementedError
-
-    def get_category(self):
-        # gets categories to repository
-        raise NotImplementedError
 
