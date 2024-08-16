@@ -7,6 +7,10 @@ from podcast.podcasts import podcasts_bp
 from podcast.settings import settings_bp
 from podcast.subscriptions import subscriptions_bp
 
+def create_podcasts():
+    podcast_reader = CSVDataReader()
+    list_of_podcasts = podcast_reader.get_podcastcsv()
+
 def create_app():
     app = Flask(__name__)
     app.register_blueprint(home_bp)
