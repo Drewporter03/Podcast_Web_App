@@ -16,4 +16,11 @@
         </div>
     </div>
     {% endfor %}
+    <div class="pagination">
+        <a href="#">&laquo;</a>
+        {% for i in range(start, stop) %}
+        <a href="?page={{i}}">{{i}}</a>
+        {% endfor %}
+        <a href="#">&raquo;</a>
+      </div>
 </div>

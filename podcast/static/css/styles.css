@@ -262,6 +262,14 @@ main {
     margin: 0 0 0.2em;
 }
 
+.pagination {
+    color: var(--theme-name);
+}
+
+.pagination a {
+    color: inherit;
+}
+
 .theme_toggle {
     color: var(--navbar-login-primary);
     background-color: var(--navbar-login-secondary);
