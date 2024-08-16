@@ -1,7 +1,3 @@
-from flask import Flask, render_template, redirect
-from podcast.domainmodel.model import Podcast, Episode, Author, Category
-from podcast.adapters.datareader.csvdatareader import CSVDataReader
-from pathlib import Path
 import podcast.adapters.repository as repo
 from podcast.adapters.memory_repository import MemoryRepository, populate
 from podcast.adapters.repository import AbstractRepository
