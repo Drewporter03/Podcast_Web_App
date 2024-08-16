@@ -103,7 +103,6 @@ def load_episode(data_path: Path, repo: MemoryRepository):
     csv_episode = csv_data.episodes
     csv_podcast = csv_data.podcasts
     for episode in csv_episode:
-
         repo.add_episode(episode, csv_podcast[episode.podcast_id])
 
 def populate(data_path: Path, repo: MemoryRepository):
