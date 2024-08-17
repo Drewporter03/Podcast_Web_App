@@ -1,14 +1,14 @@
 <div>
     <div class="page_header">
-        <h1>{{ podcasts.podcast_id }}</h1>
+        <h1>{{ podcast.title }}</h1>
     </div>
     <div id="description">
 
-    <p><i>Author:{{ podcast.title }}</i> </p>
-        <p><i>Language:</i> </p>
-        <p><i>About:</i> </p>
-        <p><i>Categories: </i> </p>
-        <p><i>Website: </i> </p>
-        <p><i>iTunes ID: </i>  </p>
+    <p><i>Author:{{ podcast.author.name }}</i> </p>
+        <p><i>Language:{{ podcast.language }}</i> </p>
+        <p><i>About: {{ podcast.about }}</i> </p>
+        <p><i>Categories:{{ podcast.categories[0].name }} </i> </p>
+        <p><i>Website: {{ podcast.website }}</i> </p>
+        <p><i>iTunes ID: {{ podcast.itunes_id }}</i>  </p>
     </div>
 </div>
