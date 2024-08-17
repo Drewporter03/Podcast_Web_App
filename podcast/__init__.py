@@ -20,10 +20,12 @@ def create_app():
         from .podcasts import podcasts
         from .settings import settings
         from .subscriptions import subscriptions
+        from .episodes import episode
         app.register_blueprint(home.home_bp)
         app.register_blueprint(podcasts.podcasts_bp)
         app.register_blueprint(settings.settings_bp)
         app.register_blueprint(subscriptions.subscriptions_bp)
+        app.register_blueprint(episode.episodes_bp)
 
     @app.route('/')
     def redirect_internal():
