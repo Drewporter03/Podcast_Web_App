@@ -54,30 +54,13 @@ class MemoryRepository(AbstractRepository, ABC):
 
         return episode
 
-    def add_user(self, user: User):
-        self.__users.append(user)
-
-    def get_user(self, user_id) -> User:
-        return next((user for user in self.__users if user.username == user_id), None)
-
     def add_category(self, category: Category):
         self.__categories.append(category)
 
     def get_category(self):
         return self.__categories
 
-    def add_review(self, review: Review):
-        super().add_review(review)
-        self.__reviews.append(review)
 
-    def get_review(self):
-        return self.__reviews
-
-    def add_category(self, category: Category):
-        self.__categories.append(category)
-
-    def get_category(self):
-        return self.__categories
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
