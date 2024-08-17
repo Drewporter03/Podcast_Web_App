@@ -5,10 +5,17 @@ from podcast.adapters.datareader.csvdatareader import CSVDataReader
 from pathlib import Path
 import podcast.adapters.repository as repo
 from podcast.adapters.memory_repository import MemoryRepository, populate
-def create_app():
+def create_app(test_config=None):
     app = Flask(__name__)
 
+    # configuring the app using the configuration-file settings
+    app.config.from_object('config.Config')
     file_path = Path('podcasts') / 'adapters' / 'data'
+
+    if test_config != None:
+        app.config.from_mapping(test_config)
+        file_path = app.config.get('TEST_DATA_PATH')
+
     # create a new instance of memory repository
     repo.repository = MemoryRepository()
     # populate the repository with data from csv
