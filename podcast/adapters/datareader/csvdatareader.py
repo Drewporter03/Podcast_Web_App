@@ -89,11 +89,12 @@ class CSVDataReader:
             self.__categories.add(temp_category)
 
     def episode_object(self):
-        podcast_csv = CSVDataReader.get_podcastcsv(self)
         episode_csv = CSVDataReader.get_episodecsv(self)
+        podcasts = self.__podcasts
+
         for row in episode_csv:
-            podcasts = self.__podcasts
-            temp_podcast = self.__podcasts[0]
+            # initializing temp podcast
+            temp_podcast = self.__podcasts[0] # !!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CHANGED LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             # Finds the matching podcast for the episode using __eq__
             for podcast in podcasts:
                 if podcast == row[1]:
