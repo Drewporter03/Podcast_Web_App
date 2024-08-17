@@ -15,7 +15,7 @@ podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
 def podcasts():
     if request.args:
         page = int(request.args.get('page'))
-        list_of_podcasts = services.get_podcasts(repo.repository)[page * 6 - 6: page * 6]
+        list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[page * 6 - 6: page * 6]
         if page <= 4:
             start = 1
             stop = 8
@@ -23,7 +23,7 @@ def podcasts():
             start = page - 3
             stop = page + 3
     else:
-        list_of_podcasts = list_of_podcasts = services.get_podcasts(repo.repository)[:6]
+        list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[:6]
         start, stop = 1, 8
 
     return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start = start, stop = stop)
