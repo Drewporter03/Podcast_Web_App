@@ -375,3 +375,14 @@ main {
 .setting h2 {
     font-weight: 400;
 }
+
+/*-------------------------EPISODES PAGE-------------------------------------*/
+
+.description {
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.description p{
+    margin: 10px 0;
+}

@@ -2,13 +2,18 @@
     <div class="page_header">
         <h1>{{ podcast.title }}</h1>
     </div>
-    <div id="description">
-
-    <p><i>Author:{{ podcast.author.name }}</i> </p>
-        <p><i>Language:{{ podcast.language }}</i> </p>
-        <p><i>About: {{ podcast.about }}</i> </p>
-        <p><i>Categories:{{ podcast.categories[0].name }} </i> </p>
+    <div class="description">
+        <p><i>Author: {{ podcast.author.name }}</i> </p>
+        <p><i>Language: {{ podcast.language }}</i> </p>
+        <p><i>About: {{ podcast.description }}</i> </p>
+        <p><i>Categories: {{ podcast.categories[0].name }} </i> </p>
         <p><i>Website: {{ podcast.website }}</i> </p>
         <p><i>iTunes ID: {{ podcast.itunes_id }}</i>  </p>
     </div>
+
+    {% for episode in episodes %}
+        {% if episode.podcast_id == podcast.id %}
+            <h1>{{ episode.title }}</h1>
+        {% endif %}
+    {% endfor %}
 </div>
