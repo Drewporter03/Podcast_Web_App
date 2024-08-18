@@ -24,3 +24,35 @@ def test_repository_can_add_and_retrieve_author(in_memory_repo):
     assert in_memory_repo.get_author(1) is author1
     assert in_memory_repo.get_author(2) is author2
     assert in_memory_repo.get_author(3) is author3
+
+
+def test_repository_can_add_and_retrieve_episode(in_memory_repo):
+    author1 = Author(1, "Joe Toste")
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+    episode1 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
+    episode2 = Episode(2, 2, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
+    episode3 = Episode(3, 3, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
+
+    in_memory_repo.add_episode(episode1, podcast1)
+    in_memory_repo.add_episode(episode2, podcast1)
+    in_memory_repo.add_episode(episode3, podcast1)
+
+    assert in_memory_repo.get_episode(1) is episode1
+    assert in_memory_repo.get_episode(2) is episode2
+    assert in_memory_repo.get_episode(3) is episode3
+
+
+def test_repository_can_add_and_retrieve_categories(in_memory_repo):
+    category1 = Category(1, "cringe")
+    category2 = Category(2, "funny")
+    category3 = Category(3, "love")
+
+    in_memory_repo.add_category(category1)
+    in_memory_repo.add_category(category2)
+    in_memory_repo.add_category(category3)
+
+    categories = in_memory_repo.get_category()
+
+    assert category1 in categories
+    assert category2 in categories
+    assert category3 in categories
