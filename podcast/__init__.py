@@ -14,7 +14,7 @@ def create_app(test_config=None):
     app.config.from_object('config.Config')
     file_path = Path('podcasts') / 'adapters' / 'data'
 
-    if test_config != None:
+    if test_config is not None:
         app.config.from_mapping(test_config)
         file_path = app.config['TEST_DATA_PATH']
 
@@ -38,9 +38,9 @@ def create_app(test_config=None):
     @app.route('/')
     def redirect_internal():
         return redirect("/home")
-    
+
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('main.html', content_right = '404.html'), 404
+        return render_template('main.html', content_right='404.html'), 404
 
     return app
