@@ -42,4 +42,17 @@ def test_repository_can_add_and_retrieve_episode(in_memory_repo):
     assert in_memory_repo.get_episode(3) is episode3
 
 
+def test_repository_can_add_and_retrieve_categories(in_memory_repo):
+    category1 = Category(1, "cringe")
+    category2 = Category(2, "funny")
+    category3 = Category(3, "love")
 
+    in_memory_repo.add_category(category1)
+    in_memory_repo.add_category(category2)
+    in_memory_repo.add_category(category3)
+
+    categories = in_memory_repo.get_category()
+
+    assert category1 in categories
+    assert category2 in categories
+    assert category3 in categories
