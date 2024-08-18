@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Config:
     # sets flask configuration from .env file
     FLASK_APP = environ.get('FLASK_APP')
