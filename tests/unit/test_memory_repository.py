@@ -4,7 +4,7 @@ from typing import List
 import pytest
 
 
-def test_repository_can_add_podcast(in_memory_repo):
+def test_repository_can_add_and_retrieve_podcast(in_memory_repo):
     author1 = Author(1, "Doctor Squee")
     podcast1 = Podcast(2, author1, "My First Podcast")
 
@@ -12,3 +12,15 @@ def test_repository_can_add_podcast(in_memory_repo):
 
     assert in_memory_repo.get_podcast(2) is podcast1
 
+def test_repository_can_add_and_retrieve_author(in_memory_repo):
+    author1 = Author(1, "Justin (Beiber) -- sorry forget last name")
+    author2 = Author(2, "Drew Porter")
+    author3 = Author(3, "Kumanan Piratheepan")
+
+    in_memory_repo.add_author(author1)
+    in_memory_repo.add_author(author2)
+    in_memory_repo.add_author(author3)
+
+    assert in_memory_repo.get_author(1) is author1
+    assert in_memory_repo.get_author(2) is author2
+    assert in_memory_repo.get_author(3) is author3

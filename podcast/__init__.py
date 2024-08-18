@@ -14,7 +14,7 @@ def create_app(test_config=None):
     app.config.from_object('config.Config')
     file_path = Path('podcasts') / 'adapters' / 'data'
 
-    if test_config is not None:
+    if test_config != None:
         app.config.from_mapping(test_config)
         file_path = app.config['TEST_DATA_PATH']
 

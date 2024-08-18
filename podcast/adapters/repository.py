@@ -15,6 +15,11 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def get_author(self, author_id: int):
+        # gets a author to the repository
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def add_podcast(self, podcast: Podcast):
         # Adds a podcast to the repository
         raise NotImplementedError

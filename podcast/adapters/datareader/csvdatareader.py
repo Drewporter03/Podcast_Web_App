@@ -51,11 +51,13 @@ class CSVDataReader:
 
     def author_object(self):
         podcast_csv = CSVDataReader.get_podcastcsv(self)
+        counter = 0
         for row in podcast_csv:
             if row[7] != "":
-                temp_author = Author(id(row[7]), row[7])
+                temp_author = Author((counter + 1), row[7])
             else:
-                temp_author = Author(id(row[7]), "unknown")
+                temp_author = Author((counter + 1), "unknown")
+            counter += 1
             self.__authors.add(temp_author)
 
     def podcast_object(self):

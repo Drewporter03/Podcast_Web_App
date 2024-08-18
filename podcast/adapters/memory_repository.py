@@ -13,7 +13,7 @@ from podcast.adapters.datareader.csvdatareader import CSVDataReader
 class MemoryRepository(AbstractRepository, ABC):
     def __init__(self):
         self.__users = list()
-        self.__add_author = list()
+        self.__author = list()
         self.__categories = list()
         self.__reviews = list()
         self.__podcasts = list()
@@ -21,14 +21,24 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__playlists = list()
         self.__podcast_index = dict()
         self.__episode_index = dict()
+        self.__author_index = dict()
 
     def add_author(self, author: Author):
-        insort_left(self.__add_author, author)
-        self.__users.append(author)
+        insort_left(self.__author, author)
+        self.__author_index[author.id] = author
+
+    def get_author(self, author_id: int) -> Author:
+        author = None
+        try:
+            author = self.__author_index[author_id]
+        except KeyError:
+            author = None
+
+        return author
 
     def add_podcast(self, podcast: Podcast):
-        insort_left(self.__podcasts, podcast)
-        self.__podcast_index[podcast.id] = podcast
+            insort_left(self.__podcasts, podcast)
+            self.__podcast_index[podcast.id] = podcast
 
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None
@@ -38,7 +48,6 @@ class MemoryRepository(AbstractRepository, ABC):
             podcast = None
 
         return podcast
-
 
     def add_episode(self, episode: Episode, podcast: Podcast):
         insort_left(self.__episodes, episode)
