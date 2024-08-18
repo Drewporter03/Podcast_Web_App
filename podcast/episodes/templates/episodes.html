@@ -11,9 +11,11 @@
         <p><i>iTunes ID: {{ podcast.itunes_id }}</i>  </p>
     </div>
 
+    <div class = "podcast_episodes">
     {% for episode in episodes %}
         {% if episode.podcast_id == podcast.id %}
-            <h1>{{ episode.title }}</h1>
+            <p>{{ episode.title }}</p>
         {% endif %}
     {% endfor %}
+    </div>
 </div>
