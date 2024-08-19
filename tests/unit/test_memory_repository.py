@@ -4,6 +4,7 @@ from typing import List
 import pytest
 
 
+# Create an author and podcast, and add podcast to repo, should return the podcast based on its ID
 def test_repository_can_add_and_retrieve_podcast(in_memory_repo):
     author1 = Author(1, "Doctor Squee")
     podcast1 = Podcast(2, author1, "My First Podcast")
@@ -12,6 +13,8 @@ def test_repository_can_add_and_retrieve_podcast(in_memory_repo):
 
     assert in_memory_repo.get_podcast(2) is podcast1
 
+
+# Create multiple authors and add them to repo, check that the author returned is based on author id
 def test_repository_can_add_and_retrieve_author(in_memory_repo):
     author1 = Author(1, "Justin (Beiber) -- sorry forget last name")
     author2 = Author(2, "Drew Porter")
@@ -26,6 +29,8 @@ def test_repository_can_add_and_retrieve_author(in_memory_repo):
     assert in_memory_repo.get_author(3) is author3
 
 
+# Create multiple episodes, add them to repo and associate them with a podcast.
+# Return value should be correct based on episode id
 def test_repository_can_add_and_retrieve_episode(in_memory_repo):
     author1 = Author(1, "Joe Toste")
     podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
@@ -42,6 +47,7 @@ def test_repository_can_add_and_retrieve_episode(in_memory_repo):
     assert in_memory_repo.get_episode(3) is episode3
 
 
+# create multiple categories and add them to repo, check if they exist in the repo.
 def test_repository_can_add_and_retrieve_categories(in_memory_repo):
     category1 = Category(1, "cringe")
     category2 = Category(2, "funny")
