@@ -25,8 +25,7 @@ def episodes():
             stop = page + 3
     else:
         list_of_episodes = get_episodes(repo.repository, podcast_id)[1:7]
-        print(list_of_episodes)
-        print(list_of_episodes[0].podcast_id == podcast.id)
+
         start, stop = 1, 8    
 
 

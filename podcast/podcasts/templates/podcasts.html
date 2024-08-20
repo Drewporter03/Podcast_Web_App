@@ -12,7 +12,7 @@
         <a class="podcast_link" href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
             <img src="{{ podcast.image }}" alt="">
             <div class="podcast_content">
-                <h1 class="podcast_title">{{ podcast.title }}</h1>
+                <h1 class="podcast-title" >{{ podcast.title }}</h1>
                 <p class="podcast_tags">{{ podcast.categories[0].name }}</p>
                 <p class="podcast_authors">Presented by {{ podcast.author.name }}</p>
             </div>

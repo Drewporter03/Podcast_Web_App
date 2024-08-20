@@ -245,6 +245,8 @@ main {
 }
 
 
+
+
 .podcast:hover {
     background-color: var(--podcast-hover);
 }
@@ -268,6 +270,13 @@ main {
 .podcast_tags {
     font-weight: 600;
     margin: 0 0 0.2em;
+}
+
+.podcast-title{
+    max-width: 65vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .pagination {
