@@ -7,7 +7,7 @@
     --navbar-login-secondary: #8c52ff;
     --navbar-login-primary-hover: #8c52ff;
     --navbar-login-secondary-hover: aliceblue;
-    --navbar-content: #4f4a75;
+    --navbar-content: #595572;
     --navbar-content-hover: aliceblue;
     --text: aliceblue;
     --section-text: aliceblue;
@@ -452,7 +452,7 @@ main {
 }
 
 .podcast_episodes:hover {
-    background-color: var(--highlight);
+    background-color: var(--podcast-hover);
 }
 
 .episode{
@@ -468,6 +468,7 @@ main {
     flex-direction: column;
     background-color: var(--sections);
     height: 100%;
+    color: var(--section-text);
     width: 28vw;
     align-items: center;
 }
