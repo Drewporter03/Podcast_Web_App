@@ -28,7 +28,7 @@ def episodes():
         list_of_episodes = get_episodes(repo.repository, podcast_id)[page * 6 - 6: page * 6]
         if page <= 4:
             start = 1
-            stop = 8 if max_pages > 8 else max_pages +1
+            stop = 8 if max_pages > 8 else max_pages + 1
         else:
             start = page - 3
             stop = max_pages + 1 if start + 8 > max_pages else start + 7
