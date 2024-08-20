@@ -7,10 +7,10 @@
         <input class="search" placeholder="Search For Podcasts" type="text" >
     </div>
     {% for podcast in podcasts %}
-
+    <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}"></a>
     <div class="podcast">
-        <a class="podcast_link" href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
-            <img src="{{ podcast.image }}" alt="">
+        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
+            <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
             <div class="podcast_content">
                 <h1 class="podcast-title" >{{ podcast.title }}</h1>
                 <p class="podcast_tags">{{ podcast.categories[0].name }}</p>
@@ -18,12 +18,15 @@
             </div>
         </a>
     </div>
+    </a>
     {% endfor %}
     <div class="pagination">
-        <a href="?page={{ page - 1 if page > 1 else 1}} ">&laquo;</a>
+        <div class="page"><a href="?page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
         {% for i in range(start, stop) %}
-            <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
+            <div class="page">
+                <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
+            </div>
         {% endfor %}
-        <a href="?page={{ page + 1 if page < 167 else 167 }}">&raquo;</a>
+        <div class="page"><a href="?page={{ page + 1 if page < 167 else 167 }}">&raquo;</a></div>
       </div>
 </div>

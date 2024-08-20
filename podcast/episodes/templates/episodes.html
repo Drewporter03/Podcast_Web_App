@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
     <div class="back-navigation">
         <button onclick="history.back()">Back</button>
     </div>
@@ -20,5 +20,33 @@
             <p>{{ episode.title }}</p>
         {% endif %}
     {% endfor %}
+    </div>
+</div> -->
+<div class="episode">
+    <div class="episode_info">
+        <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
+        <div class="description">
+            <p class="episode_page_categories">{{ podcast.categories[0].name }}</p>
+            <h1>{{ podcast.title }}</h1>
+            <p class="episode_page_author">Presented by {{ podcast.author.name }}</p>
+            <p class="episode_page_synopsis">{{ podcast.description }}</p>
+
+        </div>
+    </div>
+    <div class = "episode_list">
+        {% for episode in episodes %}
+            {% if episode.podcast_id == podcast.id %}
+                <div class="podcast_episodes"><div class="episode_title">{{ episode.title }}</div></div>
+            {% endif %}
+        {% endfor %}
+        <div class="pagination">
+            <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
+            {% for i in range(start, stop) %}
+                <div class="page">
+                    <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
+                </div>
+            {% endfor %}
+            <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page + 1 if page < 167 else 167 }}">&raquo;</a></div>
+          </div>
     </div>
 </div>

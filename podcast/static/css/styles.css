@@ -236,6 +236,7 @@ main {
     align-items: center;
     margin: 1rem 0 0.5rem;
     transition: 0.3s;
+    width: 100%;
 }
 
 .podcast a {
@@ -255,7 +256,9 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 1vw 0;
+    width:68.55vw;
+    margin: 0 0 0 1vw;
+    border-radius: 1rem;
 }
 
 .podcast img {
@@ -284,27 +287,35 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--theme-name);
+    margin: 2rem;
 }
 
 .pagination a {
     font-size: 1vw;
     color: inherit;
     margin: 0 1vw;
-    transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.15s;
 
 
 }
 .pagination a.active{
     color: var(--highlight);
     font-weight: bold;
-    font-size: 2vw;
+    font-size: 1.5vw;
 
 }
 
 .pagination a:hover{
     color: var(--highlight);
     font-weight: bold;
-    font-size: 2vw;
+}
+
+.page{
+    height: 4rem;
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .theme_toggle {
@@ -410,27 +421,80 @@ main {
 /*-------------------------EPISODES PAGE-------------------------------------*/
 
 
-.description p {
-    margin: 10px 0;
+.description{
+    width: 25vw;
 }
 
-.podcast_episodes {
-    margin: 1rem;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    box-sizing: border-box;
-    max-height: 300px;
+.episode_list {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1vw;
+    width: 50vw;
+}
+.episode_title{
+    margin: 0 1vw 0;
+    font-size: 1vw;
+    font-weight: 500;
+
 }
 
-.podcast_episodes p {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    transition: 0.3s ease-in-out;
+.podcast_episodes{
+    background-color: var(--sections);
+    color: var(--section-text);
+    height: 12.5vh;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 1rem 0 0.5rem;
+    transition: 0.3s;
+    width: 100%;
 }
 
-.podcast_episodes p:hover {
+.podcast_episodes:hover {
     background-color: var(--highlight);
+}
+
+.episode{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 95%;
+}
+
+.episode_info{
+   border-radius: 3em;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sections);
+    height: 100%;
+    width: 28vw;
+    align-items: center;
+}
+
+.episode_info img{
+    width: 25vw;
+    border-radius: 1rem;
+    margin: 2vw 2rem 0.5rem;
+}
+
+.episode_info h1{
+    font-size: 2vw;
+    margin: 0 0 0.5rem;
+}
+
+.episode_page_author{
+    font-size: 1vw;
+    font-weight: 600;
+    margin:0 0 0.5rem;
+}
+.episode_page_categories {
+    font-size: 1vw;
+    margin: 1rem 0 .5rem;
+    color: var(--navbar-content);
+}
+
+.episode_page_synopsis{
+    font-style: italic;
+    font-size: 0.8vw;
 }
