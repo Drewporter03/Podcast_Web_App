@@ -498,3 +498,7 @@ main {
     font-style: italic;
     font-size: 0.8vw;
 }
+
+.footer{
+    margin-top: auto;
+}
