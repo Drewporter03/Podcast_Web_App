@@ -22,7 +22,7 @@
     <div class="pagination">
         <a href="?page={{ page - 1 if page > 1 else 1}} ">&laquo;</a>
         {% for i in range(start, stop) %}
-            <a href="?page={{i}}">{{i}}</a>
+            <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
         {% endfor %}
         <a href="?page={{ page + 1 if page < 167 else 167 }}">&raquo;</a>
       </div>

@@ -234,7 +234,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 1rem 0 1rem;
+    margin: 1rem 0 0.5rem;
     transition: 0.3s;
 }
 
@@ -271,11 +271,31 @@ main {
 }
 
 .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: var(--theme-name);
 }
 
 .pagination a {
+    font-size: 1vw;
     color: inherit;
+    margin: 0 1vw;
+    transition: ease-in-out 0.3s;
+
+
+}
+.pagination a.active{
+    color: var(--highlight);
+    font-weight: bold;
+    font-size: 2vw;
+
+}
+
+.pagination a:hover{
+    color: var(--highlight);
+    font-weight: bold;
+    font-size: 2vw;
 }
 
 .theme_toggle {
