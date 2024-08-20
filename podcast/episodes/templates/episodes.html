@@ -40,14 +40,16 @@
                 <div class="podcast_episodes"><div class="episode_title">{{ episode.title }}</div></div>
             {% endif %}
         {% endfor %}
-        <div class="pagination">
-            <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
-            {% for i in range(start, stop) %}
-                <div class="page">
-                    <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
-                </div>
-            {% endfor %}
-            <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page + 1 if page < max_page else max_page }}">&raquo;</a></div>
-          </div>
+        <div class="footer">
+            <div class="pagination">
+                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
+                {% for i in range(start, stop) %}
+                    <div class="page">
+                        <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
+                    </div>
+                {% endfor %}
+                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page + 1 if page < 167 else 167 }}">&raquo;</a></div>
+              </div>
+        </div>
     </div>
 </div>

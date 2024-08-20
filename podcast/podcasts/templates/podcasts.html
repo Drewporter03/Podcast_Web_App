@@ -19,13 +19,15 @@
         </a>
     </div>
     {% endfor %}
-    <div class="pagination">
-        <div class="page"><a href="?page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
-        {% for i in range(start, stop) %}
-            <div class="page">
-                <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
-            </div>
-        {% endfor %}
-        <div class="page"><a href="?page={{ page + 1 if page < 167 else 167 }}">&raquo;</a></div>
-      </div>
+    <div class="footer">
+        <div class="pagination">
+            <div class="page"><a href="?page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
+            {% for i in range(start, stop) %}
+                <div class="page">
+                    <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
+                </div>
+            {% endfor %}
+            <div class="page"><a href="?page={{ page + 1 if page < 167 else 167 }}">&raquo;</a></div>
+          </div>
+    </div>
 </div>
