@@ -22,6 +22,12 @@ def podcasts():
         else:
             start = page - 3
             stop = page + 4 if page + 3 < 167 else 168
+            if page + 3 > 167:
+                stop = 167 + 1
+                start = 167 - 7
+            else:
+                start = page - 3
+                stop = start + 7
     else:
         list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[:6]
         start, stop = 1, 8
