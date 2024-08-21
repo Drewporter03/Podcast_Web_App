@@ -476,7 +476,7 @@ main {
 .episode_info img{
     width: 25vw;
     border-radius: 1rem;
-    margin: 2vw 2rem 0.5rem;
+    margin: 1vw 2rem 0.5rem;
 }
 
 .episode_info h1{
@@ -502,4 +502,18 @@ main {
 
 .footer{
     margin-top: auto;
+}
+
+.back{
+    margin: 2vw auto 0 2.5rem;
+    background-color: var(--navbar-content);
+    color: var(--navbar-login-primary);
+    font-size: 2rem;
+    width: 5rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    border: none;
 }

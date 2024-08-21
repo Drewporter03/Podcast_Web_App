@@ -13,6 +13,9 @@ podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
 
 @podcasts_bp.route('/podcasts')
 def podcasts():
+
+    max_pages = 167
+
     if request.args:
         page = int(request.args.get('page'))
         list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[page * 6 - 6: page * 6]
@@ -33,4 +36,4 @@ def podcasts():
         start, stop = 1, 8
         page = 1
 
-    return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start = start, stop = stop, page=page)
+    return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start = start, stop = stop, page=page, max_pages = 167)

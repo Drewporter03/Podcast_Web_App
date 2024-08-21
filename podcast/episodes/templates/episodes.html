@@ -24,6 +24,7 @@
 </div> -->
 <div class="episode">
     <div class="episode_info">
+        <div class="back" onclick="history.back()">	&laquo;</div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
         <div class="description">
             <p class="episode_page_categories">{{ podcast.categories[0].name }}</p>
@@ -42,13 +43,13 @@
         {% endfor %}
         <div class="footer">
             <div class="pagination">
-                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page - 1 if page > 1 else 1}} ">&laquo;</a></div>
+                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></div>
                 {% for i in range(start, stop) %}
                     <div class="page">
                         <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
                     </div>
                 {% endfor %}
-                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ page + 1 if page < max_page else max_page }}">&raquo;</a></div>
+                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></div>
               </div>
         </div>
     </div>
