@@ -516,4 +516,11 @@ main {
     align-items: center;
     border-radius: 2rem;
     border: none;
+    transition: 0.3s;
+    cursor:pointer;
+}
+
+.back:hover{
+    background-color: var(--navbar-content-hover);
+    color: var(--logo);
 }
