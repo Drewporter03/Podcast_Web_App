@@ -24,7 +24,7 @@
 </div> -->
 <div class="episode">
     <div class="episode_info">
-        <div class="back" onclick="history.back()">	&laquo;</div>
+        <div class="back" onclick="location.href = '/podcasts?page={{ 1 }}'">	&laquo;</div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
         <div class="description">
             <p class="episode_page_categories">{{ podcast.categories[0].name }}</p>
