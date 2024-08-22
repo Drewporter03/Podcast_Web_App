@@ -491,13 +491,28 @@ main {
 }
 .episode_page_categories {
     font-size: 1vw;
-    margin: 1rem 0 .5rem;
+    margin: 1rem 0 0.7rem;
     color: var(--navbar-content);
 }
 
 .episode_page_synopsis{
     font-style: italic;
     font-size: 0.8vw;
+    margin: 0 0 1rem 0;
+}
+
+.description i{
+    font-size: 2rem;
+    margin: 0 2rem 0 0.2rem;
+}
+
+.description a{
+    color: var(--navbar-content);
+    transition: 0.3s;
+}
+
+.description a:hover{
+    color: var(--navbar-content-hover);
 }
 
 .footer{

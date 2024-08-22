@@ -7,10 +7,8 @@
             <h1>{{ podcast.title }}</h1>
             <p class="episode_page_author">Presented by {{ podcast.author.name }}</p>
             <p class="episode_page_synopsis">{{ podcast.description }}</p>
-            <br>
-            <p>Itunes ID: {{ podcast.itunes_id }}</p>
-            <br>
-            <p>{{ podcast.website }}</p>
+            <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
+            <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-itunes-note"></i></a>
 
         </div>
     </div>
