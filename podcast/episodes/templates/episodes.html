@@ -1,27 +1,3 @@
-<!-- <div>
-    <div class="back-navigation">
-        <button onclick="history.bac    k()">Back</button>
-    </div>
-    <div class="page_header">
-        <h1>{{ podcast.title }}</h1>
-    </div>
-    <div class="description">
-        <p><i>Author: {{ podcast.author.name }}</i> </p>
-        <p><i>Language: {{ podcast.language }}</i> </p>
-        <p><i>About: {{ podcast.description }}</i> </p>
-        <p><i>Categories: {{ podcast.categories[0].name }} </i> </p>
-        <p><i>Website: {{ podcast.website }}</i> </p>
-        <p><i>iTunes ID: {{ podcast.itunes_id }}</i>  </p>
-    </div>
-
-    <div class = "podcast_episodes">
-    {% for episode in episodes %}
-        {% if episode.podcast_id == podcast.id %}
-            <p>{{ episode.title }}</p>
-        {% endif %}
-    {% endfor %}
-    </div>
-</div> -->
 <div class="episode">
     <div class="episode_info">
         <div class="back" onclick="location.href = '/podcasts?page={{ 1 }}'">	&laquo;</div>
@@ -31,6 +7,10 @@
             <h1>{{ podcast.title }}</h1>
             <p class="episode_page_author">Presented by {{ podcast.author.name }}</p>
             <p class="episode_page_synopsis">{{ podcast.description }}</p>
+            <br>
+            <p>Itunes ID: {{ podcast.itunes_id }}</p>
+            <br>
+            <p>{{ podcast.website }}</p>
 
         </div>
     </div>
