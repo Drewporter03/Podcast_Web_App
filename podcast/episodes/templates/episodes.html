@@ -1,12 +1,13 @@
 <div class="episode">
     <div class="episode_info">
-        <div class="back" onclick="location.href = '/podcasts?page={{ 1 }}'">	&laquo;</div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
         <div class="description">
             <p class="episode_page_categories">{{ podcast.categories[0].name }}</p>
             <h1>{{ podcast.title }}</h1>
             <p class="episode_page_author">Presented by {{ podcast.author.name }}</p>
-            <p class="episode_page_synopsis">{{ podcast.description }}</p>
+            <div class="episode_page_synopsis">
+                <p>{{ podcast.description }}</p>
+            </div>
             <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
             <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-itunes-note"></i></a>
 
