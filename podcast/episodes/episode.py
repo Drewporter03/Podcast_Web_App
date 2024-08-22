@@ -11,7 +11,7 @@ def episodes():
     list_of_podcasts = get_podcasts(repo.repository)
 
     podcast_id = request.args.get('podcast_id', type=int)
-    list_of_episodes = get_episodes(repo.repository, podcast_id)
+    list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
     count = 0
     for episode in list_of_episodes:

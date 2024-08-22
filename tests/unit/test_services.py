@@ -27,4 +27,3 @@ def test_get_episodes(in_memory_repo):
 
     list_of_episodes = episode_services.get_episodes(in_memory_repo, 1)
     assert episode1 in list_of_episodes
-
