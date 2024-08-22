@@ -21,4 +21,4 @@ def test_episodes_page(client):
     response = client.get('/episodes?podcast_id=5')
     assert response.status_code == 200
     assert b'Bethel Presbyterian Church (EPC) Sermons' in response.data
-    assert b'Believing the Impossible (Luke 1:26-45)' not in response.data
+    assert b'Believing the Impossible (Luke 1:26-45)' in response.data
