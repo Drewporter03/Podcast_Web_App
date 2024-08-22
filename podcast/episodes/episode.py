@@ -25,7 +25,7 @@ def episodes():
 
     if request.args.get('page'):
         page = int(request.args.get('page'))
-        list_of_episodes = get_episodes(repo.repository, podcast_id)[page * 6 - 6: page * 6]
+        list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)[page * 6 - 6: page * 6]
         if page <= 4:
             start = 1
             stop = 8 if max_pages > 8 else max_pages + 1
@@ -37,7 +37,7 @@ def episodes():
                 start = page - 3
                 stop = start + 7
     else:
-        list_of_episodes = get_episodes(repo.repository, podcast_id)[:6]
+        list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)[:6]
         start = 1
         stop = max_pages + 1 if start + 8 > max_pages else start + 7
         page = 1
