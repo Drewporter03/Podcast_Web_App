@@ -1,5 +1,5 @@
 <div class="content-right-type-b">
-    <div class="episode_info">
+    <div class="episode_info section">
         <div class="back" onclick="location.href = '/podcasts?page={{ 1 }}'">	&laquo;</div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
         <div class="description">
@@ -20,7 +20,7 @@
 
         {% for episode in episodes %}
             {% if episode.podcast_id == podcast.id %}
-                <div class="podcast_episodes"><div class="episode_title">{{ episode.title }}</div></div>
+                <div class="podcast_episodes section section-hover"><div class="episode_title">{{ episode.title }}</div></div>
             {% endif %}
         {% endfor %}
         <div class="footer">

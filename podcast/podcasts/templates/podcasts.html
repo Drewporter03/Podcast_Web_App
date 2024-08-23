@@ -11,7 +11,7 @@
     <div  class="center">
         {% for podcast in podcasts %}
         <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}"></a>
-        <div class="podcast">
+        <div class="podcast section section-hover">
             <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
                 <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
                 <div class="podcast_content">
