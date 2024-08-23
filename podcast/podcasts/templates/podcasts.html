@@ -1,25 +1,28 @@
-<div class="explore">
-    <div class="page_header">
+<div class="content-right-type-a">
+    <div class="page-header">
         <h1>Podcasts</h1>
     </div>
-    <div class="search-bar">
-        <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
-        <input class="search" placeholder="Search For Podcasts" type="text" >
+    <div class="search-bar-outer">
+        <div class="search-bar-inner">
+            <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
+            <input class="search" placeholder="Search For Podcasts" type="text" >
+        </div>
     </div>
-    {% for podcast in podcasts %}
-    <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}"></a>
-    <div class="podcast">
-        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
-            <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
-            <div class="podcast_content">
-                <h1 class="podcast-title" >{{ podcast.title }}</h1>
-                <p class="podcast_tags">{{ podcast.categories[0].name }}</p>
-                <p class="podcast_authors">Presented by {{ podcast.author.name }}</p>
-            </div>
-        </a>
+    <div  class="center">
+        {% for podcast in podcasts %}
+        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}"></a>
+        <div class="podcast">
+            <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
+                <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
+                <div class="podcast_content">
+                    <h1 class="podcast-title" >{{ podcast.title }}</h1>
+                    <p class="podcast_tags">{{ podcast.categories[0].name }}</p>
+                    <p class="podcast_authors">Presented by {{ podcast.author.name }}</p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-    <div class="footer">
         <div class="pagination">
             <div class="page"><a href="?page={{1}} ">&laquo;</a></div>
             {% for i in range(start, stop) %}
@@ -28,6 +31,6 @@
                 </div>
             {% endfor %}
             <div class="page"><a href="?page={{167 }}">&raquo;</a></div>
-          </div>
-    </div>
+            </div>
 </div>
+

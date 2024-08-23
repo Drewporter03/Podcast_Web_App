@@ -1,4 +1,4 @@
-<div class="episode">
+<div class="content-right-type-b">
     <div class="episode_info">
         <div class="back" onclick="location.href = '/podcasts?page={{ 1 }}'">	&laquo;</div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
@@ -10,7 +10,9 @@
                 <p>{{ podcast.description }}</p>
             </div>
             <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
-            <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-itunes-note"></i></a>
+            <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank">
+ 
+                <i class="fa-brands fa-apple"></i></a>
 
         </div>
     </div>
