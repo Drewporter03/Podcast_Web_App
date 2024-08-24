@@ -244,8 +244,8 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 1rem 0 1rem;
-    width: 100%;
+    margin: 1rem 1% 1rem 0;
+    width: 99%;
 }
 
 .podcast a {
@@ -289,7 +289,7 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--theme-name);
-    margin: 0;
+    margin: 1rem 0 0;
 }
 
 .pagination a {
@@ -552,22 +552,15 @@ main {
     color: var(--logo);
 }
 
-::-webkit-scrollbar {
-    width: 1rem;
-}
-
-::-webkit-scrollbar-track {
-    color: var(--navbar-content);
-}
-
 .center {
     display: flex;
     align-items: center;
     flex-direction: column;
     width: 100%;
-    height: 80%;
-    overflow: hidden;
-    flex-flow: column wrap;
+    height: 90%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-color: var(--navbar-content) var(--sections);
 }
 
 .section {
