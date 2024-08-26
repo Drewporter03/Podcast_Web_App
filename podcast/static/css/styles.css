@@ -45,22 +45,25 @@
     padding: 0;
 }
 
-
 a:visited {
     color: inherit;
 }
 
-
 body {
-    display: flex;
-    flex-direction: column;
     background-color: var(--background);
     font-family: "League Spartan", sans-serif;
+    display: flex;
+    flex-direction: row;
 }
 
 main {
+    color: var(--text);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 80vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
 }
 
 .content_left {
@@ -72,77 +75,43 @@ main {
     align-items: center;
 }
 
-.content-right {
-    color: var(--text);
+.container-a {
     display: flex;
     flex-direction: column;
-    width: 80vw;
-    height: 100vh;
-    justify-content: center;
     align-items: center;
-}
-
-.content-right-type-a {
-    width: 95%;
+    justify-content: center;
     height: 95%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 
-
-.content-right-type-b {
+.container-b {
     display: flex;
     flex-direction: row;
     height: 95%;
-
 }
 
-/* Homepage styles */
-
-.home_synopsis {
-    margin: 10vw;
+.section {
+    background-color: var(--sections);
+    color: var(--section-text);
+    border-radius: 2rem;
 }
 
-.home_synopsis h1 {
-    font-weight: 500;
-    font-size: 3vw;
-    margin: 0 0 1rem;
+.section-hover:hover {
+    background-color: var(--podcast-hover);
+    transition: 0.3s;
 }
-
-.home_synopsis p {
-    font-size: 1vw;
-    white-space: pre-line;
-}
-
 
 /* ---------------------Navbar styles------------------------------- */
 
 .navbar {
-    border-radius: 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 95%;
     width: 92%;
-    align-items: center;
 }
 
 .navbar_login {
     font-size: 1vw;
     padding: .7vw 3vw .7vw;
     margin: 1vw;
-    border-radius: 3rem;
-    background-color: var(--navbar-login-secondary);
-    font-weight: 600;
-    color: var(--navbar-login-primary);
 }
 
-.navbar_login:hover {
-    transition-duration: 0.3s;
-    color: var(--navbar-login-primary-hover);
-    background-color: var(--navbar-login-secondary-hover);
-}
 
 .navbar_content {
     height: 60%;
@@ -182,9 +151,7 @@ main {
 
 .nav-footer {
     color: var(--navbar-content);
-    margin-top: 25px;
-    margin-bottom: 50px;
-    position: absolute;
+    margin: auto 0 1rem;
     bottom: 0;
     font-size: 0.8vw;
     text-align: center;
@@ -203,6 +170,23 @@ main {
     font-size: 0.8vw;
     text-align: center;
     word-wrap: break-word;
+}
+
+/* Homepage styles */
+
+.home_synopsis {
+    margin: 10vw;
+}
+
+.home_synopsis h1 {
+    font-weight: 500;
+    font-size: 3vw;
+    margin: 0 0 1rem;
+}
+
+.home_synopsis p {
+    font-size: 1vw;
+    white-space: pre-line;
 }
 
 /* -----------------------------Miscellaneous styles----------------------------- */
@@ -227,15 +211,8 @@ main {
     transition: 0.3s;
 }
 
-.page-header {
-    margin: 1.5rem 0 0.5rem;
-    width: 100%;
-}
-
-.page-header h1 {
-    color: var(--theme-name);
-    font-size: 4rem;
-    font-weight: 600;
+.podcasts {
+    width: 98%;
 }
 
 .podcast {
@@ -244,7 +221,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 1rem 1% 1rem 0;
+    margin: 0 1% 2rem 0;
     width: 99%;
 }
 
@@ -322,30 +299,33 @@ main {
 }
 
 .theme_toggle {
-    color: var(--navbar-login-primary);
-    background-color: var(--navbar-login-secondary);
-    border-radius: 3rem;
-    line-height: 30px;
     font-size: 1vw;
-    padding: .5vw 2vw .5vw;
-    margin: 1vw;
-    font-weight: 200;
+    padding: 1rem 0;
+    width: 95%;
+    margin: 0 0 2rem;
     outline: none;
     border: none;
-    transition: 0.3s;
+    cursor: pointer;
+}
+
+.button-a {
+    border-radius: 3rem;
+    background-color: var(--navbar-login-secondary);
+    color: var(--navbar-login-primary);
     font-weight: 600;
 }
 
-.theme_toggle:hover {
-    background-color: var(--navbar-login-secondary-hover);
+.button-a:hover {
+    transition-duration: 0.3s;
     color: var(--navbar-login-primary-hover);
-    cursor: pointer;
+    background-color: var(--navbar-login-secondary-hover);
+    font-weight: 600;
 }
+
 
 /*----------Search bar-------------------------------------*/
 .search-bar-inner {
     display: flex;
-    margin: 0;
     width: 50%;
     border: 1px var(--highlight) solid;
     align-items: center;
@@ -354,9 +334,9 @@ main {
 
 .search-bar-outer {
     width: 100%;
-    height: 4%;
     display: flex;
     align-items: center;
+    margin: 2rem 0;
 }
 
 .search-icon {
@@ -368,8 +348,7 @@ main {
 
 .search {
     border: none;
-    height: 30px;
-    padding: 0.1rem;
+    height: 2.5rem;
     background-color: var(--background);
     color: var(--text);
     width: 100%;
@@ -407,17 +386,21 @@ main {
     border-radius: 20px;
 }
 
+.settings {
+    width: 95%;
+}
+
 .setting {
-    background-color: var(--sections);
-    color: var(--section-text);
-    border-radius: 1rem;
-    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 1rem 1rem 1rem;
-    margin: 1rem 0 1rem;
-    transition: 0.3s;
+    width: 100%;
+
+}
+
+.setting-category {
+    width: 95%;
 }
 
 .setting h1 {
@@ -502,7 +485,8 @@ main {
     font-size: 0.8vw;
     margin: 0 0 1rem 0;
     max-height: 16vh;
-    overflow-y: scroll;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .description h1 {
@@ -563,17 +547,7 @@ main {
     scrollbar-color: var(--navbar-content) var(--sections);
 }
 
-.section {
-    background-color: var(--sections);
-    color: var(--section-text);
-    border-radius: 2rem;
-}
-
-.section-hover:hover {
-    background-color: var(--podcast-hover);
-    transition: 0.3s;
-}
-
-.active {
-    color: red;
+.align-left {
+    width: 95%;
+    margin: 1rem;
 }

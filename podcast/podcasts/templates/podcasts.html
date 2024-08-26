@@ -1,7 +1,4 @@
-<div class="content-right-type-a">
-    <div class="page-header">
-        <h1>Podcasts</h1>
-    </div>
+<div class="podcasts container-a">
     <div class="search-bar-outer">
         <div class="search-bar-inner">
             <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
@@ -29,7 +26,7 @@
                     <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
                 </div>
             {% endfor %}
-            <div class="page"><a href="?page={{167 }}">&raquo;</a></div>
+            <div class="page"><a href="?page={{max_pages }}">&raquo;</a></div>
         </div>
     </div>
 </div>

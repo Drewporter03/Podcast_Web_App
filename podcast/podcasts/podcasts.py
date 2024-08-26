@@ -17,9 +17,7 @@ podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
 def podcasts():
 
     number_of_episodes = len(services.get_podcasts(repo.repository))
-    max_pages = -(number_of_episodes//-10)
-
-    #max_pages = 167
+    max_pages = int(round(number_of_episodes/10))
 
     if request.args:
         page = int(request.args.get('page'))
