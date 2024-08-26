@@ -5,9 +5,8 @@
             <input class="search" placeholder="Search For Podcasts" type="text" >
         </div>
     </div>
-    <div  class="center">
+    <div class="center">
         {% for podcast in podcasts %}
-        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}"></a>
         <div class="podcast section section-hover">
             <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
                 <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
@@ -19,6 +18,7 @@
             </a>
         </div>
         {% endfor %}
+        {% if max_pages > 1 %}
         <div class="pagination">
             <div class="page"><a href="?page={{1}} ">&laquo;</a></div>
             {% for i in range(start, stop) %}
@@ -28,6 +28,7 @@
             {% endfor %}
             <div class="page"><a href="?page={{max_pages }}">&raquo;</a></div>
         </div>
+        {% endif %}
     </div>
 </div>
 

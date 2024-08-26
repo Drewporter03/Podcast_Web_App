@@ -16,23 +16,24 @@
 
         </div>
     </div>
-    <div class = "episode_list">
-
-        {% for episode in episodes %}
-            {% if episode.podcast_id == podcast.id %}
-                <div class="podcast_episodes section section-hover"><div class="episode_title">{{ episode.title }}</div></div>
-            {% endif %}
-        {% endfor %}
-        <div class="footer">
-            <div class="pagination">
-                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></div>
-                {% for i in range(start, stop) %}
-                    <div class="page">
-                        <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
+            <div class="center">
+                    {% for episode in episodes %}
+                        {% if episode.podcast_id == podcast.id %}
+                            <div class="podcast_episodes section section-hover">
+                                <div class="episode_title">{{ episode.title }}</div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if max_page > 1 %}
+                    <div class="pagination">
+                        <div class="page"><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></div>
+                        {% for i in range(start, stop) %}
+                            <div class="page">
+                                <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
+                            </div>
+                        {% endfor %}
+                        <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></div>
                     </div>
-                {% endfor %}
-                <div class="page"><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></div>
-              </div>
-        </div>
-    </div>
+                    {% endif %}
+            </div>
 </div>
