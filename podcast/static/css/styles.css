@@ -1,6 +1,6 @@
 :root {
     --background: #15141e;
-    --sections: #27262e;
+    --section: #27262e;
     --navbar-logo: #8c52ff;
     --navbar-logo-hover: aliceblue;
     --navbar-login-primary: aliceblue;
@@ -22,7 +22,7 @@
 
 .lightMode {
     --background: #fbfbfb;
-    --sections: #8c52ff;
+    --section: #8c52ff;
     --navbar-logo: aliceblue;
     --navbar-login-primary: #8c52ff;
     --navbar-login-secondary: aliceblue;
@@ -43,10 +43,6 @@
     list-style: none;
     margin: 0;
     padding: 0;
-}
-
-a:visited {
-    color: inherit;
 }
 
 body {
@@ -91,33 +87,51 @@ main {
     margin: 0 1% 0 0;
 }
 
-.section {
-    background-color: var(--sections);
+.block {
+    background-color: var(--section);
     color: var(--section-text);
     border-radius: 2rem;
 }
 
-.section-hover:hover {
+.block-hover:hover {
     background-color: var(--podcast-hover);
     transition: 0.3s;
 }
 
 /* ---------------------Navbar styles------------------------------- */
 
-.navbar {
+nav {
     width: 92%;
 }
 
-.navbar_login {
+nav h1 {
+    font-size: 3vw;
+    color: var(--navbar-logo);
+    margin: 2vw 2vw 0.5vw;
+}
+
+nav ul {
+    height: 60%;
+    width: 60%;
+}
+
+nav footer {
+    color: var(--navbar-content);
+    margin: auto 0 1rem;
+    bottom: 0;
+    font-size: 0.8vw;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+nav footer a {
+    color: inherit;
+}
+
+.login {
     font-size: 1vw;
     padding: .7vw 3vw .7vw;
     margin: 1vw;
-}
-
-
-.navbar_content {
-    height: 60%;
-    width: 60%;
 }
 
 .navbar_link {
@@ -126,6 +140,7 @@ main {
     margin: 1vw 0 1vw;
     transition: 0.1s;
 }
+
 
 .navbar_link a {
     font-size: 2vw;
@@ -140,38 +155,9 @@ main {
     transition-duration: 0.3s;
 }
 
-.navbar_logo {
-    font-size: 3vw;
-    color: var(--navbar-logo);
-    margin: 2vw 2vw 0.5vw;
-}
-
 .navbar_logo:hover {
     color: var(--navbar-logo-hover);
     transition: 0.3s;
-}
-
-.nav-footer {
-    color: var(--navbar-content);
-    margin: auto 0 1rem;
-    bottom: 0;
-    font-size: 0.8vw;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-.nav-footer a {
-    color: inherit;
-}
-
-.nav-header {
-    color: var(--highlight-hover);
-    margin: 0;
-    padding: 0;
-    top: 0;
-    font-size: 0.8vw;
-    text-align: center;
-    word-wrap: break-word;
 }
 
 /* Homepage styles */
@@ -535,7 +521,7 @@ main {
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-color: var(--navbar-content) var(--sections);
+    scrollbar-color: var(--navbar-content) var(--section);
 }
 
 .align-left {
