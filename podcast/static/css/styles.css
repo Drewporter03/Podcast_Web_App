@@ -155,7 +155,7 @@ nav footer a {
     transition-duration: 0.3s;
 }
 
-.navbar_logo:hover {
+nav h1:hover {
     color: var(--navbar-logo-hover);
     transition: 0.3s;
 }
