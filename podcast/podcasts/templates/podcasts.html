@@ -1,34 +1,34 @@
-<div class="podcasts container-a">
+<section class="podcasts container-a">
     <div class="search-bar-outer">
-        <div class="search-bar-inner">
+        <search class="search-bar-inner">
             <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
             <input class="search" placeholder="Search For Podcasts" type="text" >
-        </div>
+        </search>
     </div>
-    <div class="center">
+    <article class="scrollbox">
         {% for podcast in podcasts %}
-        <div class="podcast block block-hover">
-            <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
-                <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
-                <div class="podcast_content">
-                    <h1 class="podcast-title" >{{ podcast.title }}</h1>
-                    <p class="podcast_tags">{{ podcast.categories[0].name }}</p>
-                    <p class="podcast_authors">Presented by {{ podcast.author.name }}</p>
+        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
+        <article class="podcast block block-hover">
+                <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
+                <div class="podcast-content">
+                    <div class="podcast-title">{{ podcast.title }}</div>
+                    <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
+                    <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
                 </div>
-            </a>
-        </div>
+        </article>
+        </a>
         {% endfor %}
         {% if max_pages > 1 %}
-        <div class="pagination">
-            <div class="page"><a href="?page={{1}} ">&laquo;</a></div>
+        <ul class="pagination">
+            <li><a href="?page={{1}} ">&laquo;</a></li>
             {% for i in range(start, stop) %}
-                <div class="page">
-                    <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a>
-                </div>
+                <li>
+                    <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</li>
+                </li>
             {% endfor %}
-            <div class="page"><a href="?page={{max_pages }}">&raquo;</a></div>
-        </div>
+            <li><a href="?page={{max_pages }}">&raquo;</a></li>
+        </ul>
         {% endif %}
-    </div>
-</div>
+    </article>
+</section>
 

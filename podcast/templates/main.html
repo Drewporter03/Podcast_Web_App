@@ -15,20 +15,22 @@
     <header class="content_left">
         <nav class=" container-a block">
             <a href="home">
-                <h1>mixcast.</h1>
+                <h1 class="logo">mixcast.</h1>
             </a>
-            CS235 kpir887 |  dpor963 | ttu457
+            <aside class="author-upis">CS235 kpir887 |  dpor963 | ttu457</aside>
             <a href="login">
-                <div class="button-a login">Log in</div>
+                <button class="button-a">Log in</button>
             </a>
             {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
             <ul>
                 {% for href, name in navbar_content %}
-                    <li class="navbar_link"><a href="{{href}}"">{{name}}</a></li>
+                <a href="{{href}}"">
+                    <li>{{name}}</li>
+                </a>
                 {% endfor %}
             </ul>
-            <footer>
-                <a href="styleguide">CS235 kpir887 |  dpor963 | ttu457</a>
+            <footer class="author-upis">
+                CS235 kpir887 |  dpor963 | ttu457
             </footer>
         </nav>
     </header>

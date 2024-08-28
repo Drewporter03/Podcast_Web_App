@@ -1,3 +1,5 @@
+/* ------------------------ Colours ------------------------  */
+
 :root {
     --background: #15141e;
     --section: #27262e;
@@ -35,55 +37,58 @@
     --toggle-hover: #cdb4ff;
 }
 
-/* General styles */
+/* ------------------------ General ------------------------  */
 
 * {
     /* border: 1px solid white; */
-    text-decoration: none;
     list-style: none;
+    list-style-type: none;
+    text-decoration: none;
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: var(--background);
-    font-family: "League Spartan", sans-serif;
     display: flex;
     flex-direction: row;
+    font-family: "League Spartan", sans-serif;
+    background-color: var(--background);
+}
+
+/* ------------------------ Layout ------------------------  */
+
+.content_left {
+    width: 20vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 main {
-    color: var(--text);
-    display: flex;
-    flex-direction: column;
     width: 80vw;
     height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
-
-.content_left {
     display: flex;
     flex-direction: column;
-    width: 20vw;
-    height: 100vh;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    color: var(--text);
 }
 
 .container-a {
+    height: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 95%;
 }
 
 .container-b {
+    width: 99%;
+    height: 95%;
     display: flex;
     flex-direction: row;
-    height: 95%;
-    width: 99%;
     margin: 0 1% 0 0;
 }
 
@@ -98,206 +103,48 @@ main {
     transition: 0.3s;
 }
 
-/* ---------------------Navbar styles------------------------------- */
-
-nav {
-    width: 92%;
+.scrollbox {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: var(--navbar-content) var(--section);
 }
 
-nav h1 {
-    font-size: 3vw;
-    color: var(--navbar-logo);
-    margin: 2vw 2vw 0.5vw;
-}
+/* ------------------------ Textbox ------------------------  */
 
-nav ul {
-    height: 60%;
-    width: 60%;
-}
-
-nav footer {
-    color: var(--navbar-content);
-    margin: auto 0 1rem;
-    bottom: 0;
-    font-size: 0.8vw;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-nav footer a {
-    color: inherit;
-}
-
-.login {
-    font-size: 1vw;
-    padding: .7vw 3vw .7vw;
-    margin: 1vw;
-}
-
-.navbar_link {
-    font-size: 2vw;
-    font-weight: 600;
-    margin: 1vw 0 1vw;
-    transition: 0.1s;
-}
-
-
-.navbar_link a {
-    font-size: 2vw;
-    font-weight: 600;
-    margin: 1vw 0 1vw;
-    color: var(--navbar-content);
-    transition: 0.1s;
-}
-
-.navbar_link a:hover {
-    color: var(--navbar-content-hover);
-    transition-duration: 0.3s;
-}
-
-nav h1:hover {
-    color: var(--navbar-logo-hover);
-    transition: 0.3s;
-}
-
-/* Homepage styles */
-
-.home_synopsis {
+.textbox {
     margin: 10vw;
 }
 
-.home_synopsis h1 {
-    font-weight: 500;
+.textbox h1 {
+    font-weight: 600;
     font-size: 4rem;
-    margin: 0 0 1rem;
+    margin: 0 0 0.5rem;
 }
 
-.home_synopsis p {
+.textbox p {
     font-size: 1.25rem;
     white-space: pre-line;
 }
 
-/* -----------------------------Miscellaneous styles----------------------------- */
+/* ------------------------ Miscellaneous ------------------------  */
 
-.highlight {
-    color: var(--highlight);
-    font-weight: 500;
-}
-
-.highlight :hover {
-    color: var(--highlight-hover);
-    transition: 0.3s;
-}
-
-.logo {
-    font-weight: 700;
-    color: var(--logo);
-}
-
-.logo:hover {
-    color: var(--logo-hover);
-    transition: 0.3s;
-}
-
-.podcasts {
-    width: 98%;
-}
-
-.podcast {
-    border-radius: 1rem;
-    height: 8.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0 1% 2rem 0;
-    width: 99%;
-}
-
-.podcast a {
-    display: flex;
-    text-decoration: none;
+a {
     color: inherit;
 }
 
-.podcast_content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 68.55vw;
-    margin: 0 0 0 1vw;
-    border-radius: 1rem;
-}
-
-.podcast img {
-    border-radius: 1rem;
-    width: 8.5rem;
-    height: 8.5rem;
-    padding: 0;
-    margin: 0;
+button {
     border: 0;
-}
-
-.podcast_tags {
-    font-weight: 600;
-    margin: 0 0 0.2em;
-}
-
-.podcast-title {
-    max-width: 65vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--theme-name);
-    margin: 1rem 0 0;
-}
-
-.pagination a {
-    font-size: 1.75rem;
-    color: inherit;
-    margin: 0 1vw;
-    transition: ease-in-out 0.15s;
-
-
-}
-
-.pagination a.active {
-    color: var(--highlight);
-    font-weight: bold;
-    font-size: 2.5rem;
-
-}
-
-.pagination a:hover {
-    color: var(--highlight);
-    font-weight: bold;
-}
-
-.page {
-    height: 3.5rem;
-    width: 3.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.theme_toggle {
-    font-size: 1vw;
-    padding: 1rem 0;
-    width: 95%;
-    margin: 0 0 2rem;
-    outline: none;
-    border: none;
+    font-family: "League Spartan", sans-serif;
     cursor: pointer;
 }
 
+strong {
+    font-weight: 500;
+}
+
 .button-a {
-    border-radius: 3rem;
+    border-radius: 2rem;
     background-color: var(--navbar-login-secondary);
     color: var(--navbar-login-primary);
     font-weight: 600;
@@ -310,15 +157,81 @@ nav h1:hover {
     font-weight: 600;
 }
 
-
-/*----------Search bar-------------------------------------*/
-.search-bar-inner {
-    display: flex;
-    width: 50%;
-    border: 1px var(--highlight) solid;
-    align-items: center;
-    border-radius: 1rem;
+.button-b {
+    background-color: var(--navbar-content);
+    color: var(--navbar-login-primary);
+    border-radius: 2rem;
 }
+
+.button-b:hover {
+    background-color: var(--navbar-content-hover);
+    color: var(--logo);
+    transition: 0.3s;
+}
+
+.highlight {
+    color: var(--highlight);
+}
+
+.highlight:hover {
+    color: var(--highlight-hover);
+    transition: 0.3s;
+}
+
+.logo {
+    font-weight: 700;
+}
+
+/* ------------------------ Navbar ------------------------  */
+
+nav {
+    width: 92%;
+}
+
+nav h1 {
+    font-size: 3vw;
+    margin: 2vw 2vw 0.5vw;
+    color: var(--navbar-logo);
+}
+
+nav h1:hover {
+    color: var(--navbar-logo-hover);
+    transition: 0.3s;
+}
+
+.author-upis {
+    font-size: 0.8vw;
+}
+
+nav button {
+    font-size: 1vw;
+    padding: .7vw 3vw .7vw;
+    margin: 1vw;
+}
+
+nav ul {
+    height: 60%;
+    width: 60%;
+}
+
+nav li {
+    font-size: 2vw;
+    font-weight: 600;
+    margin: 1vw 0 1vw;
+    color: var(--navbar-content);
+}
+
+nav li:hover {
+    color: var(--navbar-content-hover);
+    transition-duration: 0.3s;
+}
+
+nav footer {
+    color: var(--navbar-content);
+    margin: auto 0 1rem;
+}
+
+/* ------------------------ Search ------------------------  */
 
 .search-bar-outer {
     width: 100%;
@@ -327,28 +240,205 @@ nav h1:hover {
     margin: 2rem 0;
 }
 
+.search-bar-inner {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    border: 1px var(--highlight) solid;
+    border-radius: 1rem;
+}
+
 .search-icon {
-    height: 1rem;
     width: 1rem;
+    height: 1rem;
     margin: 0 1rem 0 1rem;
-    padding: 0;
 }
 
 .search {
-    border: none;
-    height: 2.5rem;
-    background-color: var(--background);
-    color: var(--text);
     width: 100%;
+    height: 2.5rem;
+    border: none;
     border-radius: 1rem;
+    color: var(--text);
+    background-color: inherit;
 }
 
 .search:focus {
     outline: none;
 }
 
-/*------------------subscriptions page-----------------------------*/
-.subscriptions {
+/* ------------------------ Pagination ------------------------  */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0 0;
+    font-size: 1.75rem;
+    color: var(--theme-name);
+
+}
+
+.pagination a.active {
+    color: var(--highlight);
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.pagination a:hover {
+    color: var(--highlight);
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.pagination li {
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ------------------------ Podcasts ------------------------  */
+
+.podcasts {
+    width: 98%;
+}
+
+.podcast {
+    border-radius: 1rem;
+    height: 8.5rem;
+    display: flex;
+    margin: 0 1% 2rem 0;
+    width: 99%;
+}
+
+.podcast img {
+    width: 8.5rem;
+    height: 8.5rem;
+    border-radius: 1rem;
+}
+
+.podcast-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 1vw;
+    border-radius: 1rem;
+}
+
+.podcast-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.podcast-categories {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 0.1rem;
+}
+
+.podcast-authors {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/* ------------------------ Episodes ------------------------  */
+
+.episodes-left {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 28vw;
+    align-items: center;
+}
+
+.episodes-button-shell {
+    width: 25vw;
+    margin: 2rem 0 0;
+}
+
+.episodes-left button {
+    font-size: 2rem;
+    width: 5vw;
+    height: 3rem;
+}
+
+.episodes-left img {
+    width: 25vw;
+    height: 25vw;
+    border-radius: 1rem;
+}
+
+.episodes-left img {
+    width: 25vw;
+    height: 25vw;
+    border-radius: 1rem;
+    margin: 2rem 2rem 0.5rem;
+}
+
+.podcast-info {
+    width: 25vw;
+}
+
+.podcast-info h1 {
+    max-width: 25vw;
+    font-size: 2vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.podcast-info h3 {
+    font-size: 1vw;
+    color: var(--navbar-content);
+    margin: 0.5rem 0;
+    font-weight: 500;
+}
+
+.podcast-info p {
+    font-style: italic;
+    font-size: 0.8vw;
+    margin: 0.25rem 0 1rem;
+    max-height: 16vh;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.podcast-info i {
+    font-size: 2rem;
+    margin: 0 2rem 0 0.2rem;
+}
+
+.podcast-info a {
+    color: var(--navbar-content);
+    transition: 0.3s;
+}
+
+.podcast-info a:hover {
+    color: var(--navbar-content-hover);
+}
+
+
+.podcast_episodes {
+    height: 12rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0rem 1% 1.5rem 1%;
+    width: 98%;
+}
+
+.episode {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+/* ------------------------ Subscriptions ------------------------  */
+
+/* .subscriptions {
     width: fit-content;
     display: flex;
     flex-wrap: wrap;
@@ -372,7 +462,9 @@ nav h1:hover {
     margin: 1rem;
     border: 3px var(--highlight) solid;
     border-radius: 20px;
-}
+} */
+
+/* ------------------------ Settings ------------------------  */
 
 .settings {
     width: 95%;
@@ -384,7 +476,6 @@ nav h1:hover {
     align-items: center;
     justify-content: center;
     width: 100%;
-
 }
 
 .setting-category {
@@ -400,131 +491,12 @@ nav h1:hover {
     font-weight: 400;
 }
 
-/*-------------------------EPISODES PAGE-------------------------------------*/
-
-
-.description {
-    width: 25vw;
-}
-
-.episode_title {
-    margin: 0 1vw 0;
+.theme_toggle {
     font-size: 1vw;
-    font-weight: 500;
-
-}
-
-.podcast_episodes {
-    height: 12rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0rem 1% 1.5rem 1%;
-    width: 98%;
-}
-
-.episode {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-}
-
-.episode_info {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 28vw;
-    align-items: center;
-}
-
-.episode_info img {
-    width: 25vw;
-    height: 25vw;
-    border-radius: 1rem;
-    margin: 1vw 2rem 0.5rem;
-}
-
-.episode_info h1 {
-    font-size: 2vw;
-    margin: 0 0 0.5rem;
-}
-
-.episode_page_author {
-    font-size: 1vw;
-    font-weight: 600;
-    margin: 0 0 0.5rem;
-}
-
-.episode_page_categories {
-    font-size: 1vw;
-    margin: 1rem 0 0.7rem;
-    color: var(--navbar-content);
-}
-
-.episode_page_synopsis {
-    font-style: italic;
-    font-size: 0.8vw;
-    margin: 0 0 1rem 0;
-    max-height: 16vh;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.description h1 {
-    max-width: 25vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.description i {
-    font-size: 2rem;
-    margin: 0 2rem 0 0.2rem;
-}
-
-.description a {
-    color: var(--navbar-content);
-    transition: 0.3s;
-}
-
-.description a:hover {
-    color: var(--navbar-content-hover);
-}
-
-.footer {
-    margin-top: auto;
-
-}
-
-.back {
-    margin: 2vw auto 0 1.5vw;
-    background-color: var(--navbar-content);
-    color: var(--navbar-login-primary);
-    font-size: 2rem;
-    width: 5vw;
-    height: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 2rem;
-    border: none;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.back:hover {
-    background-color: var(--navbar-content-hover);
-    color: var(--logo);
-}
-
-.center {
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-color: var(--navbar-content) var(--section);
-}
-
-.align-left {
+    padding: 1rem 0;
     width: 95%;
-    margin: 1rem;
+    margin: 0 0 2rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
