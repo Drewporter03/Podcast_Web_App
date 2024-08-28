@@ -390,7 +390,7 @@ nav footer {
     white-space: nowrap;
 }
 
-.podcast-info h3 {
+.podcast-info-categories {
     font-size: 1vw;
     color: var(--navbar-content);
     margin: 0.5rem 0;
@@ -399,7 +399,7 @@ nav footer {
 
 .podcast-info p {
     font-style: italic;
-    font-size: 0.8vw;
+    font-size: 0.85vw;
     margin: 0.25rem 0 1rem;
     max-height: 16vh;
     overflow: hidden;
@@ -420,8 +420,7 @@ nav footer {
     color: var(--navbar-content-hover);
 }
 
-
-.podcast_episodes {
+.episode {
     height: 12rem;
     display: flex;
     flex-direction: row;
@@ -430,10 +429,9 @@ nav footer {
     width: 98%;
 }
 
-.episode {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
+.episode-title {
+    margin: 0 1rem;
+    font-size: 1.25rem;
 }
 
 /* ------------------------ Subscriptions ------------------------  */

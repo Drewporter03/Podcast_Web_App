@@ -6,21 +6,21 @@
             </a>
         </div>
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
-        <div class="podcast-info">
-            <h3>{{ podcast.categories[0].name }}</h3>
+        <article class="podcast-info">
+            <div class="podcast-info-categories">{{ podcast.categories[0].name }}</div>
             <h1>{{ podcast.title }}</h1>
             <h2>Presented by {{ podcast.author.name }}</h2>
             <p>{{ podcast.description }}</p>
             <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
             <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-apple"></i></a>
-        </div>
+        </article>
     </article>
     <div class="scrollbox">
         {% for episode in episodes %}
             {% if episode.podcast_id == podcast.id %}
-                <div class="podcast_episodes block block-hover">
-                    <div class="episode_title">{{ episode.title }}</div>
-                </div>
+                <article class="episode block block-hover">
+                    <div class="episode-title">{{ episode.title }}</div>
+                </article>
             {% endif %}
         {% endfor %}
         {% if max_page > 1 %}
