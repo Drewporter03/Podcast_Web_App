@@ -241,7 +241,7 @@ nav footer {
 }
 
 .search-bar-inner {
-    width: 50%;
+    width: 90%;
     display: flex;
     align-items: center;
     border: 1px var(--highlight) solid;
@@ -266,6 +266,36 @@ nav footer {
 .search:focus {
     outline: none;
 }
+
+.search-bar-dropdown{
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    background-color: var(--navbar-content);
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.search-bar-dropdown ul{
+    position: absolute;
+    width: 100%;
+    top: 110%;
+    left: 0;
+    padding: 1rem;
+    background-color: var(--navbar-content);
+    border-radius: 4px;
+}
+
+.search-bar-dropdown ul li{
+
+}
+
+
 
 /* ------------------------ Pagination ------------------------  */
 
