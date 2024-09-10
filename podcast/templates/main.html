@@ -21,7 +21,7 @@
             <a href="login">
                 <button class="button-a">Log in</button>
             </a>
-            {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
+            {% set navbar_content = [('home', 'Home'), ('register', 'Register'), ('login', 'Login'), ('logout', 'Logout'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
             <ul>
                 {% for href, name in navbar_content %}
                 <a href="{{href}}"">
