@@ -289,13 +289,28 @@ nav footer {
     padding: 1rem;
     background-color: var(--navbar-content);
     border-radius: 4px;
+    visibility: hidden;
+    transition:  0.3s;
+
 }
 
 .search-bar-dropdown ul li{
+    padding: 0.5rem;
+    left: 0;
+    border-radius: 1rem;
+}
+
+.search-bar-dropdown:hover ul{
+    visibility: visible;
+    transition: 0.3s;
+
 
 }
 
-
+.search-bar-dropdown ul li:hover{
+    color: var(--navbar-content-hover);
+    transition: 0.3s;
+}
 
 /* ------------------------ Pagination ------------------------  */
 
