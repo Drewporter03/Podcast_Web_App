@@ -4,7 +4,7 @@ from podcast.adapters.memory_repository import MemoryRepository
 from pathlib import Path
 from podcast import create_app
 
-# Using data from a different directory -- so we can test with less data
+# Using data from a different directory -- so we can test with fewer data
 TEST_DATA_PATH = Path(__file__).parent / 'tests' / 'data'
 
 @pytest.fixture
