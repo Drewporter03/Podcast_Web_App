@@ -308,7 +308,7 @@ nav footer {
 }
 
 .search-bar-dropdown ul li:hover{
-    color: var(--navbar-content-hover);
+    color: var(--highlight);
     transition: 0.3s;
 }
 

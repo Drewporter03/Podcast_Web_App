@@ -2,9 +2,10 @@
     <div class="search-bar-outer">
         <search class="search-bar-inner">
             <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
-            <input class="search" placeholder="Search For Podcasts" type="text" >
+            <input class="search" id = "placeholder" placeholder="Search For Podcasts" type="text" >
             <div class = "search-bar-dropdown">
                 <p id = "selection">Search By...</p>
+                <p></p>
                 <ul>
                     <li class = "search-options">Title</li>
                     <li class = "search-options">Author</li>
@@ -39,4 +40,17 @@
         {% endif %}
     </article>
 </section>
+
+<script>
+    let selection = document.getElementById("selection");
+    let options = document.getElementsByClassName("search-options");
+    let placeholder = document.getElementById("placeholder")
+
+    for (option of options){
+        option.onclick = function (){
+            selection.innerHTML = this.innerHTML;
+            placeholder.placeholder = "Search For Podcasts by " +   selection.innerHTML;
+        }
+    }
+</script>
 
