@@ -70,6 +70,16 @@ class MemoryRepository(AbstractRepository, ABC):
         return self.__categories
 
 
+    def get_user(self, username: str):
+        for user in self.__users:
+            if user.username == username:
+                return user
+            else:
+                return None
+
+    def add_user(self, user: User):
+        self.__users.append(user)
+
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
