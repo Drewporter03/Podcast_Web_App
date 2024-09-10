@@ -303,8 +303,6 @@ nav footer {
 .search-bar-dropdown:hover ul{
     visibility: visible;
     transition: 0.3s;
-
-
 }
 
 .search-bar-dropdown ul li:hover{
