@@ -1,0 +1,27 @@
+<div class="form-wrapper">
+    <h1 class="title">{{ title }}</h1>
+    <form method="POST" action="{{ handler_url }}">
+        {{ form.csrf_token }}
+        <div class="form-field">
+            <p>
+                Username
+            </p>
+            {{ form.user_name }}
+            {% if form.user_name.errors %}
+                {{ user_name_error_message }}
+            {% endif %}
+        </div>
+        <div class="form-field">
+            <p>
+                Password
+            </p>
+            {{ form.password }}
+            {% if password_error_message is not none %}
+                {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {{ form.submit }}
+    </form>
+</div>
