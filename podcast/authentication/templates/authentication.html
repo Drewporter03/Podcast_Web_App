@@ -3,12 +3,19 @@
     <form method="POST" action="{{ handler_url }}">
         {{ form.csrf_token }}
         <div class="form-field">
-            <p>
-                Username
-            </p>
+            <p>Username</p>
             {{ form.user_name }}
-            {% if form.user_name.errors %}
-                {{ user_name_error_message }}
+            {% if form.user_name.errors or return_error_msg is not none %}
+                {% if return_error_msg is not none %}
+                            <li>
+                                {{ return_error_msg }}
+                            </li>
+                        {% endif %}
+                <ul>
+                    {% for error in form.user_name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
         <div class="form-field">
@@ -16,7 +23,12 @@
                 Password
             </p>
             {{ form.password }}
-            {% if password_error_message is not none %}
+            {% if form.password.errors or unknown_password_error is not none %}
+                {% if unknown_password_error is not none %}
+                            <li>
+                                {{ unknown_password_error }}
+                            </li>
+                        {% endif %}
                 {% for error in form.password.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
