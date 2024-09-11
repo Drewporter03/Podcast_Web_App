@@ -22,6 +22,7 @@ def podcasts():
     if request.args:
         query = request.args.get('q')
         parameter = request.args.get('p')
+        print(parameter)
         page = int(request.args.get('page', default=1, type=int))
         list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[page * 10 - 10: page * 10]
         if query is not None:
@@ -36,7 +37,8 @@ def podcasts():
                         filtered_list_of_podcasts.append(podcast)
             if parameter == "category":
                 for podcast in list_of_podcasts:
-                    if query in podcast.categories:
+                    print(podcast.categories[0].name)
+                    if query in podcast.categories[0].name:
                         filtered_list_of_podcasts.append(podcast)
             list_of_podcasts = filtered_list_of_podcasts
         if page <= 4:
