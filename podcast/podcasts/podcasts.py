@@ -20,8 +20,25 @@ def podcasts():
     max_pages = int(round(number_of_episodes/10))
 
     if request.args:
-        page = int(request.args.get('page'))
+        query = request.args.get('q')
+        parameter = request.args.get('p')
+        page = int(request.args.get('page', default=1, type=int))
         list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)[page * 10 - 10: page * 10]
+        if query is not None:
+            filtered_list_of_podcasts = []
+            if parameter == "title":
+                for podcast in list_of_podcasts:
+                    if query in podcast.title:
+                        filtered_list_of_podcasts.append(podcast)
+            if parameter == "author":
+                for podcast in list_of_podcasts:
+                    if query in podcast.author.name:
+                        filtered_list_of_podcasts.append(podcast)
+            if parameter == "category":
+                for podcast in list_of_podcasts:
+                    if query in podcast.categories:
+                        filtered_list_of_podcasts.append(podcast)
+            list_of_podcasts = filtered_list_of_podcasts
         if page <= 4:
             start = 1
             stop = 8

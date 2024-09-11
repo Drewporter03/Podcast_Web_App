@@ -1,46 +1,48 @@
 <section class="podcasts container-a">
     <div class="search-bar-outer">
-        <search class="search-bar-inner">
+        <form class="search-bar-inner" action = "/podcasts" method = "get">
             <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
-            <input class="search" id = "placeholder" placeholder="Search For Podcasts" type="text" >
+            <input class="search" id = "placeholder" placeholder="Search For Podcasts" type="text" name = "q">
             <div class = "search-bar-dropdown">
-                <p id = "selection">Search By...</p>
-                <p></p>
-                <ul>
-                    <li class = "search-options">Title</li>
-                    <li class = "search-options">Author</li>
-                    <li class = "search-options">Category</li>
-                </ul>
+                <select name="p" id = "selection">
+                    <option class = "search-options">title</option>
+                    <option for = "author" class = "search-options">author</option>
+                    <option for = "category" class = "search-options">category</option>
+                </select>
             </div>
-        </search>
+        </form>
     </div>
     <article class="scrollbox">
         {% for podcast in podcasts %}
-        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
-        <article class="podcast block block-hover">
-                <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
-                <div class="podcast-content">
-                    <div class="podcast-title">{{ podcast.title }}</div>
-                    <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
-                    <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
-                </div>
-        </article>
-        </a>
+            <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
+                <article class="podcast block block-hover">
+                    <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
+                    <div class="podcast-content">
+                        <div class="podcast-title">{{ podcast.title }}</div>
+                        <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
+                        <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
+                    </div>
+                </article>
+            </a>
         {% endfor %}
         {% if max_pages > 1 %}
-        <ul class="pagination">
-            <li><a href="?page={{1}} ">&laquo;</a></li>
-            {% for i in range(start, stop) %}
-                <li>
-                    <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</li>
-                </li>
-            {% endfor %}
-            <li><a href="?page={{max_pages }}">&raquo;</a></li>
-        </ul>
+            <ul class="pagination">
+                <li><a href="?page={{1}} ">&laquo;</a></li>
+                {% for i in range(start, stop) %}
+                    <li>
+                        <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a></li>
+                    </li>
+                {% endfor %}
+                <li><a href="?page={{max_pages }}">&raquo;</a></li>
+            </ul>
         {% endif %}
     </article>
 </section>
 
+
+<!--
+
+maybe use
 <script>
     let selection = document.getElementById("selection");
     let options = document.getElementsByClassName("search-options");
@@ -55,3 +57,16 @@
     }
 </script>
 
+
+Maybe use instead of selection
+<div class = "search-bar-dropdown">
+                <p id = "selection" name = "p">Search By...</p>
+                <p></p>
+                <ul>
+                    <li for = "title" class = "search-options">title</li>
+                    <li for = "author" class = "search-options">author</li>
+                    <li for = "category" class = "search-options">category</li>
+                </ul>
+            </div>
+
+-->
