@@ -74,8 +74,7 @@ class MemoryRepository(AbstractRepository, ABC):
         for user in self.__users:
             if user.username == username:
                 return user
-            else:
-                return None
+        return None
 
     def add_user(self, user: User):
         self.__users.append(user)
