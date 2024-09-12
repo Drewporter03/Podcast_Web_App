@@ -27,17 +27,24 @@
         {% endfor %}
         {% if max_pages > 1 %}
             <ul class="pagination">
-                <li><a href="?page={{1}} ">&laquo;</a></li>
+                <li>
+                    <a href="?{% if request.args.get('q') %}q={{ request.args.get('q') }}{% endif %}&{% if request.args.get('p') %}p={{ request.args.get('p') }}{% endif %}&page=1">«</a>
+                </li>
                 {% for i in range(start, stop) %}
                     <li>
-                        <a class="{{ 'active' if i == page }}"  href="?page={{i}}">{{i}}</a></li>
+                        <a class="{{ 'active' if i == page }}" href="?{% if request.args.get('q') %}q={{ request.args.get('q') }}{% endif %}&{% if request.args.get('p') %}p={{ request.args.get('p') }}{% endif %}&page={{ i }}">{{ i }}</a>
                     </li>
                 {% endfor %}
-                <li><a href="?page={{max_pages }}">&raquo;</a></li>
+                <li>
+                    <a href="?{% if request.args.get('q') %}q={{ request.args.get('q') }}{% endif %}&{% if request.args.get('p') %}p={{ request.args.get('p') }}{% endif %}&page={{ max_pages }}">»</a>
+                </li>
             </ul>
+
+
         {% endif %}
     </article>
 </section>
+
 
 
 <!--
