@@ -52,8 +52,7 @@ def podcasts():
 
         if query is not None:
             list_of_podcasts = filter_podcasts(list_of_podcasts, query, parameter)
-            number_of_episodes = len(list_of_podcasts)
-            max_pages = (round(number_of_episodes / 10))
+            max_pages = calculate_pages(list_of_podcasts)
 
         start, stop, list_of_podcasts = calculate_pagination(page, max_pages, list_of_podcasts)
 
