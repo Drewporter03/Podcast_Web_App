@@ -182,6 +182,11 @@ strong {
     font-weight: 700;
 }
 
+.align-left{
+    width: 95%;
+    margin: 1.5rem;
+}
+
 /* ------------------------ Navbar ------------------------  */
 
 nav {
@@ -517,6 +522,7 @@ nav footer {
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin: 0 0 auto;
 }
 
 .setting-category {
@@ -532,7 +538,7 @@ nav footer {
     font-weight: 400;
 }
 
-.theme_toggle {
+.theme-toggle {
     font-size: 1vw;
     padding: 1rem 0;
     width: 95%;
