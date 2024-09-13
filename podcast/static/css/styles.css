@@ -215,14 +215,13 @@ nav button {
 }
 
 nav ul {
-    height: 60%;
     width: 60%;
 }
 
 nav li {
     font-size: 2vw;
     font-weight: 600;
-    margin: 1vw 0 1vw;
+    margin: 0 0 1vw;
     color: var(--navbar-content);
 }
 
