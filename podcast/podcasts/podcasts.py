@@ -22,11 +22,11 @@ def filter_podcasts(podcasts, query, parameter):
 def calculate_pagination(page, max_pages, list_of_podcasts):
     if page <= 4:
         start = 1
-        stop = 8
+        stop = 8 if max_pages > 8 else max_pages + 1
     else:
         if page + 3 > max_pages:
             stop = max_pages + 1
-            start = max_pages - 7
+            start = 1 if max_pages - 7 <= 1 else max_pages - 7
         else:
             start = page - 3
             stop = start + 7
