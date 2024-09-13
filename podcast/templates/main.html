@@ -18,10 +18,17 @@
                 <h1 class="logo">mixcast.</h1>
             </a>
             <aside class="author-upis">CS235 kpir887 |  dpor963 | ttu457</aside>
-            <a href="login">
-                <button class="button-a">Log in</button>
+            {% if 'user_name' in session %}
+            <a href="logout">
+                <button class="button-a">Log Out</button>
             </a>
-            {% set navbar_content = [('home', 'Home'), ('register', 'Register'), ('logout', 'Logout'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
+            {% endif %}
+            {% if 'user_name' not in session %}
+            <a href="login">
+                <button class="button-a">Log In</button>
+            </a>
+            {% endif %}
+            {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
             <ul>
                 {% for href, name in navbar_content %}
                 <a href="{{href}}"">
@@ -29,7 +36,6 @@
                 </a>
                 {% endfor %}
             </ul>
-        {% if 'user_name' in session %}{{ session['user_name'] }} {% endif %}
             <footer class="author-upis">
                 CS235 kpir887 |  dpor963 | ttu457
             </footer>

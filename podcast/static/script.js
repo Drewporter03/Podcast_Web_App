@@ -27,3 +27,4 @@ lightModeToggle.addEventListener('click', () => {
         themeName.innerHTML = "Dark Theme"
     }
 });
+
