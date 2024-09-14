@@ -1,9 +1,8 @@
-<div class="form-wrapper">
+<!-- <div class="textbox">
     <h1 class="title">{{ title }}</h1>
     <form method="POST" action="{{ handler_url }}">
         {{ form.csrf_token }}
         <div class="form-field">
-            <p>Username</p>
             {{ form.user_name }}
             {% if form.user_name.errors or return_error_msg is not none %}
                 {% if return_error_msg is not none %}
@@ -19,9 +18,44 @@
             {% endif %}
         </div>
         <div class="form-field">
-            <p>
-                Password
-            </p>
+            {{ form.password }}
+            {% if form.password.errors or unknown_password_error is not none %}
+                {% if unknown_password_error is not none %}
+                            <li>
+                                {{ unknown_password_error }}
+                            </li>
+                        {% endif %}
+                {% for error in form.password.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {{ form.submit }}
+    </form>
+    <div>don't have an account? register <a href="register">here</a></div>
+</div> -->
+
+
+<div class="textbox">
+    <h1 class="title">{{ title }}</h1>
+    <form method="POST" action="{{ handler_url }}">
+        {{ form.csrf_token }}
+        <div class="form-field">
+            {{ form.user_name }}
+            {% if form.user_name.errors or return_error_msg is not none %}
+                {% if return_error_msg is not none %}
+                            <li>
+                                {{ return_error_msg }}
+                            </li>
+                        {% endif %}
+                <ul>
+                    {% for error in form.user_name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="form-field">
             {{ form.password }}
             {% if form.password.errors or unknown_password_error is not none %}
                 {% if unknown_password_error is not none %}
