@@ -84,15 +84,14 @@ def password_validator(form, field):
         elif char.islower():
             lower_check = True
 
-    if upper_check is False and lower_check is False and digit_check is False:
-        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
 
     if upper_check is False:
-        raise ValidationError("Password must contain atleast one upper case letter")
+        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
     if lower_check is False:
-        raise ValidationError("Password must contain atleast one lower case letter")
+        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
     if digit_check is False:
-        raise ValidationError("Password must contain atleast one digit letter")
+        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
+
 
 
 

@@ -33,3 +33,17 @@ def test_register_page(client):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': 'BigManTing1'})
     assert response_data.headers['Location'] == '/login'
+
+def test_register_page_failed_only_numbers(client,):
+    response_data = client.post('/register', data={
+        'user_name': 'kumanan', 'password': '111111111111'})
+    message = b"Password must contain atleast one upper case letter"
+    assert message in response_data.data
+
+
+def test_register_page_failed_only_letters(client,):
+    response_data = client.post('/register', data={
+        'user_name': 'kumanan', 'password': 'aaaaaaaaaaaa'})
+    message = b"Password must contain atleast one upper case letter, one lower case and atleast one digit."
+    assert message in response_data.data
+
