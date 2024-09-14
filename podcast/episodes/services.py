@@ -20,3 +20,4 @@ def get_episodes(repo: AbstractRepository, podcast_id):
 def sorted_episodes_by_date(repo: AbstractRepository, podcast_id):
     list_of_episodes = get_episodes(repo, podcast_id)
     return sorted(list_of_episodes, key=lambda episode: episode.date1)
+
