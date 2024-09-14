@@ -14,14 +14,13 @@
             <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
             <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-apple"></i></a>
 
-            <p>Average Rating:</p>
+            <p>Average Rating: {{ average }}</p>
+
             <ul>
-                <p>{{ podcast.reviews.average}}</p>
-                <li class="fa fa-star checked"></li>
-                <li class="fa fa-star checked"></li>
-                <li class="fa fa-star checked"></li>
-                <li class="fa fa-star checked"></li>
-                <li class="fa fa-star "></li>
+                {% for review in reviews %}
+                    <p>{{ review.reviewer.username}} Says: {{ review.comment }}</p>
+                {% endfor %}
+
             </ul>
         </article>
     </article>
@@ -45,4 +44,4 @@
         </ul>
         {% endif %}
     </div>
-</div>
+</section>

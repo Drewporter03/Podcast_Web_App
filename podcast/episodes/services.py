@@ -38,7 +38,8 @@ def get_podcast_reviews(podcast_id, repo: AbstractRepository):
     if podcast is None:
         raise NonExistentPodcastException
 
-    return podcast.reviews
+    return repo.get_review(podcast_id)
+
 
 def get_average_reviews(podcast_id, repo: AbstractRepository):
     reviews = get_podcast_reviews(podcast_id, repo)
@@ -48,21 +49,12 @@ def get_average_reviews(podcast_id, repo: AbstractRepository):
     average = 0
     for review in reviews:
         average += review.rating
-        average /= len(reviews)
-
+    average /= len(reviews)
+    average = round(average, 1)
     return average
 
 
-
-
-
-
-
-
-
-
-
-def add_reviews(podcast_id, review_txt: str, review_rating: int, user_name: str, repo: AbstractRepository):
+def add_review(podcast_id, review_txt: str, review_rating: int, user_name: str, repo: AbstractRepository):
     podcast = repo.get_podcast(podcast_id)
     if podcast is not None:
         user = repo.get_user(user_name)

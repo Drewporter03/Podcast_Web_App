@@ -11,11 +11,17 @@ def episodes():
 
 
 
+    '''TEST REVIEW'''
+    services.add_review(7, "good", 4, "bob", repo.repository)
+    services.add_review(7, "bad", 2, "john", repo.repository)
+
     list_of_podcasts = get_podcasts(repo.repository)
+
+
 
     podcast_id = request.args.get('podcast_id', type=int)
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
-
+    average = services.get_average_reviews(podcast_id, repo.repository)
     reviews = services.get_podcast_reviews(podcast_id, repo.repository)
 
     count = 0
@@ -23,9 +29,8 @@ def episodes():
         if episode.podcast_id == podcast_id:
             count += 1
 
-    max_pages = (count//10)
+    max_pages = (count // 10)
 
-    print(request.args)
     podcast = list_of_podcasts[podcast_id]
 
     if request.args.get('page'):
@@ -48,4 +53,6 @@ def episodes():
         page = 1
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
-                           episodes=list_of_episodes, start=start, stop=stop, page=page, max_page = max_pages, reviews = reviews)
+                           episodes=list_of_episodes, start=start, stop=stop, page=page, max_page=max_pages,
+                           reviews=reviews, average = average)
+
