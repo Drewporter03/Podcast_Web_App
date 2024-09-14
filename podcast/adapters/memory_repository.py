@@ -80,11 +80,14 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__users.append(user)
 
     def add_review(self, reviews: Review):
-        super().add_reviews(reviews)
         self.__reviews.append(reviews)
 
-    def get_review(self):
-        return self.__reviews
+    def get_review(self, podcast_id: int):
+        reviews = []
+        for review in self.__reviews:
+            if review.podcast.id == podcast_id:
+                reviews.append(review)
+        return reviews
 
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):

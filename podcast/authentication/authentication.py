@@ -117,3 +117,8 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', [
         DataRequired(message='Password cannot be empty')], render_kw={"class": 'test'})
     submit = SubmitField('Login')
+
+
+"""TEST USER"""
+services.add_user("bob", "passWord123", repo.repository)
+services.add_user("john", "passWord123", repo.repository)

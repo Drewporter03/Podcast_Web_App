@@ -1,6 +1,7 @@
 from __future__ import annotations
 from datetime import date
 
+
 def validate_non_negative_int(value):
     if not isinstance(value, int) or value < 0:
         raise ValueError("ID must be a non-negative integer.")
@@ -62,6 +63,7 @@ class Author:
 class Podcast:
     def __init__(self, podcast_id: int, author: Author, title: str = "Untitled", image: str = None,
                  description: str = "", website: str = "", itunes_id: int = None, language: str = "Unspecified"):
+
         validate_non_negative_int(podcast_id)
         self._id = podcast_id
         self._author = author
@@ -74,6 +76,17 @@ class Podcast:
         self._itunes_id = itunes_id
         self.categories = []
         self.episodes = []
+        self.reviews = []
+
+    def add_review(self, review: Review):
+        if not isinstance(review, Review):
+            raise TypeError("Expected a Review instance.")
+        if review not in self.reviews:
+            self.reviews.append(review)
+
+    def remove_review(self, review: Review):
+        if review in self.reviews:
+            self.reviews.remove(review)
 
     @property
     def id(self) -> int:
@@ -315,7 +328,8 @@ class PodcastSubscription:
 
 
 class Episode:
-    def __init__(self, ep_id: int, podcast_id: int, title: str, audio_link: str, length: int, date1: str, desc: str, podcast: Podcast):
+    def __init__(self, ep_id: int, podcast_id: int, title: str, audio_link: str, length: int, date1: str, desc: str,
+                 podcast: Podcast):
         validate_non_negative_int(ep_id)
         validate_non_negative_int(podcast_id)
         validate_non_negative_int(length)
@@ -406,6 +420,7 @@ class Episode:
             return False
         return self.id < other.id
 
+
 class Review:
     def __init__(self, review_id: int, reviewer: User, podcast: Podcast, rating: int, comment: str = ""):
         validate_non_negative_int(review_id)
@@ -428,19 +443,19 @@ class Review:
     @property
     def id(self):
         return self._id
-    
+
     @property
     def reviewer(self):
         return self._reviewer
-    
+
     @property
     def podcast(self):
         return self._podcast
-    
+
     @property
     def rating(self):
         return self._rating
-    
+
     @rating.setter
     def rating(self, updated_rating):
         if not isinstance(updated_rating, int):
@@ -452,7 +467,7 @@ class Review:
     @property
     def comment(self):
         return self._comment
-    
+
     @comment.setter
     def comment(self, updated_comment):
         validate_non_empty_string(updated_comment, "Review comment")
@@ -537,4 +552,3 @@ class Playlist:
     @property
     def podcast_list(self):
         return self._podcast_list
-
