@@ -79,6 +79,9 @@ class MemoryRepository(AbstractRepository, ABC):
     def add_user(self, user: User):
         self.__users.append(user)
 
+    def add_review(self, reviews: Review):
+        super().add_reviews(reviews)
+        self.__reviews.append(reviews)
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()

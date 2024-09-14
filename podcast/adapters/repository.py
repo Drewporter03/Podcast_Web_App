@@ -61,3 +61,13 @@ class AbstractRepository(abc.ABC):
     def add_user(self, user: User):
         # adds a user to the repository
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_review(self, reviews: Review):
+        # adds a review to the repository
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_review(self, review_id: int):
+        # returns the comments stored in the repository
+        raise NotImplementedError
