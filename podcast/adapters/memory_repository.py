@@ -83,6 +83,10 @@ class MemoryRepository(AbstractRepository, ABC):
         super().add_reviews(reviews)
         self.__reviews.append(reviews)
 
+    def get_review(self):
+        return self.__reviews
+
+
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_data = CSVDataReader()
     csv_podcast = csv_data.podcasts
