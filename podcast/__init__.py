@@ -8,6 +8,7 @@ from podcast.adapters.memory_repository import MemoryRepository, populate
 
 
 def create_app(test_config=None):
+    global playlists
     app = Flask(__name__)
 
     # configuring the app using the configuration-file settings
@@ -29,12 +30,14 @@ def create_app(test_config=None):
         from .podcasts import podcasts
         from .settings import settings
         from .authentication import authentication
+        from .playlists import playlist
         # from .subscriptions import subscriptions
         app.register_blueprint(episode.episodes_bp)
         app.register_blueprint(home.home_bp)
         app.register_blueprint(podcasts.podcasts_bp)
         app.register_blueprint(settings.settings_bp)
         app.register_blueprint(authentication.authentication_bp)
+        app.register_blueprint(playlist.playlists_bp)
         # app.register_blueprint(subscriptions.subscriptions_bp)
 
     @app.route('/')
