@@ -23,6 +23,14 @@
         {% endfor %}
         </div>
         {% endif %}
+        {% if 'user_name' in session %}
+            <form method="POST" class="add-review block block-hover"></a>
+                {{ new_review.csrf_token }}
+                {{new_review.rating}}
+                {{new_review.comment}}
+                {{new_review.submit}}
+            </form>
+        {% endif %}
         {% if reviews %}
         <div class="scrollbox">
             {% for review in reviews %}
@@ -31,12 +39,6 @@
                 </article>
             {% endfor %}
         </div>
-        {% endif %}
-        {% if not reviews and 'user_name' in session %}
-            <button class="add-review block block-hover">
-                <i class="fa-solid fa-pen"></i>
-                <h1>Write a Review</h1>
-            </button>
         {% endif %}
     </section>
 </section>

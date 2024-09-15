@@ -28,7 +28,6 @@ def add_user(username: str, password: str, repo: AbstractRepository):
 
 def get_user(username: str, repo: AbstractRepository):
     user = repo.get_user(username)
-    print(f"Adding user with username: {user}")
     if user == None:
 
         raise UnknownUserException
