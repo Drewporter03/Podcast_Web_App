@@ -1,8 +1,9 @@
 <section class=" container-b">
     <div class="scrollbox">
-        {% for episode in episodes %}
+        {% for episode in playlists.podcast_list %}
                 <article class="episode block block-hover">
-                    <div class="episode-title">{{ episode.title }}</div>
+                    <div class="episode-title">{{ episode.title }} </div>
+                    <div  class = "episode-podcast">from Podcast {{ episode.podcast_id }}</div>
                 </article>
         {% endfor %}
     </div>

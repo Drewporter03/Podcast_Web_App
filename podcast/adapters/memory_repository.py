@@ -84,11 +84,7 @@ class MemoryRepository(AbstractRepository, ABC):
         return None
 
     def add_user(self, user: User):
-        print("peepee")
         self.__users.append(user)
-        print("peepee2")
-        print(self.__users)
-        print(self.__users)
 
     def add_review(self, reviews: Review):
         self.__reviews.append(reviews)
