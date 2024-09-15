@@ -120,5 +120,6 @@ class LoginForm(FlaskForm):
 
 
 """TEST USER"""
-services.add_user("bob", "passWord123", repo.repository)
-services.add_user("john", "passWord123", repo.repository)
+# services.add_user("bob", "passWord123", repo.repository)
+# services.add_user("john", "passWord123", repo.repository)
+

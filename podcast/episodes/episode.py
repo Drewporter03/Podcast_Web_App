@@ -12,8 +12,8 @@ def episodes():
 
 
     '''TEST REVIEW'''
-    services.add_review(7, "good", 4, "bob", repo.repository)
-    services.add_review(7, "bad", 2, "john", repo.repository)
+    # services.add_review(7, "good", 4, "bob", repo.repository)
+    # services.add_review(7, "bad", 2, "john", repo.repository)
 
     list_of_podcasts = get_podcasts(repo.repository)
 
