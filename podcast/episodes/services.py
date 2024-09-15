@@ -57,6 +57,7 @@ def get_average_reviews(podcast_id, repo: AbstractRepository):
 def add_review(podcast_id, review_txt: str, review_rating: int, user_name: str, repo: AbstractRepository):
     podcast = repo.get_podcast(podcast_id)
     if podcast is not None:
+        print(user_name)
         user = repo.get_user(user_name)
         if user is not None:
             review = Review(id(user), user, podcast, review_rating, review_txt)

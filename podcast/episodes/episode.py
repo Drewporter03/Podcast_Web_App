@@ -6,7 +6,6 @@ from flask_wtf import FlaskForm
 from wtforms import IntegerField, StringField, SubmitField
 from wtforms.validators import DataRequired, Length, ValidationError
 from functools import wraps
-import podcast.adapters.repository as repo
 import podcast.authentication.services as auth_services
 
 episodes_bp = Blueprint('episode_bp', __name__, template_folder='templates')
@@ -40,13 +39,15 @@ def episodes():
 
     new_review = reviewForm()
     if new_review.validate_on_submit():
-        services.add_review(podcast_id, new_review.comment, new_review.rating, auth_services.get_user(session['user_name'], repo.repository), repo.repository)
+        print(auth_services.get_user(session['user_name'], repo.repository))
+        services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'], repo.repository)
+        print(repo.repository.__reviews)
 
 
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes, max_page=max_pages,
-                           reviews=reviews, average = average, new_review=new_review)
+                           reviews=reviews, average = average, new_review = new_review)
 
 class reviewForm(FlaskForm):
     rating = IntegerField('rating')

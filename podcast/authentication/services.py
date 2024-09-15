@@ -24,6 +24,7 @@ def add_user(username: str, password: str, repo: AbstractRepository):
         h *= -1
     user = User(user_id=h, username=username, password=pass_encrypted)
     repo.add_user(user)
+    
 
 
 def get_user(username: str, repo: AbstractRepository):

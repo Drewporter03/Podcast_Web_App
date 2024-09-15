@@ -25,7 +25,6 @@
         {% endif %}
         {% if 'user_name' in session %}
             <form method="POST" class="add-review block block-hover"></a>
-                {{ new_review.csrf_token }}
                 {{new_review.rating}}
                 {{new_review.comment}}
                 {{new_review.submit}}

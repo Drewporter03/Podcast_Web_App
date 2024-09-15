@@ -5,10 +5,10 @@ import podcast.adapters.repository as repo
 playlists_bp = Blueprint('playlists_bp', __name__, template_folder='templates')
 
 """TEST PLAYLIST"""
-user_playlist = services.add_playlist(repo.repository, "bob", "My Playlist")
-services.add_episode(repo.repository,0, 7)
-services.add_episode(repo.repository,0, 6)
-services.add_episode(repo.repository,0, 718)
+# user_playlist = services.add_playlist(repo.repository, "bob", "My Playlist")
+# services.add_episode(repo.repository,0, 7)
+# services.add_episode(repo.repository,0, 6)
+# services.add_episode(repo.repository,0, 718)
 
 
 
