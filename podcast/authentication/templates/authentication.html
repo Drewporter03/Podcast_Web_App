@@ -41,7 +41,7 @@
     <form method="POST" action="{{ handler_url }}">
         {{ form.csrf_token }}
         <div class="form-field">
-            {{ form.user_name }}
+            {{ form.user_name(class_="test3") }}
             {% if form.user_name.errors or return_error_msg is not none %}
                 {% if return_error_msg is not none %}
                             <li>
@@ -56,7 +56,7 @@
             {% endif %}
         </div>
         <div class="form-field">
-            {{ form.password }}
+            {{ form.password(class_="test3") }}
             {% if form.password.errors or unknown_password_error is not none %}
                 {% if unknown_password_error is not none %}
                             <li>
@@ -68,7 +68,37 @@
                 {% endfor %}
             {% endif %}
         </div>
-        {{ form.submit }}
+        <div class="test2">
+            {{ form.submit(class_="test4 button-a") }}
+            {% if url_for(request.endpoint) == "/login" %}
+            <p>Don't have an account? Register <a href="register" class="highlight"><strong>here</strong></a>.</p>
+            {% endif %}
+            {% if url_for(request.endpoint) == "/register" %}
+            <p>Already have an account? Log in <a href="login" class="highlight"><strong>here</strong></a>.</p>
+            {% endif %}
+        </div>
     </form>
-    <div>don't have an account? register <a href="register">here</a></div>
 </div>
+
+
+<!-- <div class="textbox">
+    {% if url_for(request.endpoint) == "/login" %}
+    <h1>Welcome Back.</h1>
+    {% endif %}
+    {% if url_for(request.endpoint) == "/register" %}
+    <h1>Welcome to <a href="home" class="highlight logo">mixcast.</a></h1>
+    {% endif %}
+    <form method="POST" action="{{ handler_url }}" class="authentication">
+        <input type="text" placeholder="Username">
+        <input type="password" placeholder="Password">
+        <div class="test2">
+            <button class="button-a">Log in</button> 
+            {% if url_for(request.endpoint) == "/login" %}
+            <p>Don't have an account? Register <a href="register" class="highlight"><strong>here</strong></a>.</p>
+            {% endif %}
+            {% if url_for(request.endpoint) == "/register" %}
+            <p>Already have an account? Log in <a href="login" class="highlight"><strong>here</strong></a>.</p>
+            {% endif %}
+        </div>
+    </form>
+</div> -->

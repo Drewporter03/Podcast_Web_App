@@ -19,12 +19,12 @@
             <aside class="author-upis">CS235 kpir887 |  dpor963 | ttu457</aside>
             {% if 'user_name' in session %}
             <a href="logout">
-                <button class="button-a">Log Out</button>
+                <button class="button-a">Log out</button>
             </a>
             {% endif %}
             {% if 'user_name' not in session %}
             <a href="login">
-                <button class="button-a">Log In</button>
+                <button class="button-a">Log in</button>
             </a>
             {% endif %}
             {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}

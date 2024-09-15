@@ -1,9 +1,27 @@
+<!-- 
+        <article class="homescrollbox" id="homescrollbox">
+        {% for podcast in podcasts %}
+            <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
+                <article class="homepodcast block block-hover">
+                    <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
+                    <div class="podcast-content">
+                        <div class="podcast-title">{{ podcast.title }}</div>
+                        <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
+                        <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
+                    </div>
+                </article>
+            </a>
+        {% endfor %}
+    </article> -->
+
+
 <section class="textbox">
     <h1>{% if 'user_name' in session %} Hello, {{ session['user_name'] }}. {% endif %}</h1>
     <h1>Welcome to <a href="home" class="highlight logo">mixcast.</a></h1>
     <p>CS235 Podcast Library Web App built with Flask by Kumanan (kpir887), Drew (dpor963) and Justin (ttu457).
         Check out the <a href="podcasts" class="highlight"><strong>Podcasts</strong></a> page for a list of all available podcasts.
-
+        {% if 'user_name' not in session %}
         <a href="login" class="highlight"><strong>Log in</strong></a> or <a href="register" class="highlight"><strong>Create an Account</strong></a>.
+        {% endif %}
     </p>
 </section>  

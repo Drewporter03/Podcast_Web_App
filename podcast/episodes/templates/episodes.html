@@ -12,6 +12,7 @@
     </article>
     </div>
     <section class=" container-b">
+        {% if episodes %}
         <div class="scrollbox">
             {% for episode in episodes %}
             {% if episode.podcast_id == podcast.id %}
@@ -21,6 +22,7 @@
             {% endif %}
         {% endfor %}
         </div>
+        {% endif %}
         {% if reviews %}
         <div class="scrollbox">
             {% for review in reviews %}
@@ -31,9 +33,10 @@
         </div>
         {% endif %}
         {% if not reviews and 'user_name' in session %}
-            <article class="review block block-hover">
-                <div class="episode-title">+ Add a Review</div>
-            </article>
+            <button class="add-review block block-hover">
+                <i class="fa-solid fa-pen"></i>
+                <h1>Write a Review</h1>
+            </button>
         {% endif %}
     </section>
 </section>

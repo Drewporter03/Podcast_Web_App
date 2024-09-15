@@ -491,6 +491,28 @@ nav footer {
     margin: 0rem 0.5rem 1rem 0.5rem;
 }
 
+.add-review {
+    height: 17rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 98%;
+    margin: 0rem 0.5rem 1rem 0.5rem;
+}
+
+.add-review h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0;
+    margin: 0;
+}
+
+.add-review i {
+    font-size: 1.5rem;
+    margin: 0 1rem 0.5rem;
+    padding: 0;
+}
 
 .episode-title {
     margin: 0 1rem;
@@ -561,4 +583,86 @@ nav footer {
     outline: none;
     border: none;
     cursor: pointer;
+}
+
+/* ------------------------ Tests ------------------------  */
+
+
+.homescrollbox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    scrollbar-color: var(--navbar-content) var(--section);
+    overflow-y: scroll;
+}
+
+.homepodcast {
+    border-radius: 1rem;
+    height: 8.5rem;
+    display: flex;
+    margin: 1rem;
+    padding: 0 1rem 0 0;
+    min-width: 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.homepodcast img {
+    width: 8.5rem;
+    height: 8.5rem;
+    border-radius: 1rem;
+}
+
+.homepodcast i {
+    font-size: 2rem;
+    margin: 2rem;
+}
+
+.authentication {
+    display: flex;
+    flex-direction: column;
+}
+
+.test4 {
+    height: 2.5rem;
+    font-size: 1rem;
+    width: 10rem;
+    margin: 0 1rem 0 0;
+    border: none;
+}
+
+.test2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.test3 {
+    background-color: var(--logo-hover);
+    padding: 1rem;
+    width: 50vw;
+    border-radius: 2rem;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 1rem;
+    border: none;
+}
+
+.test3:focus {
+    outline: none;
+}
+
+.test3::placeholder {
+    color: var(--navbar-content);
+}
+
+.test3 :-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s !important;
 }
