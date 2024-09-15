@@ -478,8 +478,8 @@ nav footer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 98%;
-    margin: 1rem 0.5rem 0 0.5rem;
+    width: 99%;
+    margin: 0 0 1rem;
 }
 
 .review {
@@ -487,8 +487,8 @@ nav footer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 99%;
-    margin: 1rem 0;
+    width: 98%;
+    margin: 0rem 0.5rem 1rem 0.5rem;
 }
 
 

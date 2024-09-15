@@ -1,64 +1,3 @@
-<!-- <section class="container-b">
-    <div>
-        <article class="episodes-left block">
-            <div class="episodes-button-shell">
-                <a href="/podcasts?page={{ 1 }}">
-                    <button class="button-b">	&laquo;</button>
-                </a>
-            </div>
-            <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
-            <article class="podcast-info">
-                <div class="podcast-info-categories">{{ podcast.categories[0].name }}</div>
-                <h1>{{ podcast.title }}</h1>
-                <h2>Presented by {{ podcast.author.name }}</h2>
-                <p>{{ podcast.description }}</p>
-                <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
-                <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-apple"></i></a>
-            </article>
-        </article>
-        <div class="scrollbox">
-            {% for episode in episodes %}
-                {% if episode.podcast_id == podcast.id %}
-                    <article class="episode block block-hover">
-                        <div class="episode-title">{{ episode.title }}</div>
-                    </article>
-                {% endif %}
-            {% endfor %}
-            {% if max_page > 1 %}
-            <ul class="pagination">
-                <li><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></li>
-                {% for i in range(start, stop) %}
-                    <li class="page">
-                        <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
-                    </li>
-                {% endfor %}
-                <li><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></li>
-            </ul>
-            {% endif %}
-        </div>
-    </div>
-    <div class="scrollbox">
-        {% for episode in episodes %}
-            {% if episode.podcast_id == podcast.id %}
-                <article class="episode block block-hover">
-                    <div class="episode-title">{{ episode.title }}</div>
-                </article>
-            {% endif %}
-        {% endfor %}
-        {% if max_page > 1 %}
-        <ul class="pagination">
-            <li><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></li>
-            {% for i in range(start, stop) %}
-                <li class="page">
-                    <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
-                </li>
-            {% endfor %}
-            <li><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></li>
-        </ul>
-        {% endif %}
-    </div>
-</section> -->
-
 <section class="episodes container-a">
     <div class=" episodes-left block">
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
@@ -76,42 +15,25 @@
         <div class="scrollbox">
             {% for episode in episodes %}
             {% if episode.podcast_id == podcast.id %}
-                <article class="review block block-hover">
-                    <div class="episode-title">{{ episode.title }}</div>
-                </article>
-            {% endif %}
-        {% endfor %}
-        {% if max_page > 1 %}
-        <ul class="pagination">
-            <li><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></li>
-            {% for i in range(start, stop) %}
-                <li class="page">
-                    <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
-                </li>
-            {% endfor %}
-            <li><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></li>
-        </ul>
-        {% endif %}
-        </div>
-        <div class="scrollbox">
-            {% for episode in episodes %}
-            {% if episode.podcast_id == podcast.id %}
                 <article class="episode block block-hover">
                     <div class="episode-title">{{ episode.title }}</div>
                 </article>
             {% endif %}
         {% endfor %}
-        {% if max_page > 1 %}
-        <ul class="pagination">
-            <li><a href="?podcast_id={{podcast.id}}&page={{1}} ">&laquo;</a></li>
-            {% for i in range(start, stop) %}
-                <li class="page">
-                    <a class="{{ 'active' if i == page }}"  href="?podcast_id={{podcast.id}}&page={{i}}">{{i}}</a>
-                </li>
-            {% endfor %}
-            <li><a href="?podcast_id={{podcast.id}}&page={{ max_page }}">&raquo;</a></li>
-        </ul>
-        {% endif %}
         </div>
+        {% if reviews %}
+        <div class="scrollbox">
+            {% for review in reviews %}
+                <article class="review block block-hover">
+                    <div class="episode-title">{{ review.comment }}</div>
+                </article>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if not reviews and 'user_name' in session %}
+            <article class="review block block-hover">
+                <div class="episode-title">+ Add a Review</div>
+            </article>
+        {% endif %}
     </section>
 </section>
