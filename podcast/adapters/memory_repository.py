@@ -23,6 +23,13 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__episode_index = dict()
         self.__author_index = dict()
 
+    def add_playlist(self, playlist: Playlist):
+        insort_left(self.__playlists, playlist)
+        self.__playlists.append(playlist)
+
+    def get_playlist(self, playlist_id: int) -> Playlist:
+        return self.__playlists[playlist_id]
+
     def add_author(self, author: Author):
         insort_left(self.__author, author)
         self.__author_index[author.id] = author
