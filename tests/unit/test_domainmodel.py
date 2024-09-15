@@ -259,9 +259,9 @@ def test_user_initialization():
     user1 = User(1, "Shyamli", "pw12345")
     user2 = User(2, "asma", "pw67890")
     user3 = User(3, "JeNNy  ", "pw87465")
-    assert repr(user1) == "<User 1: shyamli>"
+    assert repr(user1) == "<User 1: Shyamli>"
     assert repr(user2) == "<User 2: asma>"
-    assert repr(user3) == "<User 3: jenny>"
+    assert repr(user3) == "<User 3: JeNNy>"
     assert user2.password == "pw67890"
     with pytest.raises(ValueError):
         user4 = User(4, "xyz  ", "")
@@ -306,7 +306,7 @@ def test_user_lt():
 
 def test_user_add_remove_favourite_podcasts(my_user, my_subscription):
     my_user.add_subscription(my_subscription)
-    assert repr(my_user.subscription_list) == "[<PodcastSubscription 1: Owned by shyamli>]"
+    assert repr(my_user.subscription_list) == "[<PodcastSubscription 1: Owned by Shyamli>]"
     my_user.add_subscription(my_subscription)
     assert len(my_user.subscription_list) == 1
     my_user.remove_subscription(my_subscription)
@@ -315,10 +315,10 @@ def test_user_add_remove_favourite_podcasts(my_user, my_subscription):
 
 def test_podcast_subscription_initialization(my_subscription):
     assert my_subscription.id == 1
-    assert repr(my_subscription.owner) == "<User 1: shyamli>"
+    assert repr(my_subscription.owner) == "<User 1: Shyamli>"
     assert repr(my_subscription.podcast) == "<Podcast 100: 'Joe Toste Podcast - Sales Training Expert' by Joe Toste>"
 
-    assert repr(my_subscription) == "<PodcastSubscription 1: Owned by shyamli>"
+    assert repr(my_subscription) == "<PodcastSubscription 1: Owned by Shyamli>"
 
 
 def test_podcast_subscription_set_owner(my_subscription):
@@ -502,9 +502,9 @@ def test_review_initialization():
     review2 = Review(2, user2, podcast2, 7, 'Goodbye World')
     review3 = Review(3, user3, podcast3, 9, 'Lorem Ipsum    ')
 
-    assert repr(review1) == "<Review 1: Written by 'shyamli' about 'Joe Toste Podcast - Sales Training Expert'>"
+    assert repr(review1) == "<Review 1: Written by 'Shyamli' about 'Joe Toste Podcast - Sales Training Expert'>"
     assert repr(review2) == "<Review 2: Written by 'asma' about 'Voices in AI'>"
-    assert repr(review3) == "<Review 3: Written by 'jenny' about 'Law Talk'>"
+    assert repr(review3) == "<Review 3: Written by 'JeNNy' about 'Law Talk'>"
     assert review3.rating == 9
     assert review3.comment == "Lorem Ipsum"
 
