@@ -52,7 +52,7 @@ def login():
         content_right='authentication.html',
         return_error_msg=error_msg,
         unknown_password_error=password_error,
-        title='Welcome Back.',
+        title='Welcome back.',
         form=form,
     )
 

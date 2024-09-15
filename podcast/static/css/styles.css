@@ -666,3 +666,11 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s !important;
 }
+
+.error{
+    padding: 1rem;
+    font-weight: 500;
+    background-color: #e13636;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+}
