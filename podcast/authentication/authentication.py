@@ -56,10 +56,12 @@ def login():
         form=form,
     )
 
+
 @authentication_bp.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('home_bp.home'))
+
 
 def login_required(view):
     @wraps(view)
@@ -67,6 +69,7 @@ def login_required(view):
         if 'user_name' not in session:
             return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
+
     return wrapped_view
 
 
@@ -84,21 +87,22 @@ def password_validator(form, field):
         elif char.islower():
             lower_check = True
 
-
     if upper_check is False:
-        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
+        raise ValidationError(
+            "Password must contain at least one upper case letter, one lower case and at least one digit.")
     if lower_check is False:
-        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
+        raise ValidationError(
+            "Password must contain at least one upper case letter, one lower case and at least one digit.")
     if digit_check is False:
-        raise ValidationError("Password must contain atleast one upper case letter, one lower case and atleast one digit.")
-
-
+        raise ValidationError(
+            "Password must contain at least one upper case letter, one lower case and at least one digit.")
 
 
 def user_validator(form, field):
     username = field.data
     if ' ' in username:
         raise ValidationError("Username cannot contain spaces")
+
 
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', [

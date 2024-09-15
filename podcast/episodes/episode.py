@@ -8,16 +8,11 @@ episodes_bp = Blueprint('episode_bp', __name__, template_folder='templates')
 
 @episodes_bp.route('/episodes')
 def episodes():
-
-
-
-    '''TEST REVIEW'''
+    """TEST REVIEW"""
     services.add_review(7, "good", 4, "bob", repo.repository)
     services.add_review(7, "bad", 2, "john", repo.repository)
 
     list_of_podcasts = get_podcasts(repo.repository)
-
-
 
     podcast_id = request.args.get('podcast_id', type=int)
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
@@ -54,5 +49,4 @@ def episodes():
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes, start=start, stop=stop, page=page, max_page=max_pages,
-                           reviews=reviews, average = average)
-
+                           reviews=reviews, average=average)
