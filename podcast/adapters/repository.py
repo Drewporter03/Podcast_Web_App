@@ -1,6 +1,6 @@
 import abc
 from datetime import date
-from podcast.domainmodel.model import Podcast, Episode, Author, Category, User, Review
+from podcast.domainmodel.model import Podcast, Episode, Author, Category, User, Review, Playlist
 from pathlib import Path
 from bisect import bisect_left, insort_left
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
@@ -10,13 +10,23 @@ repository = None
 class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
+    def add_playlist(self, playlist: Playlist):
+        # Adds a playlist to the repository
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_playlist(self, playlist_id: int):
+        # gets a playlist from the repository
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def add_author(self, author: Author):
-        # Adds a author to the repository
+        # Adds an author to the repository
         raise NotImplementedError
 
     @abc.abstractmethod
     def get_author(self, author_id: int):
-        # gets a author to the repository
+        # gets an author from the repository
         raise NotImplementedError
 
     @abc.abstractmethod

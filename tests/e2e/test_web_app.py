@@ -39,13 +39,13 @@ def test_register_page(client):
 def test_register_page_failed_only_numbers(client,):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': '111111111111'})
-    message = b"Password must contain atleast one upper case letter, one lower case and atleast one digit."
+    message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
     assert message in response_data.data
 
 # Tests the register page works as intended when an unusable password is used
 def test_register_page_failed_only_letters(client,):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': 'aaaaaaaaaaaa'})
-    message = b"Password must contain atleast one upper case letter, one lower case and atleast one digit."
+    message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
     assert message in response_data.data
 

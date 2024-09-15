@@ -509,6 +509,10 @@ class Playlist:
         return self._title
 
     @property
+    def owner(self):
+        return self._owner
+
+    @property
     def image(self):
         return self._image
 
@@ -523,13 +527,13 @@ class Playlist:
             raise ValueError("Playlist image must be an string or None.")
         self._image = new_image
 
-    def add_podcast(self, episode: Episode):
+    def add_episode(self, episode: Episode):
         if not isinstance(episode, Episode):
             raise TypeError("Expected a Episode instance.")
         if episode not in self._podcast_list:
-            self._podcast_list.append(episode)
+            self.podcast_list.append(episode)
 
-    def remove_podcast(self, episode: Episode):
+    def remove_episode(self, episode: Episode):
         if episode in self._podcast_list:
             self._podcast_list.remove(episode)
 
