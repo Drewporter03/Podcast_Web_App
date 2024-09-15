@@ -28,6 +28,7 @@ def create_app(test_config=None):
         from .episodes import episode
         from .home import home
         from .podcasts import podcasts
+        from .review import review
         from .settings import settings
         from .authentication import authentication
         from .playlists import playlist
@@ -36,6 +37,7 @@ def create_app(test_config=None):
         app.register_blueprint(home.home_bp)
         app.register_blueprint(podcasts.podcasts_bp)
         app.register_blueprint(settings.settings_bp)
+        app.register_blueprint(review.review_bp)
         app.register_blueprint(authentication.authentication_bp)
         app.register_blueprint(playlist.playlists_bp)
         # app.register_blueprint(subscriptions.subscriptions_bp)

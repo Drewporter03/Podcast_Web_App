@@ -1,0 +1,13 @@
+
+<form method="POST" class="add-review block block-hover"></a>
+    {{new_review.rating}}
+    {{new_review.comment}}
+    {{new_review.submit}}
+</form>
+<div class="scrollbox">
+    {% for review in reviews %}
+        <article class="review block block-hover">
+            <div class="episode-title">{{ review.comment }}</div>
+        </article>
+    {% endfor %}
+</div>
