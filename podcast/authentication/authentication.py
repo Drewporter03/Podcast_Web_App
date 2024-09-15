@@ -24,7 +24,7 @@ def register():
     return render_template(
         'main.html',
         content_right='authentication.html',
-        title='Register',
+        title='Welcome to mixcast.',
         form=form,
         return_error_msg=error_msg,
         handler_url=url_for('authentication_bp.register'),
@@ -52,7 +52,7 @@ def login():
         content_right='authentication.html',
         return_error_msg=error_msg,
         unknown_password_error=password_error,
-        title='Login',
+        title='Welcome Back.',
         form=form,
     )
 
@@ -107,22 +107,23 @@ def user_validator(form, field):
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', [
         DataRequired(message='Username cannot be empty'),
-        Length(min=3, message='Username must be at least 3 characters long'), user_validator])
+        Length(min=3, message='Username must be at least 3 characters long'), user_validator], render_kw={"class": 'test'})
     password = PasswordField('Password', [
         DataRequired(message='Password cannot be empty'),
         Length(min=6, message='Password must be at least 6 characters long'),
-        password_validator])
-    submit = SubmitField('complete')
+        password_validator], render_kw={"class": 'test'})
+    submit = SubmitField('Register')
 
 
 class LoginForm(FlaskForm):
     user_name = StringField('Username', [
-        DataRequired(message='Username cannot be empty')])
+        DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
     password = PasswordField('Password', [
-        DataRequired(message='Password cannot be empty')])
+        DataRequired(message='Password cannot be empty')], render_kw={"class": 'test'})
     submit = SubmitField('Login')
 
 
 """TEST USER"""
-services.add_user("bob", "passWord123", repo.repository)
-services.add_user("john", "passWord123", repo.repository)
+# services.add_user("bob", "passWord123", repo.repository)
+# services.add_user("john", "passWord123", repo.repository)
+

@@ -49,4 +49,5 @@ def episodes():
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes, start=start, stop=stop, page=page, max_page=max_pages,
-                           reviews=reviews, average=average)
+                           reviews=reviews, average = average)
+

@@ -27,6 +27,7 @@ def test_episodes_page(client):
     assert b'Believing the Impossible (Luke 1:26-45)' in response.data
 
 
+# Tests the register page works as intended
 def test_register_page(client):
     response = client.get('/register').status_code
     assert response == 200
@@ -34,13 +35,14 @@ def test_register_page(client):
         'user_name': 'kumanan', 'password': 'BigManTing1'})
     assert response_data.headers['Location'] == '/login'
 
+# Tests the register page works as intended when an unusable password is used
 def test_register_page_failed_only_numbers(client,):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': '111111111111'})
-    message = b"Password must contain atleast one upper case letter"
+    message = b"Password must contain atleast one upper case letter, one lower case and atleast one digit."
     assert message in response_data.data
 
-
+# Tests the register page works as intended when an unusable password is used
 def test_register_page_failed_only_letters(client,):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': 'aaaaaaaaaaaa'})
