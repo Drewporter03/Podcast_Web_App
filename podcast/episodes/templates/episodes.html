@@ -24,7 +24,8 @@
         </div>
         {% endif %}
         {% if 'user_name' in session %}
-            <form method="POST" class="add-review block block-hover" action="{{  handler_url  }}"></a>
+            <form method="post" class="add-review block block-hover" action="{{  handler_url  }}"></a>
+                {{ new_review.hidden_tag() }}
                 {{new_review.rating}}
                 {{new_review.comment}}
                 {{new_review.submit}}
