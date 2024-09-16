@@ -3,7 +3,7 @@ import podcast.episodes.services as services
 import podcast.adapters.repository as repo
 from podcast.episodes.services import get_podcasts, get_episodes
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, StringField, SubmitField
+from wtforms import TextAreaField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Length, ValidationError
 from functools import wraps
 import podcast.authentication.services as auth_services
@@ -39,7 +39,7 @@ def episodes():
 
     new_review = reviewForm()
     if new_review.validate_on_submit():
-        services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'], repo.repository)
+        services.add_review(podcast_id, new_review.comment.data, int(new_review.rating.data), session['user_name'], repo.repository)
         return redirect(url_for('episode_bp.episodes', podcast_id = podcast_id))
 
 
@@ -49,7 +49,7 @@ def episodes():
                            reviews=reviews, average = average, new_review = new_review)
 
 class reviewForm(FlaskForm):
-    rating = IntegerField('rating')
-    comment = StringField('comment', [
+    rating = RadioField('Rating', choices=[(0,'0'),(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(6,'6'),(7,'7'),(8,'8'),(9,'9'),(10,'10')])
+    comment = TextAreaField('comment', [
         DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
-    submit = SubmitField('submit')
+    submit = SubmitField('Submit')

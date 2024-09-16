@@ -25,17 +25,30 @@
         {% endif %}
         <div class="scrollbox">
             {% if 'user_name' in session %}
-            <form method="post" class="add-review block block-hover" action="{{  handler_url  }}"></a>
+            <form method="post" class="add-review block""></a>
                 {{ new_review.hidden_tag() }}
-                {{new_review.rating}}
-                {{new_review.comment}}
-                {{new_review.submit}}
+                {{new_review.comment(class_="comment-input", rows_=50)}}
+                <div class="teitei">
+                    <p>Rating:</p>
+                    {% for subfield in new_review.rating %}
+                    <div class="teitei">
+                        {{ subfield }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
+                    </div>
+                    {% endfor %}
+                    {{new_review.submit(class_="test5 button-a")}}
+                </div>
             </form>
         {% endif %}
             {% if reviews %}
             {% for review in reviews %}
-                <article class="review block block-hover">
-                    <div class="episode-title">{{ review.comment }}</div>
+                <article class="review block">
+                    <div class="inner-review">
+                        <div class="reviewer">{{ review.reviewer.username}}</div>
+                        <div class="rating">
+                            <strong class="{% if review.rating <= 3 %} rating-highlight-bad {% elif review.rating <= 6%} rating-highlight-mid {% else %} rating-highlight-good {% endif %}">{{review.rating}}</strong>/10
+                        </div>
+                        <div class="comment">{{ review.comment }}</div>
+                    </div>
                 </article>
             {% endfor %}
             {% endif %}
