@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session, request
+from flask import Blueprint, render_template, session, request, redirect, url_for
 import podcast.episodes.services as services
 import podcast.adapters.repository as repo
 from podcast.episodes.services import get_podcasts, get_episodes
@@ -40,6 +40,7 @@ def episodes():
     new_review = reviewForm()
     if new_review.validate_on_submit():
         services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'], repo.repository)
+        return redirect(url_for('episode_bp.episodes', podcast_id = podcast_id))
 
 
 

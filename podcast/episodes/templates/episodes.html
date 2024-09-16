@@ -23,7 +23,8 @@
         {% endfor %}
         </div>
         {% endif %}
-        {% if 'user_name' in session %}
+        <div class="scrollbox">
+            {% if 'user_name' in session %}
             <form method="post" class="add-review block block-hover" action="{{  handler_url  }}"></a>
                 {{ new_review.hidden_tag() }}
                 {{new_review.rating}}
@@ -31,14 +32,13 @@
                 {{new_review.submit}}
             </form>
         {% endif %}
-        {% if reviews %}
-        <div class="scrollbox">
+            {% if reviews %}
             {% for review in reviews %}
                 <article class="review block block-hover">
                     <div class="episode-title">{{ review.comment }}</div>
                 </article>
             {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
     </section>
 </section>
