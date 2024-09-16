@@ -13,10 +13,6 @@ episodes_bp = Blueprint('episode_bp', __name__, template_folder='templates')
 
 @episodes_bp.route('/episodes', methods=['GET', 'POST'])
 def episodes():
-    """TEST REVIEW"""
-    # services.add_review(7, "good", 4, "bob", repo.repository)
-    # services.add_review(7, "bad", 2, "john", repo.repository)
-
     list_of_podcasts = get_podcasts(repo.repository)
 
     podcast_id = request.args.get('podcast_id', type=int)
@@ -33,23 +29,33 @@ def episodes():
 
     podcast = list_of_podcasts[podcast_id]
 
-
-
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
     new_review = reviewForm()
+
     if new_review.validate_on_submit():
-        services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'], repo.repository)
-        return redirect(url_for('episode_bp.episodes', podcast_id = podcast_id))
+        services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'],
+                            repo.repository)
+        return redirect(url_for('episode_bp.episodes', podcast_id=podcast_id))
 
-
+    add_to_playlist = playlistForm()
+    if add_to_playlist.validate_on_submit():
+        if add_to_playlist.episode_id.data is not None:
+            episode_id = add_to_playlist.episode_id.data
+            services.playlist_add_episode(repo.repository, 0, episode_id)
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes, max_page=max_pages,
-                           reviews=reviews, average = average, new_review = new_review)
+                           reviews=reviews, average=average, new_review=new_review, add_to_playlist=add_to_playlist)
+
 
 class reviewForm(FlaskForm):
     rating = IntegerField('rating')
     comment = StringField('comment', [
         DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
     submit = SubmitField('submit')
+
+
+class playlistForm(FlaskForm):
+    episode_id = IntegerField('episode_id')
+    submit = SubmitField('+')

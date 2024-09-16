@@ -18,6 +18,13 @@
             {% if episode.podcast_id == podcast.id %}
                 <article class="episode block block-hover">
                     <div class="episode-title">{{ episode.title }}</div>
+                    {% if 'user_name' in session %}
+                        <form method="post" >
+                            {{ add_to_playlist.hidden_tag() }}
+                            <input type="hidden" name="episode_id" value="{{ episode.id }}">
+                            {{ add_to_playlist.submit }}
+                        </form>
+                    {% endif %}
                 </article>
             {% endif %}
         {% endfor %}
@@ -25,7 +32,7 @@
         {% endif %}
         <div class="scrollbox">
             {% if 'user_name' in session %}
-            <form method="post" class="add-review block block-hover" action="{{  handler_url  }}"></a>
+            <form method="post" class="add-review block block-hover"></a>
                 {{ new_review.hidden_tag() }}
                 {{new_review.rating}}
                 {{new_review.comment}}

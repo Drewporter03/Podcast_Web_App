@@ -1,3 +1,4 @@
+import podcast.playlists.services
 from podcast.adapters.repository import AbstractRepository
 from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Playlist, Review
 import datetime
@@ -65,3 +66,15 @@ def add_review(podcast_id, review_txt: str, review_rating: int, user_name: str, 
             raise UnknownUserException
     else:
         raise NonExistentPodcastException
+
+
+# function to allow users to add episodes to a specific playlist
+# right now we only have one playlist (playlist 0)
+def playlist_add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
+    playlist = repo.get_playlist(playlist_id)
+    episode = repo.get_episode(episode_id)
+    if playlist is None:
+        raise podcast.playlists.services.NonExistentPlaylistException
+    playlist.add_episode(episode)
+    print("called")
+    print(playlist.podcast_list)
