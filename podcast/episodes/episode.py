@@ -3,7 +3,7 @@ import podcast.episodes.services as services
 import podcast.adapters.repository as repo
 from podcast.episodes.services import get_podcasts, get_episodes
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, RadioField
+from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
 from wtforms.validators import DataRequired, Length, ValidationError
 from functools import wraps
 import podcast.authentication.services as auth_services
@@ -60,3 +60,8 @@ class reviewForm(FlaskForm):
     comment = TextAreaField('comment', [
         DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
     submit = SubmitField('submit')
+
+
+class playlistForm(FlaskForm):
+    episode_id = IntegerField('episode_id')
+    submit = SubmitField('+')
