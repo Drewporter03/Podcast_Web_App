@@ -18,6 +18,13 @@
             {% if episode.podcast_id == podcast.id %}
                 <article class="episode block block-hover">
                     <div class="episode-title">{{ episode.title }}</div>
+                    {% if 'user_name' in session %}
+                        <form method="post" >
+                            {{ add_to_playlist.hidden_tag() }}
+                            <input type="hidden" name="episode_id" value="{{ episode.id }}">
+                            {{ add_to_playlist.submit }}
+                        </form>
+                    {% endif %}
                 </article>
             {% endif %}
         {% endfor %}

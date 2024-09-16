@@ -13,10 +13,6 @@ episodes_bp = Blueprint('episode_bp', __name__, template_folder='templates')
 
 @episodes_bp.route('/episodes', methods=['GET', 'POST'])
 def episodes():
-    """TEST REVIEW"""
-    # services.add_review(7, "good", 4, "bob", repo.repository)
-    # services.add_review(7, "bad", 2, "john", repo.repository)
-
     list_of_podcasts = get_podcasts(repo.repository)
 
     podcast_id = request.args.get('podcast_id', type=int)
@@ -33,23 +29,34 @@ def episodes():
 
     podcast = list_of_podcasts[podcast_id]
 
-
-
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
     new_review = reviewForm()
+
     if new_review.validate_on_submit():
         services.add_review(podcast_id, new_review.comment.data, int(new_review.rating.data), session['user_name'], repo.repository)
         return redirect(url_for('episode_bp.episodes', podcast_id = podcast_id))
 
+    add_to_playlist = playlistForm()
+    if add_to_playlist.validate_on_submit():
+        if add_to_playlist.episode_id.data is not None:
+            episode_id = add_to_playlist.episode_id.data
+            # check if there is a user_playlist already
+            playlist = services.get_user_playlist(repo.repository)
+            # if there is not, we create one
+            if playlist is None:
+                user_name = session['user_name']
+                services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
 
+            services.playlist_add_episode(repo.repository, 0, episode_id)
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes, max_page=max_pages,
-                           reviews=reviews, average = average, new_review = new_review)
+                           reviews=reviews, average=average, new_review=new_review, add_to_playlist=add_to_playlist)
+    
 
 class reviewForm(FlaskForm):
     rating = RadioField('Rating', choices=[(0,'0'),(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(6,'6'),(7,'7'),(8,'8'),(9,'9'),(10,'10')])
     comment = TextAreaField('comment', [
         DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
-    submit = SubmitField('Submit')
+    submit = SubmitField('submit')

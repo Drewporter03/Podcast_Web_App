@@ -14,12 +14,19 @@ class UnknownUserException(Exception):
 
 def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
     user = repo.get_user(user_name)
-    if user is not None:
-        playlist = Playlist(0, playlist_name, user)
-        repo.add_playlist(playlist)
-        return playlist
-    else:
-        raise UnknownUserException
+    #if a playlist has been made already from the episodes/services.py
+    try:
+        playlist = repo.get_playlist(0)
+
+    # if there is no user playlist
+    except IndexError:
+        if user is not None:
+            playlist = Playlist(0, playlist_name, user)
+            repo.add_playlist(playlist)
+            return playlist
+        else:
+            raise UnknownUserException
+    return playlist
 
 
 def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
@@ -29,3 +36,4 @@ def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
         raise NonExistentPlaylistException
     playlist.add_episode(episode)
 
+    print(playlist)
