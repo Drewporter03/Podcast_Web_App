@@ -42,6 +42,13 @@ def episodes():
     if add_to_playlist.validate_on_submit():
         if add_to_playlist.episode_id.data is not None:
             episode_id = add_to_playlist.episode_id.data
+            # check if there is a user_playlist already
+            playlist = services.get_user_playlist(repo.repository)
+            # if there is not, we create one
+            if playlist is None:
+                user_name = session['user_name']
+                services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
+
             services.playlist_add_episode(repo.repository, 0, episode_id)
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,

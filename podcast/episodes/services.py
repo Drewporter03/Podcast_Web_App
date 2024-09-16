@@ -76,5 +76,23 @@ def playlist_add_episode(repo: AbstractRepository, playlist_id: int, episode_id:
     if playlist is None:
         raise podcast.playlists.services.NonExistentPlaylistException
     playlist.add_episode(episode)
-    print("called")
     print(playlist.podcast_list)
+
+
+def get_user_playlist(repo: AbstractRepository):
+    try:
+        playlist = repo.get_playlist(0)
+    # if the playlist has not been created yet there will be an index error
+    except IndexError:
+        return None
+    return playlist
+
+
+def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
+    user = repo.get_user(user_name)
+    if user is not None:
+        playlist = Playlist(0, playlist_name, user)
+        repo.add_playlist(playlist)
+        return playlist
+    else:
+        raise UnknownUserException
