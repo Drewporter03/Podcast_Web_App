@@ -1,10 +1,9 @@
 <section class=" container-b">
     <h1>{{ user_name }}'s playlist</h1>
     <div class="scrollbox">
-        {% for episode in playlists.podcast_list %}
+        {% for item in playlists.podcast_list %}
                 <article class="episode block block-hover">
-                    <div class="episode-title">{{ episode.title }} </div>
-                    <div  class = "episode-podcast">from Podcast {{ episode.podcast_id }}</div>
+                    <div class="episode-title">{{ item.title }} </div>
                 </article>
         {% endfor %}
     </div>

@@ -537,6 +537,16 @@ class Playlist:
         if episode in self._podcast_list:
             self._podcast_list.remove(episode)
 
+    def add_podcast(self, podcast: Podcast):
+        if not isinstance(podcast, Podcast):
+            raise TypeError("Expected a Playlist instance.")
+        if podcast not in self._podcast_list:
+            self._podcast_list.append(podcast)
+
+    def remove_podcast(self, podcast: Podcast):
+        if podcast in self._podcast_list:
+            self._podcast_list.remove(podcast)
+
     def __repr__(self) -> str:
         return f"<Playlist {self._playlist_id}: {self.title}>"
 
