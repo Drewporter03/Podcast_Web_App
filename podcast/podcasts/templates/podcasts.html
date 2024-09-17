@@ -21,6 +21,13 @@
                         <div class="podcast-title">{{ podcast.title }}</div>
                         <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
                         <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
+                        {% if 'user_name' in session %}
+                            <form method="post">
+                                {{ add_to_playlist.hidden_tag() }}
+                                <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+                                {{ add_to_playlist.submit }}
+                            </form>
+                        {% endif %}
                     </div>
                 </article>
             </a>

@@ -1,10 +1,40 @@
+<h1>{{ user_name }}'s playlist</h1>
+<br>
 <section class=" container-b">
-    <h1>{{ user_name }}'s playlist</h1>
-    <div class="scrollbox">
+    <article class="scrollbox">
         {% for item in playlists.podcast_list %}
-                <article class="episode block block-hover">
-                    <div class="episode-title">{{ item.title }} </div>
-                </article>
+                {%  if item.__class__.__name__ == 'Podcast' %}
+                    <a href="{{ url_for('episode_bp.episodes', podcast_id = item.id) }}">
+                        <article class="podcast block block-hover">
+                            <img src="{{ item.image }}" alt="Thumbnail for {{ item.title }}">
+                            <div class="podcast-content">
+                                <div class="podcast-title">{{ item.title }}</div>
+                                <div class="podcast-categories">{{ item.categories[0].name }}</div>
+                                <div class="podcast-authors">Presented by {{ item.author.name }}</div>
+                                <form method="post">
+                                    {{ remove_podcast_from_playlist.hidden_tag() }}
+                                    <input type="hidden" name="podcast_id" value="{{ item.id }}">
+                                    {{ remove_podcast_from_playlist.submit }}
+                                </form>
+                            </div>
+                        </article>
+                    </a>
+                {% endif %}
+                {% if item.__class__.__name__ == 'Episode' %}
+                    <article class="episode block block-hover">
+                        <div class="episode-title">{{ item.title }} </div>
+                        <form method="post">
+                        {{ remove_episode_from_playlist.hidden_tag() }}
+                        <input type="hidden" name="episode_id" value="{{ item.id }}">
+                        {{ remove_episode_from_playlist.submit }}
+                        </form>
+                    </article>
+                {% endif %}
+
+
+
+
+
         {% endfor %}
-    </div>
+    </article>
 </section>

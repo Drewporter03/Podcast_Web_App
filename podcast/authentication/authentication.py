@@ -5,10 +5,11 @@ from wtforms.validators import DataRequired, Length, ValidationError
 from functools import wraps
 import podcast.authentication.services as services
 import podcast.adapters.repository as repo
-
+import podcast.episodes.services
 
 authentication_bp = Blueprint(
     'authentication_bp', __name__, template_folder='templates')
+
 
 @authentication_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -109,7 +110,8 @@ def user_validator(form, field):
 class RegistrationForm(FlaskForm):
     user_name = StringField('Username', [
         DataRequired(message='Username cannot be empty'),
-        Length(min=3, message='Username must be at least 3 characters long'), user_validator], render_kw={"class": 'test'})
+        Length(min=3, message='Username must be at least 3 characters long'), user_validator],
+                            render_kw={"class": 'test'})
     password = PasswordField('Password', [
         DataRequired(message='Password cannot be empty'),
         Length(min=6, message='Password must be at least 6 characters long'),
@@ -124,8 +126,4 @@ class LoginForm(FlaskForm):
         DataRequired(message='Password cannot be empty')], render_kw={"class": 'test'})
     submit = SubmitField('Log in')
 
-
-"""TEST USER"""
-services.add_user("bob", "passWord123", repo.repository)
-services.add_user("john", "passWord123", repo.repository)
 

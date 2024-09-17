@@ -77,7 +77,6 @@ def playlist_add_episode(repo: AbstractRepository, playlist_id: int, episode_id:
     if playlist is None:
         raise podcast.playlists.services.NonExistentPlaylistException
     playlist.add_episode(episode)
-    print(playlist.podcast_list)
 
 
 def get_user_playlist(repo: AbstractRepository):

@@ -1,6 +1,9 @@
-from flask import Blueprint, render_template, request
+from flask_wtf import FlaskForm
+from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
+from flask import Blueprint, render_template, request, session
 
 import podcast.adapters.repository as repo
+import podcast.playlists.services
 import podcast.podcasts.services as services
 
 podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
@@ -40,7 +43,7 @@ def calculate_pages(list_of_podcasts):
     return int(round(number_of_episodes / 10))
 
 
-@podcasts_bp.route('/podcasts')
+@podcasts_bp.route('/podcasts', methods=['POST', 'GET'])
 def podcasts():
     list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)
     max_pages = calculate_pages(list_of_podcasts)
@@ -60,5 +63,18 @@ def podcasts():
         page = 1
         start, stop, list_of_podcasts = calculate_pagination(page, max_pages, list_of_podcasts)
 
+    add_to_playlist = playlistForm()
+    if add_to_playlist.validate_on_submit():
+        podcast_id = add_to_playlist.podcast_id.data
+        if services.get_user_playlist(repo.repository) == None:
+            user_name = session['user_name']
+            podcast.playlists.services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
+        podcast.playlists.services.add_podcast(repo.repository, 0, podcast_id)
+
     return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start=start,
-                           stop=stop, page=page, max_pages=max_pages)
+                           stop=stop, page=page, max_pages=max_pages, add_to_playlist=add_to_playlist)
+
+
+class playlistForm(FlaskForm):
+    podcast_id = IntegerField('podcast_id')
+    submit = SubmitField('+')
