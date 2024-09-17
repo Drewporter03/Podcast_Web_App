@@ -493,48 +493,34 @@ nav footer {
     margin: 0rem 0.5rem 1rem 0.5rem;
 }
 
-.inner-review{
+.inner-review {
     width: 90%;
 }
 
-.reviewer{
+.reviewer {
     font-weight: 600;
     font-size: 1.75rem;
     padding: 0.125rem 0;
 }
 
-.rating{
+.rating {
     font-weight: 600;
     font-size: 1.75rem;
     padding: 0.125rem 0;
 }
 
-.comment{
+.comment {
     font-size: 1rem;
     padding: 0.125rem 0;
 }
 
 .add-review {
-    height: 17rem;
+    height: 59%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 98%;
-    margin: 0rem 0.5rem 1rem 0.5rem;
-}
-
-.add-review h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    padding: 0;
-    margin: 0;
-}
-
-.add-review i {
-    font-size: 1.5rem;
-    margin: 0 1rem 0.5rem;
-    padding: 0;
+    width: 100%;
 }
 
 .episode-title {
@@ -690,7 +676,7 @@ input:-webkit-autofill:active {
     transition: background-color 5000s ease-in-out 0s !important;
 }
 
-.error{
+.error {
     padding: 1rem;
     font-weight: 500;
     background-color: #e13636;
@@ -713,7 +699,7 @@ input:-webkit-autofill:active {
     font-weight: 600;
 }
 
-.teitei{
+.teitei {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -722,50 +708,60 @@ input:-webkit-autofill:active {
 
 input[type=radio] {
     display: none;
-  }
+}
 
-.rating-label{
-    font-size: 1.5rem;
+input[type="radio"]:checked+label {
+    color: var(--highlight);
+}
+
+.rating-label {
+    font-size: 2rem;
     font-weight: 600;
     margin: 0 0.25rem;
 }
 
-.rating-label:focus{
-    color: var(--highlight);
-}
 
-.rating-label:active{
-    color: var(--highlight);
-}
-
-.comment-input{
+.comment-input {
     background-color: var(--navbar-content);
-    width: 32.5vw;
-    height: 55%;
+    width: 85%;
+    height: 65%;
     padding: 1rem;
     border-radius: 1rem;
     border: none;
     color: white;
     font-family: "League Spartan", sans-serif;
     font-size: 1.5rem;
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
     resize: none;
 }
 
-.comment-input:focus{
+.comment-input:focus {
     outline: none;
 }
 
-.teitei p{
-    font-size: 1.25rem;
+.teitei p {
+    font-size: 1.75rem;
     font-weight: 600;
     margin: 0 0.25rem 0 0;
 }
 
 .test5 {
-    height: 2rem;
-    font-size: 1rem;
-    width: 5rem;
-    margin: 0 0 0 1rem;
+    padding: 0.75rem;
+    font-size: 1.25rem;
+    width: 8rem;
+    margin: 0 0 0 4rem;
     border: none;
+}
+
+.write-review {
+    font-size: 2rem;
+    font-weight: 600;
+    display: flex;
+
+
+}
+
+.write-review i {
+    font-size: 1.5rem;
+    margin: 0 1rem 0 0;
 }

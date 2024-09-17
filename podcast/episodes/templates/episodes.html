@@ -32,22 +32,14 @@
         {% endif %}
         <div class="scrollbox">
             {% if 'user_name' in session %}
-            <form method="post" class="add-review block""></a>
-                {{ new_review.hidden_tag() }}
-                {{new_review.comment(class_="comment-input", rows_=50)}}
-                <div class="teitei">
-                    <p>Rating:</p>
-                    {% for subfield in new_review.rating %}
-                    <div class="teitei">
-                        {{ subfield }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
-                    </div>
-                    {% endfor %}
-                    {{new_review.submit(class_="test5 button-a")}}
-                </div>
-            </form>
+            <a href="{{ url_for('review_bp.review', podcast_id = podcast_id) }}">
+                <article class="review block block-hover">
+                    <div class="write-review"><i class="fa-solid fa-pen"></i>Write a Review</div>
+                </article>
+            </a>
         {% endif %}
             {% if reviews %}
-            {% for review in reviews %}
+            {% for review in reviews|reverse %}
                 <article class="review block">
                     <div class="inner-review">
                         <div class="reviewer">{{ review.reviewer.username}}</div>
