@@ -8,7 +8,6 @@ from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
 playlists_bp = Blueprint('playlists_bp', __name__, template_folder='templates')
 
 
-
 @playlists_bp.route('/playlists', methods=['GET', 'POST'])
 @login_required
 def playlists():
@@ -17,15 +16,23 @@ def playlists():
     # create a generic user playlist
     user_playlist = services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
 
-    remove_from_playlist = removeForm()
-    if remove_from_playlist.validate_on_submit():
-        services.remove_podcast(repo.repository, 0, remove_from_playlist.item_id.data)
-        services.remove_episode(repo.repository, 0, remove_from_playlist.item_id.data)
+    remove_episode_from_playlist = RemoveEpisodeForm()
+    if remove_episode_from_playlist.validate_on_submit():
+        services.remove_episode(repo.repository, 0, remove_episode_from_playlist.episode_id.data)
+
+    remove_podcast_from_playlist = RemovePodcastForm()
+    if remove_podcast_from_playlist.validate_on_submit():
+        services.remove_podcast(repo.repository, 0, remove_podcast_from_playlist.podcast_id.data)
+
+    return render_template('main.html', content_right='playlists.html', playlists=user_playlist, user_name=user_name,
+                           remove_episode_from_playlist=remove_episode_from_playlist, remove_podcast_from_playlist=remove_podcast_from_playlist)
 
 
-
-    return render_template('main.html', content_right='playlists.html', playlists=user_playlist, user_name=user_name, remove_from_playlist=remove_from_playlist)
-
-class removeForm(FlaskForm):
-    item_id = IntegerField()
+class RemoveEpisodeForm(FlaskForm):
+    episode_id = IntegerField()
     submit = SubmitField('-')
+
+class RemovePodcastForm(FlaskForm):
+    podcast_id = IntegerField()
+    submit = SubmitField('-')
+

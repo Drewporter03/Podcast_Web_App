@@ -44,7 +44,6 @@ def add_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
         raise NonExistentPlaylistException
     playlist.add_podcast(podcast)
 
-
 def remove_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
     podcast = repo.get_podcast(podcast_id)
     playlist = repo.get_playlist(playlist_id)
