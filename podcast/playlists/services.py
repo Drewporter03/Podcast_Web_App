@@ -45,3 +45,15 @@ def add_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
     playlist.add_podcast(podcast)
 
 
+def remove_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
+    podcast = repo.get_podcast(podcast_id)
+    playlist = repo.get_playlist(playlist_id)
+    if podcast in playlist.podcast_list:
+        playlist.remove_podcast(podcast)
+
+
+def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
+    episode = repo.get_episode(episode_id)
+    playlist = repo.get_playlist(playlist_id)
+    if episode in playlist.podcast_list:
+        playlist.remove_episode(episode)

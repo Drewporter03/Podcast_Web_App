@@ -18,9 +18,7 @@ def review():
 
     new_review = reviewForm()
     if new_review.validate_on_submit():
-        print(auth_services.get_user(session['user_name'], repo.repository))
         services.add_review(podcast_id, new_review.comment.data, new_review.rating.data, session['user_name'], repo.repository)
-        print(repo.repository.__reviews)
 
 
 

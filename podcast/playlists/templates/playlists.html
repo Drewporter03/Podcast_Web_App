@@ -1,10 +1,17 @@
+<h1>{{ user_name }}'s playlist</h1>
+<br>
 <section class=" container-b">
-    <h1>{{ user_name }}'s playlist</h1>
     <div class="scrollbox">
         {% for item in playlists.podcast_list %}
-                <article class="episode block block-hover">
-                    <div class="episode-title">{{ item.title }} </div>
-                </article>
+            <article class="episode block block-hover">
+                <div class="episode-title">{{ item.title }} </div>
+                <form method="post">
+                    {{ remove_from_playlist.hidden_tag() }}
+                    <input type="hidden" name="item_id" value="{{ item.id }}">
+                    {{ remove_from_playlist.submit }}
+                </form>
+            </article>
+
         {% endfor %}
     </div>
 </section>
