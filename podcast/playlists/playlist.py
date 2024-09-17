@@ -14,6 +14,5 @@ def playlists():
 
     # create a generic user playlist
     user_playlist = services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
-    services.add_podcast(repo.repository, 0, 1)
 
     return render_template('main.html', content_right='playlists.html', playlists=user_playlist, user_name=user_name)
