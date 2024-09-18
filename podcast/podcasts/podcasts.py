@@ -1,10 +1,12 @@
-from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
 from flask import Blueprint, render_template, request, session
+from flask_wtf import FlaskForm
+from wtforms import SubmitField, IntegerField
 
 import podcast.adapters.repository as repo
-import podcast.playlists.services
+import podcast.playlists
 import podcast.podcasts.services as services
+import podcast.playlists.services as playlist_services
+
 
 podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
 
@@ -66,10 +68,12 @@ def podcasts():
     add_to_playlist = playlistForm()
     if add_to_playlist.validate_on_submit():
         podcast_id = add_to_playlist.podcast_id.data
-        if services.get_user_playlist(repo.repository) == None:
+        try:
+            playlist_services.get_user_playlist(repo.repository, 0)
+        except playlist_services.PlaylistNotFoundException:
             user_name = session['user_name']
-            podcast.playlists.services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
-        podcast.playlists.services.add_podcast(repo.repository, 0, podcast_id)
+            playlist_services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
+        playlist_services.add_podcast(repo.repository, 0, podcast_id)
 
     return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start=start,
                            stop=stop, page=page, max_pages=max_pages, add_to_playlist=add_to_playlist)

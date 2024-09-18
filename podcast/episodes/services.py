@@ -45,54 +45,19 @@ def get_podcast_reviews(podcast_id, repo: AbstractRepository):
 
 def get_average_reviews(podcast_id, repo: AbstractRepository):
     reviews = get_podcast_reviews(podcast_id, repo)
-    if len(reviews) == 0:
-        average = "N/A"
-        return average
-    average = 0
-    for review in reviews:
-        average += review.rating
-    average /= len(reviews)
-    average = round(average, 1)
-    return average
+    if not reviews:
+        return "N/A"
+    total_ratings = sum(review.ratings for review in reviews)
+    average = total_ratings / len(reviews)
+    return round(average, 1)
 
 
 def add_review(podcast_id, review_txt: str, review_rating: int, user_name: str, repo: AbstractRepository):
     podcast = repo.get_podcast(podcast_id)
-    if podcast is not None:
-        user = repo.get_user(user_name)
-        if user is not None:
-            review = Review(id(user), user, podcast, review_rating, review_txt)
-            repo.add_review(review)
-        elif user is None:
-            raise UnknownUserException
-    else:
+    if not podcast:
         raise NonExistentPodcastException
-
-
-# function to allow users to add episodes to a specific playlist
-# right now we only have one playlist (playlist 0)
-def playlist_add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
-    playlist = repo.get_playlist(playlist_id)
-    episode = repo.get_episode(episode_id)
-    if playlist is None:
-        raise podcast.playlists.services.NonExistentPlaylistException
-    playlist.add_episode(episode)
-
-
-def get_user_playlist(repo: AbstractRepository):
-    try:
-        playlist = repo.get_playlist(0)
-    # if the playlist has not been created yet there will be an index error
-    except IndexError:
-        return None
-    return playlist
-
-
-def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
     user = repo.get_user(user_name)
-    if user is not None:
-        playlist = Playlist(0, playlist_name, user)
-        repo.add_playlist(playlist)
-        return playlist
-    else:
+    if not user:
         raise UnknownUserException
+    review = Review(id(user), user, podcast, review_rating, review_txt)
+    repo.add_review(review)
