@@ -391,17 +391,17 @@ def test_add_episode(my_episode):
     user1 = User(1, "Shyamli", "pw12345")
     playlist1 = Playlist(1, "My podcasts", user1)
     assert playlist1.podcast_list == []
-
-    playlist1.add_podcast(my_episode)
+    playlist1.add_episode(my_episode)
     assert playlist1.podcast_list == [my_episode]
 
 def test_remove_episode(my_episode):
     user1 = User(1, "Shyamli", "pw12345")
     playlist1 = Playlist(1, "My podcasts", user1)
     assert playlist1.podcast_list == []
-    playlist1.add_podcast(my_episode)
+
+    playlist1.add_episode(my_episode)
     assert playlist1.podcast_list == [my_episode]
-    playlist1.remove_podcast(my_episode)
+    playlist1.remove_episode(my_episode)
     assert playlist1.podcast_list == []
 
 
