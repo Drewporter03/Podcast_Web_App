@@ -22,7 +22,7 @@
                         <form method="post" >
                             {{ add_to_playlist.hidden_tag() }}
                             <input type="hidden" name="episode_id" value="{{ episode.id }}">
-                            {{ add_to_playlist.submit }}
+                            {{ add_to_playlist.submit(class_="add-to-playlist") }}
                         </form>
                     {% endif %}
                 </article>

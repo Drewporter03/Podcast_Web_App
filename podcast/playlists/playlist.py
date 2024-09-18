@@ -30,9 +30,9 @@ def playlists():
 
 class RemoveEpisodeForm(FlaskForm):
     episode_id = IntegerField()
-    submit = SubmitField('-')
+    submit = SubmitField('−')
 
 class RemovePodcastForm(FlaskForm):
     podcast_id = IntegerField()
-    submit = SubmitField('-')
+    submit = SubmitField('−')
 

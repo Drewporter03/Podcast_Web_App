@@ -45,4 +45,4 @@ class reviewForm(FlaskForm):
     rating = RadioField('Rating', choices=[(0,'0'),(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5'),(6,'6'),(7,'7'),(8,'8'),(9,'9'),(10,'10')])
     comment = TextAreaField('comment', [
         DataRequired(message='Username cannot be empty')], render_kw={"class": 'test'})
-    submit = SubmitField('submit')
+    submit = SubmitField('Submit')

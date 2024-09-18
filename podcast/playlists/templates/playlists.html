@@ -26,7 +26,7 @@
                         <form method="post">
                         {{ remove_episode_from_playlist.hidden_tag() }}
                         <input type="hidden" name="episode_id" value="{{ item.id }}">
-                        {{ remove_episode_from_playlist.submit }}
+                        {{ remove_episode_from_playlist.submit(class_="add-to-playlist") }}
                         </form>
                     </article>
                 {% endif %}

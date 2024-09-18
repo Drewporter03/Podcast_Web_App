@@ -13,15 +13,20 @@
     </div>
     <form method="post" class="add-review block""></a>
         {{ new_review.hidden_tag() }}
-        {{new_review.comment(class_="comment-input", rows_=50)}}
-        <div class="teitei">
-            <p>Rating:</p>
-            {% for subfield in new_review.rating %}
-            <div class="teitei">
-                {{ subfield }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
+        <div class="inner-add-review">
+
+            <div class="test7">
+                <div class="write-review-xl"><i class="fa-solid fa-pen"></i>{{ session['user_name']}}'s Review<a href="{{ url_for('episode_bp.episodes', podcast_id = podcast_id) }}" class="test8 "></div><i class="fa-solid fa-xmark"></i></a>
             </div>
-            {% endfor %}
-            {{new_review.submit(class_="test5 button-a")}}
+            <div class="teitei">
+                <p>Rating:</p>
+                {% for subfield in new_review.rating %}
+                    {{ subfield }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
+                {% endfor %}
+            </div>
+            {{new_review.comment(class_="comment-input", rows_=15)}}
+        
+         {{new_review.submit(class_="button-b test5")}}
         </div>
     </form>
 </section>
