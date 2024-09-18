@@ -49,3 +49,7 @@ def test_register_page_failed_only_letters(client,):
     message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
     assert message in response_data.data
 
+def test_login_required_to_review(client):
+    response = client.post('/review')
+    assert response.headers['Location'] == '/login'
+

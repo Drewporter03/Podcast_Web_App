@@ -5,11 +5,12 @@ from podcast.episodes.services import get_podcasts
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
 from wtforms.validators import DataRequired
-
+from podcast.authentication.authentication import login_required
 review_bp = Blueprint('review_bp', __name__, template_folder='templates')
 
 
 @review_bp.route('/review', methods=['GET', 'POST'])
+@login_required
 def review():
     list_of_podcasts = get_podcasts(repo.repository)
 
