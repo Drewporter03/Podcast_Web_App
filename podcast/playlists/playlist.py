@@ -25,14 +25,15 @@ def playlists():
         services.remove_podcast(repo.repository, 0, remove_podcast_from_playlist.podcast_id.data)
 
     return render_template('main.html', content_right='playlists.html', playlists=user_playlist, user_name=user_name,
-                           remove_episode_from_playlist=remove_episode_from_playlist, remove_podcast_from_playlist=remove_podcast_from_playlist)
+                           remove_episode_from_playlist=remove_episode_from_playlist,
+                           remove_podcast_from_playlist=remove_podcast_from_playlist)
 
 
 class RemoveEpisodeForm(FlaskForm):
     episode_id = IntegerField()
     submit = SubmitField('-')
 
+
 class RemovePodcastForm(FlaskForm):
     podcast_id = IntegerField()
     submit = SubmitField('-')
-
