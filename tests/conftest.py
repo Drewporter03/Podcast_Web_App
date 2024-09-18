@@ -3,6 +3,8 @@ from podcast.adapters import memory_repository
 from podcast.adapters.memory_repository import MemoryRepository
 from pathlib import Path
 from podcast import create_app
+from podcast.authentication.authentication import services
+import podcast.adapters.repository as repo
 
 # Using data from a different directory -- so we can test with fewer data
 TEST_DATA_PATH = Path(__file__).parent / 'tests' / 'data'
@@ -38,6 +40,8 @@ class AuthenticationManager:
             user_name = self.__default_name
         if password is None:
             password = self.__default_password
+
+        services.add_user(user_name, password, repo.repository)
 
         return self.__client.post(
             self.login_url,

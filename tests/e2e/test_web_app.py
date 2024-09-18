@@ -35,6 +35,7 @@ def test_register_page(client):
         'user_name': 'kumanan', 'password': 'BigManTing1'})
     assert response_data.headers['Location'] == '/login'
 
+
 # Tests the register page works as intended when an unusable password is used
 def test_register_page_failed_only_numbers(client,):
     response_data = client.post('/register', data={
@@ -49,7 +50,12 @@ def test_register_page_failed_only_letters(client,):
     message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
     assert message in response_data.data
 
+# Test to check if login required to review functioned properly
 def test_login_required_to_review(client):
     response = client.post('/review')
     assert response.headers['Location'] == '/login'
 
+# Test case to check if login is required to use the playlist function
+def test_login_required_to_add_to_playlist(client):
+    response = client.post('/playlists')
+    assert response.headers['Location'] == '/login'
