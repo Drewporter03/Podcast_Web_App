@@ -70,4 +70,9 @@ def test_login(client, auth):
         client.get('/')
         assert session['user_name'] == 'TeamVeryGoated'
 
-
+# Test case to check if login works as intended
+def test_logout(client, auth):
+    auth.login("TeamVeryGoated","awkl;jawGjkl;111")
+    with client:
+        auth.logout()
+        assert 'user_id' not in session
