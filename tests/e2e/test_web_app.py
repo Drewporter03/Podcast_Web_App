@@ -59,3 +59,15 @@ def test_login_required_to_review(client):
 def test_login_required_to_add_to_playlist(client):
     response = client.post('/playlists')
     assert response.headers['Location'] == '/login'
+
+# Test case to check if login works as intended
+def test_login(client, auth):
+    status_code = client.get('login').status_code
+    assert status_code == 200
+    response = auth.login("TeamVeryGoated","awkl;jawGjkl;111")
+    assert response.headers['Location'] == '/home'
+    with client:
+        client.get('/')
+        assert session['user_name'] == 'TeamVeryGoated'
+
+
