@@ -25,8 +25,6 @@ def episodes():
         if episode.podcast_id == podcast_id:
             count += 1
 
-    max_pages = (count // 10)
-
     podcast = list_of_podcasts[podcast_id]
 
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
@@ -51,7 +49,7 @@ def episodes():
             playlist_services.add_episode(repo.repository, 0, episode_id)
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
-                           episodes=list_of_episodes, max_page=max_pages,
+                           episodes=list_of_episodes,
                            reviews=reviews, average=average, new_review=new_review, add_to_playlist=add_to_playlist)
 
 
