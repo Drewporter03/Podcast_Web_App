@@ -777,7 +777,7 @@ input[type="radio"]:checked+label {
 .teitei p {
     font-size: 1.75rem;
     font-weight: 500;
-    margin: 0 0.25rem 0 0;
+    margin: 0 0.5rem 0 0;
 }
 
 .test5 {
@@ -814,7 +814,7 @@ input[type="radio"]:checked+label {
 }
 
 .test8:hover{
-    color: #ff6161;
+    color: aliceblue;
     transition: 0.3s;
 }
 
