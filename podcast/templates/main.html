@@ -27,7 +27,7 @@
                 <button class="button-a">Log in</button>
             </a>
             {% endif %}
-            {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlists'), ('settings', 'Settings')]-%}
+            {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlist'), ('settings', 'Settings')]-%}
             <ul>
                 {% for href, name in navbar_content %}
                 <a href="{{href}}">

@@ -16,8 +16,7 @@
 
 
 <section class="textbox">
-    <h1>{% if 'user_name' in session %} Hello, {{ session['user_name'] }}. {% endif %}</h1>
-    <h1>Welcome to <a href="home" class="highlight logo">mixcast.</a></h1>
+    <h1>{% if 'user_name' in session %} Hello again, {{ session['user_name'] }}. {% endif %}{% if 'user_name' not in session %}Welcome to <a href="home" class="highlight logo">mixcast.</a>{% endif %}</h1>
     <p>CS235 Podcast Library Web App built with Flask by Kumanan (kpir887), Drew (dpor963) and Justin (ttu457).
         Check out the <a href="podcasts" class="highlight"><strong>Podcasts</strong></a> page for a list of all available podcasts.
         {% if 'user_name' not in session %}
