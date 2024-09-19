@@ -18,11 +18,13 @@ def playlists():
 
     remove_episode_from_playlist = RemoveEpisodeForm()
     if remove_episode_from_playlist.validate_on_submit():
-        services.remove_episode(repo.repository, 0, remove_episode_from_playlist.episode_id.data)
+        if remove_episode_from_playlist.episode_id.data is not None:
+            services.remove_episode(repo.repository, 0, remove_episode_from_playlist.episode_id.data)
 
     remove_podcast_from_playlist = RemovePodcastForm()
     if remove_podcast_from_playlist.validate_on_submit():
-        services.remove_podcast(repo.repository, 0, remove_podcast_from_playlist.podcast_id.data)
+        if remove_podcast_from_playlist.podcast_id.data is not None:
+            services.remove_podcast(repo.repository, 0, remove_podcast_from_playlist.podcast_id.data)
 
     return render_template('main.html', content_right='playlists.html', playlists=user_playlist, user_name=user_name,
                            remove_episode_from_playlist=remove_episode_from_playlist,
