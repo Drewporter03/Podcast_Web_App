@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import date, datetime
 from typing import List
 from bisect import bisect, bisect_left, insort_left
-
+from podcast import CSVDataReader as csvreader
 import podcast
 from podcast.adapters.repository import AbstractRepository
 from podcast.domainmodel.model import Author, Podcast, Category, User, PodcastSubscription, Episode, Review, Playlist
@@ -96,30 +96,110 @@ class MemoryRepository(AbstractRepository, ABC):
                 reviews.append(review)
         return reviews
 
+csv = csvreader()
+list_podcasts = []
+list_episodes = []
+set_authors = set()
+set_categories = set()
+
+
+def get_podcastcsv():
+    file_path = Path(__file__).resolve().parents[0] / 'data' / 'podcasts.csv'
+    info_list = csv.csv_read(file_path)
+
+    podcast_list = []
+    for row in info_list:
+        # row[0] = id, row[1] = title, row[2] = image, row[3] = description, row[4] = language, row[5] = categories, row[6] = website, row[7] = author, row[8] = itunes_id
+        podcast_list.append([int(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7], int(row[8])])
+    return podcast_list
+
+def get_episodecsv():
+    file_path = Path(__file__).resolve().parents[0] / 'data' / 'episodes.csv'
+    info_list = csv.csv_read(file_path)
+
+    episode_list = []
+    for row in info_list:
+        # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
+        episode_list.append([int(row[0]), int(row[1]), row[2], row[3], int(row[4]), row[5], row[6]])
+    return episode_list
+
+
+def load_objects():
+    podcast_csv = get_podcastcsv()
+    counter = 0
+
+    for row in podcast_csv:
+        if row[7] != "":
+            temp_author = Author((counter + 1), row[7])
+        else:
+            temp_author = Author((counter + 1), "unknown")
+        set_authors.add(temp_author)
+
+        for author in set_authors:
+            if temp_author.name == author.name:
+                break
+
+        if row[5] != "":
+            temp_category = Category(counter + 1, row[5])
+        else:
+            temp_category = Category(counter + 1, "Unknown")
+        set_categories.add(temp_category)
+
+        for category in set_categories:
+            if temp_category.name == category.name:
+                temp_category = category
+                break
+
+        temp_podcast = Podcast(row[0], temp_author, row[1], row[2], row[3], row[6], row[8], row[4])
+        temp_podcast.add_category(temp_category)
+        list_podcasts.append(temp_podcast)
+
+        counter += 1
+
+    episode_csv = get_episodecsv()
+    podcasts = list_podcasts
+
+    for row in episode_csv:
+        # initializing temp podcast # !!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEEDS TO BE CHANGED LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        temp_podcast = list_podcasts[0]
+        # Finds the matching podcast for the episode using __eq__
+        for podcast in podcasts:
+            if podcast.id == row[1]:
+                temp_podcast = podcast
+                break
+        for i in range(len(row)):
+            if isinstance(row[i], int):
+                if row[i] == "":
+                    row[i] = 0
+            if isinstance(row[i], str):
+                if row[i] == "":
+                    row[i] = "Unknown"
+        # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
+        temp_episode = Episode(row[0], row[1], row[2], row[3], row[4], (row[6])[0:10], row[5], temp_podcast)
+        list_episodes.append(temp_episode)
+
+
+load_objects()
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):
-    csv_data = CSVDataReader()
-    csv_podcast = csv_data.podcasts
+    csv_podcast = list_podcasts
 
     for podcast in csv_podcast:
         repo.add_podcast(podcast)
 
 def load_author(data_path: Path, repo: MemoryRepository):
-    csv_data = CSVDataReader()
-    csv_authors = csv_data.authors
+    csv_authors = set_authors
     for author in csv_authors:
         repo.add_author(author)
 
 def load_category(data_path: Path, repo: MemoryRepository):
-    csv_data = CSVDataReader()
-    csv_category = csv_data.category
+    csv_category = set_categories
     for category in csv_category:
         repo.add_category(category)
 
 def load_episode(data_path: Path, repo: MemoryRepository):
-    csv_data = CSVDataReader()
-    csv_episode = csv_data.episodes
-    csv_podcast = csv_data.podcasts
+    csv_episode = list_episodes
+    csv_podcast = list_podcasts
     for episode in csv_episode:
         repo.add_episode(episode, csv_podcast[episode.podcast_id])
 
