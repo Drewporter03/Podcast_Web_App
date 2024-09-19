@@ -1,3 +1,4 @@
+import wtforms
 from flask import Blueprint, render_template, session, request, redirect, url_for
 import podcast.episodes.services as services
 import podcast.playlists.services as playlist_services
@@ -36,23 +37,27 @@ def episodes():
                             repo.repository)
         return redirect(url_for('episode_bp.episodes', podcast_id=podcast_id))
 
-    remove_from_playlist = playlistRemoveForm()
-    if remove_from_playlist.validate_on_submit():
-        episode_id = remove_from_playlist.episode_id.data
-        playlist_services.remove_episode(repo.repository, 0, episode_id)
-        print("Episode removed")
+    playlist_form = PlaylistForm()
 
-    add_to_playlist = playlistAddForm()
-    if add_to_playlist.validate_on_submit():
-        episode_id = add_to_playlist.episode_id.data
-        try:
-            playlist_services.get_user_playlist(repo.repository, 0)
-        except playlist_services.PlaylistNotFoundException:
-            user_name = session['user_name']
-            playlist_services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
+    if playlist_form.validate_on_submit():
 
-        playlist_services.add_episode(repo.repository, 0, episode_id)
-    print("added")
+        episode_id = playlist_form.episode_id.data
+        action = playlist_form.action.data
+        print(action)
+        if action == "REMOVE":
+
+            episode_id = playlist_form.episode_id.data
+            playlist_services.remove_episode(repo.repository, 0, episode_id)
+            print("removed episode", episode_id)
+        elif action == "ADD":
+            print("fount")
+            try:
+                playlist_services.get_user_playlist(repo.repository, 0)
+            except playlist_services.PlaylistNotFoundException:
+                user_name = session['user_name']
+                playlist_services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
+            playlist_services.add_episode(repo.repository, 0, episode_id)
+            print("added episode", episode_id)
 
     if 'user_name' in session:
         try:
@@ -66,8 +71,8 @@ def episodes():
 
     return render_template('main.html', content_right='episodes.html', podcast=podcast, podcast_id=podcast_id,
                            episodes=list_of_episodes,
-                           reviews=reviews, average=average, new_review=new_review, add_to_playlist=add_to_playlist,
-                           remove_from_playlist=remove_from_playlist, playlist_episodes=playlist_episodes)
+                           reviews=reviews, average=average, new_review=new_review, playlist_form=playlist_form,
+                           playlist_episodes=playlist_episodes)
 
 
 class reviewForm(FlaskForm):
@@ -79,11 +84,7 @@ class reviewForm(FlaskForm):
     submit = SubmitField('submit')
 
 
-class playlistAddForm(FlaskForm):
+class PlaylistForm(FlaskForm):
     episode_id = IntegerField('episode_id')
-    submit = SubmitField('+')
-
-
-class playlistRemoveForm(FlaskForm):
-    episode_id = IntegerField('episode_id')
-    submit = SubmitField('-')
+    action = wtforms.StringField('action')
+    submit = SubmitField('')

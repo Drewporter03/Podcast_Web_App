@@ -23,18 +23,19 @@
                     </audio>
                     {% if 'user_name' in session %}
                         {% if episode in playlist_episodes %}
-                            <form method="post" name = "remove">
-                                {{ remove_from_playlist.hidden_tag() }}
+                            <form method="post">
+                                {{ playlist_form.hidden_tag() }}
                                 <input type="hidden" name="episode_id" value="{{ episode.id }}">
-                                <input type="hidden" name="delete_check" value="DELETE">
-                                {{ remove_from_playlist.submit(class ="add-to-playlist") }}
+                                <input type="hidden" name="action" value = "REMOVE">
+                                <input type="submit" name = "submit" value="-" class ="add-to-playlist">
                             </form>
                         {% endif %}
                         {% if episode not in playlist_episodes %}
-                            <form method="post" name="add">
-                                {{ add_to_playlist.hidden_tag() }}
+                            <form method="post">
+                                {{ playlist_form.hidden_tag() }}
                                 <input type="hidden" name="episode_id" value="{{ episode.id }}">
-                                {{ add_to_playlist.submit(class_="add-to-playlist") }}
+                                <input type="hidden" name="action" value="ADD">
+                                <input type="submit" name="submit" value="+" class="add-to-playlist">
                             </form>
                         {% endif %}
                     {% endif %}
