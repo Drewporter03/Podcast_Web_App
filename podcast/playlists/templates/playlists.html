@@ -1,11 +1,14 @@
-<section class="podcasts container-a">
-    <h1>{{ user_name }}'s playlist</h1>
+<section class="playlists container-a">
+    <h1>{{ user_name }}'s Playlist</h1>
     <article class="scrollbox">
         {%  if playlists.podcast_list|length == 0 %}
-        <div>peepee</div>
+        <div class="empty-page">
+            <p class="empty-page-title">Nothing here yet ( ˊ＿>ˋ )</p>
+            <p class="empty-page-subtitle">Episodes will be shown here once you add them to your playlist!</p>
+        </div>
         {% endif %}
         {% for item in playlists.podcast_list %}
-                {%  if item.__class__.__name__ == 'Podcast' %}
+                <!-- {%  if item.__class__.__name__ == 'Podcast' %}
                     <a href="{{ url_for('episode_bp.episodes', podcast_id = item.id) }}">
                         <article class="podcast block block-hover">
                             <img src="{{ item.image }}" alt="Thumbnail for {{ item.title }}">
@@ -21,8 +24,21 @@
                             </div>
                         </article>
                     </a>
-                {% endif %}
-                {% if item.__class__.__name__ == 'Episode' %}
+                {% endif %} -->
+                <article class="podcast block block-hover">
+                    <img src="{{ item._podcast.image }}" alt="Thumbnail for {{ item.title }}">
+                    <div class="podcast-content">
+                        <div class="podcast-title">{{ item.title }}</div>
+                        <div class="podcast-categories">{{ item._podcast.title }}</div>
+                    </div>
+                    
+                    <form method="post">
+                        {{ remove_episode_from_playlist.hidden_tag() }}
+                        <input type="hidden" name="episode_id" value="{{ item.id }}">
+                        {{ remove_episode_from_playlist.submit(class_="add-to-playlist") }}
+                    </form>
+                </article>
+                <!-- </article>
                     <article class="episode block block-hover">
                         <div class="episode-title">{{ item.title }} </div>
                         <form method="post">
@@ -30,13 +46,7 @@
                         <input type="hidden" name="episode_id" value="{{ item.id }}">
                         {{ remove_episode_from_playlist.submit(class_="add-to-playlist") }}
                         </form>
-                    </article>
-                {% endif %}
-
-
-
-
-
+                    </article> -->
         {% endfor %}
     </article>
 </section>
