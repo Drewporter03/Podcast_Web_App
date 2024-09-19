@@ -18,6 +18,9 @@
             {% if episode.podcast_id == podcast.id %}
                 <article class="episode block block-hover">
                     <div class="episode-title">{{ episode.title }}</div>
+                     <audio controls style="width: 260px;">
+                      <source src="{{ episode.audio_link }}" type="audio/mpeg">
+                    </audio>
                     {% if 'user_name' in session %}
                         <form method="post" >
                             {{ add_to_playlist.hidden_tag() }}
