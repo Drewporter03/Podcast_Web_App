@@ -37,14 +37,14 @@ def test_register_page(client):
 
 
 # Tests the register page works as intended when an unusable password is used
-def test_register_page_failed_only_numbers(client,):
+def test_register_page_failed_only_numbers(client, ):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': '111111111111'})
     message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
     assert message in response_data.data
 
 # Tests the register page works as intended when an unusable password is used
-def test_register_page_failed_only_letters(client,):
+def test_register_page_failed_only_letters(client, ):
     response_data = client.post('/register', data={
         'user_name': 'kumanan', 'password': 'aaaaaaaaaaaa'})
     message = b"Password must contain at least one upper case letter, one lower case and at least one digit."
@@ -64,7 +64,7 @@ def test_login_required_to_add_to_playlist(client):
 def test_login(client, auth):
     status_code = client.get('login').status_code
     assert status_code == 200
-    response = auth.login("TeamVeryGoated","awkl;jawGjkl;111")
+    response = auth.login("TeamVeryGoated", "awkl;jawGjkl;111")
     assert response.headers['Location'] == '/home'
     with client:
         client.get('/')
@@ -72,7 +72,7 @@ def test_login(client, auth):
 
 # Test case to check if login works as intended
 def test_logout(client, auth):
-    auth.login("TeamVeryGoated","awkl;jawGjkl;111")
+    auth.login("TeamVeryGoated", "awkl;jawGjkl;111")
     with client:
         auth.logout()
         assert 'user_id' not in session
