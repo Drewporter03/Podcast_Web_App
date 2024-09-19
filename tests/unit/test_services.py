@@ -34,9 +34,10 @@ def test_get_episodes(in_memory_repo):
 
 
 # Tests to adding reviews works as intended
-def test_add_review(in_memory_repo):
+def test_add(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     episodes_services.add_review(2, "This podcast is good!", 6, "Kumanan", in_memory_repo)
     reviews = episodes_services.get_podcast_reviews(2, in_memory_repo)
     assert reviews[0].rating == 6
-
+    assert reviews[0].comment == "This podcast is good!"
+    assert reviews[0].reviewer.username == "Kumanan"
