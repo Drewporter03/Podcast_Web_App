@@ -41,8 +41,6 @@ def episodes():
         episode_id = remove_from_playlist.episode_id.data
         playlist_services.remove_episode(repo.repository, 0, episode_id)
         print("Episode removed")
-    else:
-        print("Deletion canceled")
 
     add_to_playlist = playlistAddForm()
     if add_to_playlist.validate_on_submit():
