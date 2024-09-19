@@ -67,3 +67,15 @@ def test_get_podcast_review(in_memory_repo):
     assert reviews[3].rating == 0
     assert reviews[3].comment == "whatever you do please dont watch this podcast, i beg of you"
     assert reviews[3].reviewer.username == "Kumanan"
+
+# Tests to check if getting the average reviews works as intended
+def test_get_average_review(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    episodes_services.add_review(2, "This podcast is good!", 7, "Kumanan", in_memory_repo)
+    episodes_services.add_review(2, "This podcast is not good!", 3, "Kumanan", in_memory_repo)
+    episodes_services.add_review(2, "This podcast is alright", 5, "Kumanan", in_memory_repo)
+    episodes_services.add_review(2, "whatever you do please dont watch this podcast, i beg of you", 0, "Kumanan",
+                                 in_memory_repo)
+    average_rating = episodes_services.get_average_reviews(2, in_memory_repo)
+
+    assert average_rating == 3.8
