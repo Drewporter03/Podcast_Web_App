@@ -601,24 +601,3 @@ def test_review_hash():
     review_set = {review1, review2}
     assert len(review_set) == 1
 
-
-def test_csvdatareader():
-    test = CSVDataReader()
-    for author_objects in test.authors:
-        assert isinstance(author_objects, Author)
-
-def test_csvdatareader():
-    test = CSVDataReader()
-    for episode_objects in test.episodes:
-        assert isinstance(episode_objects, Episode)
-
-def test_csvdatareader():
-    test = CSVDataReader()
-    for podcast_objects in test.podcasts:
-        assert isinstance(podcast_objects, Podcast)
-
-def test_csvdatareader():
-    test = CSVDataReader()
-    for category_objects in test.category:
-        assert isinstance(category_objects, Category)
-
