@@ -23,12 +23,28 @@
                         <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
                     </div>
                     {% if 'user_name' in session %}
-                            <form method="post">
-                                {{ add_to_playlist.hidden_tag() }}
-                                <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
-                                {{ add_to_playlist.submit(class_="add-to-playlist") }}
-                            </form>
-                        {% endif %}
+                        {% set add_to_playlist = namespace(value=false) %}
+                        {% for episode in list_of_episodes -%}
+                            {% if episode.podcast_id == podcast.id %}
+                                {% if episode not in playlist_episodes %}
+                                    {% set add_to_playlist.value = true %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <form method="post">
+                            {{ playlist_form.hidden_tag() }}
+                            <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+                            {% if add_to_playlist.value %}
+                                <input type="hidden" name="action" value="ADD">
+                                <input type="submit" name="submit" value="+" class="add-to-playlist">
+                            {% else %}
+                                <input type="hidden" name="action" value="REMOVE">
+                                <input type="submit" name="submit" value="-" class="add-to-playlist">
+                            {% endif %}
+                        </form>
+                    {% endif %}
+
                 </article>
             </a>
         {% endfor %}

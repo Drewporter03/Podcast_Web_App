@@ -7,6 +7,8 @@ import podcast.authentication.services as services
 import podcast.adapters.repository as repo
 import podcast.episodes.services
 
+import podcast.playlists.services as playlist_services
+
 authentication_bp = Blueprint(
     'authentication_bp', __name__, template_folder='templates')
 
@@ -45,6 +47,8 @@ def login():
             services.authenticate_user(user.username, form.password.data, repo.repository)
             session.clear()
             session['user_name'] = user.username
+            user_name = session.get('user_name')
+            playlist_services.add_playlist(repo.repository, user_name, f"{user_name}'s playlist")
             return redirect(url_for('home_bp.home'))
         except services.UnknownUserException:
             error_msg = 'User not found'

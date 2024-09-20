@@ -5,7 +5,7 @@ import podcast.playlists.services as playlist_services
 import podcast.adapters.repository as repo
 from podcast.episodes.services import get_podcasts, get_episodes
 from flask_wtf import FlaskForm
-from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
+from wtforms import TextAreaField, SubmitField, RadioField, IntegerField, StringField
 from wtforms.validators import DataRequired, Length, ValidationError
 from functools import wraps
 import podcast.authentication.services as auth_services
@@ -40,17 +40,13 @@ def episodes():
     playlist_form = PlaylistForm()
 
     if playlist_form.validate_on_submit():
-
         episode_id = playlist_form.episode_id.data
         action = playlist_form.action.data
-        print(action)
         if action == "REMOVE":
-
             episode_id = playlist_form.episode_id.data
             playlist_services.remove_episode(repo.repository, 0, episode_id)
             print("removed episode", episode_id)
         elif action == "ADD":
-            print("fount")
             try:
                 playlist_services.get_user_playlist(repo.repository, 0)
             except playlist_services.PlaylistNotFoundException:
@@ -86,5 +82,5 @@ class reviewForm(FlaskForm):
 
 class PlaylistForm(FlaskForm):
     episode_id = IntegerField('episode_id')
-    action = wtforms.StringField('action')
+    action = StringField('action')
     submit = SubmitField('')
