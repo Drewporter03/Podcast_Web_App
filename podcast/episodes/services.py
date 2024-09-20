@@ -48,7 +48,7 @@ def get_podcast_reviews(podcast_id, repo: AbstractRepository):
 def get_average_reviews(podcast_id, repo: AbstractRepository):
     reviews = get_podcast_reviews(podcast_id, repo)
     if not reviews:
-        return "N/A"
+        return -1
     total_ratings = sum(review.rating for review in reviews)
     average = total_ratings / len(reviews)
     return round(average, 1)

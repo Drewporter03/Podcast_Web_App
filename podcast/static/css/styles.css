@@ -472,6 +472,7 @@ nav footer {
     max-height: 16vh;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 90%;
 }
 
 .podcast-info i {
@@ -871,7 +872,27 @@ input[type="radio"]:checked+label {
     font-size: 1.2rem;
 }
 
-audio{
+audio {
     margin: 0 1rem;
     width: 35%;
+}
+
+.average {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--background);
+    border-radius: 1rem;
+}
+
+.average p {
+    margin: 0.25rem 0;
+    font-weight: 500;
+    font-size: 1.75rem;
+}
+
+.average-rating {
+    font-weight: 600;
+    font-size: 2.25rem;
 }

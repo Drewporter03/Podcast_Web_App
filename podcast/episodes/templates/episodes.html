@@ -9,6 +9,7 @@
             <a href="{{ podcast.website }}" target="_blank"><i class="fa-solid fa-globe"></i></a>
             <a href="https://podcasts.apple.com/podcast/id{{ podcast.itunes_id }}" target="_blank"><i class="fa-brands fa-apple"></i></a>
         </article>
+        <div class="average"><p>Rating</p><div class="average-rating"><strong class="{% if -1 < average <= 3 %} rating-highlight-bad {% elif 3 < average <= 6 %} rating-highlight-mid {% elif 6 < average <= 10 %} rating-highlight-good {% endif %}">{% if average == -1 %}?{% else %}{{average}}{% endif %}</strong>/10</div></div>
     </article>
     </div>
     <section class=" container-b">
