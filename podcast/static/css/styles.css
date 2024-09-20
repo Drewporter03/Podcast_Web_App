@@ -243,14 +243,16 @@ nav footer {
 /* ------------------------ Search ------------------------  */
 
 .search-bar-outer {
-    width: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
-    margin: 2rem 0;
+    justify-content: center;
+    width: 100%;
+    margin: 2rem auto 2rem 0;
 }
 
 .search-bar-inner {
-    width: 90%;
+    width: 50%;
     display: flex;
     align-items: center;
     border: 1px var(--highlight) solid;
@@ -496,7 +498,6 @@ nav footer {
     align-items: center;
     width: 99%;
     margin: 0 0 1rem;
-    justify-content: space-between;
 }
 
 .review {
@@ -844,7 +845,7 @@ input[type="radio"]:checked+label {
     width: 2.25rem;
     text-align: center;
     display: block;
-    margin: 2rem;
+    margin: 0 0 0 2rem;
     background-color: inherit;
 }
 
@@ -873,8 +874,9 @@ input[type="radio"]:checked+label {
 }
 
 audio {
-    margin: 0 1rem;
-    width: 35%;
+    margin: 0 0 0 auto;
+    width: 18rem;
+    height: 3rem;
 }
 
 .average {
@@ -895,4 +897,39 @@ audio {
 .average-rating {
     font-weight: 600;
     font-size: 2.25rem;
+}
+
+.episode-side {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 2rem 0 auto;
+}
+
+.podcast-search {
+    flex-direction: row;
+}
+
+.search-label {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 0 0.25rem;
+    padding: 0.5rem 0.25rem 0.25rem;
+    display: block;
+    text-align: center;
+    background-color: var(--section);
+    color: var(--navbar-content);
+    border-radius: 0.5rem;
+}
+
+.search-label:hover {
+    color: aliceblue;
+}
+
+.teitei2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto 0 0.5rem;
+
 }

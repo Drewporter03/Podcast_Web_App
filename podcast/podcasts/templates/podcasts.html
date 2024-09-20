@@ -1,17 +1,18 @@
 <section class="podcasts container-a">
-    <div class="search-bar-outer">
-        <form class="search-bar-inner" action = "/podcasts" method = "get">
+    <form class="search-bar-outer" action = "/podcasts" method = "get"></div>
+        <div class="search-bar-inner">
             <img class="search-icon" src="https://img.icons8.com/?size=100&id=7695&format=png&color=7950F2" />
             <input class="search" id = "placeholder" placeholder="Search For Podcasts" type="text" name = "q">
-            <div class = "search-bar-dropdown">
-                <select name="p" id = "selection">
-                    <option class = "search-options">title</option>
-                    <option class = "search-options">author</option>
-                    <option class = "search-options">category</option>
-                </select>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="teitei2">
+            <input type="radio" id="title" name="p" value="title">
+            <label for="title" class="search-label" tabindex="0">Title</label><br>
+            <input type="radio" id="author" name="p" value="title">
+            <label for="author" class="search-label" tabindex="0">Author</label><br>
+            <input type="radio" id="category" name="p" value="title">
+            <label for="category" class="search-label" tabindex="0">Category</label><br>
+        </div>
+    </form>
     <article class="scrollbox">
         {% for podcast in podcasts %}
             <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}">
@@ -32,17 +33,19 @@
                             {% endif %}
                         {% endfor %}
 
-                        <form method="post">
-                            {{ playlist_form.hidden_tag() }}
-                            <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
-                            {% if add_to_playlist.value %}
-                                <input type="hidden" name="action" value="ADD">
-                                <input type="submit" name="submit" value="+" class="add-to-playlist">
-                            {% else %}
-                                <input type="hidden" name="action" value="REMOVE">
-                                <input type="submit" name="submit" value="-" class="add-to-playlist">
-                            {% endif %}
-                        </form>
+                        <div class="episode-side">
+                            <form method="post">
+                                {{ playlist_form.hidden_tag() }}
+                                <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
+                                {% if add_to_playlist.value %}
+                                    <input type="hidden" name="action" value="ADD">
+                                    <input type="submit" name="submit" value="+" class="add-to-playlist">
+                                {% else %}
+                                    <input type="hidden" name="action" value="REMOVE">
+                                    <input type="submit" name="submit" value="-" class="add-to-playlist">
+                                {% endif %}
+                            </form>
+                        </div>
                     {% endif %}
 
                 </article>
