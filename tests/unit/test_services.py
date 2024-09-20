@@ -98,6 +98,7 @@ def test_get_playlist(in_memory_repo):
     assert playlists.title == "Kumanan's Playlist"
 
 
+# Tests the service function add_episode from playlist service layer works as intended
 def test_to_add_episode(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
@@ -105,4 +106,21 @@ def test_to_add_episode(in_memory_repo):
     playlists = playlists_services.get_user_playlist(in_memory_repo, 0)
     assert playlists.podcast_list[0].title == "The Mandarian Orange Show Episode 74- Bad Hammer Time, or: 30 Day MoviePass Challenge Part 3"
 
+# Tests the service function add_podcast from playlist service layer works as intended
+def test_to_add_podcast(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
+    playlists_services.add_podcast(in_memory_repo, 0, 404)
+    playlists = playlists_services.get_user_playlist(in_memory_repo, 0)
+    assert playlists.podcast_list[0].title == "Caller Of The Week Part 2."
+    assert playlists.podcast_list[1].title == "Caller Of The Week Part 1."
+    assert playlists.podcast_list[3].title == "Football Picks."
 
+# Tests the service function remove_episode from playlist service layer works as intended
+def test_to_remove_episode(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
+    playlists_services.add_episode(in_memory_repo, 0, 1)
+    playlists_services.remove_episode(in_memory_repo, 0, 1)
+    playlists = playlists_services.get_user_playlist(in_memory_repo, 0)
+    assert playlists.podcast_list == []
