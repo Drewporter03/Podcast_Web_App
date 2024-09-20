@@ -5,7 +5,7 @@ from podcast.podcasts import services as podcasts_services
 from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.episodes import services as episodes_services
 from podcast.authentication import services as auth_services
-
+from podcast.playlists import services as playlists_services
 # Tests to check the retrieval of podcasts
 def test_get_podcast(in_memory_repo):
     author1 = Author(1, "Doctor Squee")
@@ -79,3 +79,12 @@ def test_get_average_review(in_memory_repo):
     average_rating = episodes_services.get_average_reviews(2, in_memory_repo)
 
     assert average_rating == 3.8
+
+
+def test_get_playlist(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    playlist = playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
+    assert playlist.owner.username == "Kumanan"
+    assert playlist.title == "Kumanan's Playlist"
+
+
