@@ -79,16 +79,9 @@ def podcasts():
 
             for episode in episodes_to_remove:
                 playlist_services.remove_episode(repo.repository, 0, episode.id)
-                print("removed podcast", podcast_id)
 
         elif action == 'ADD':
-            try:
-                playlist_services.get_user_playlist(repo.repository, 0)
-            except playlist_services.PlaylistNotFoundException:
-                user_name = session['user_name']
-                playlist_services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
             playlist_services.add_podcast(repo.repository, 0, podcast_id)
-            print("added podcast", podcast_id)
 
     if 'user_name' in session:
         try:
