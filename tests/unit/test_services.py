@@ -6,7 +6,7 @@ from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.episodes import services as episodes_services
 from podcast.authentication import services as auth_services
 from podcast.playlists import services as playlists_services
-# Tests to check the retrieval of podcasts
+# Tests to check the retrieval of podcasts from episodes service layer
 def test_get_podcast(in_memory_repo):
     author1 = Author(1, "Doctor Squee")
     podcast1 = Podcast(2, author1, "My First Podcast")
@@ -16,7 +16,7 @@ def test_get_podcast(in_memory_repo):
 
     assert podcast1 in list_of_podcast
 
-# Tests to check the retrieval of episodes
+# Tests to check the retrieval of episodes from episodes service layer
 def test_get_episodes(in_memory_repo):
     author1 = Author(1, "Joe Toste")
     podcast1 = Podcast(1, author1, "Joe Toste Podcast - Sales Training Expert")
@@ -33,7 +33,7 @@ def test_get_episodes(in_memory_repo):
     assert episode1 in list_of_episodes
 
 
-# Tests to check if adding reviews works as intended
+# Tests to check if adding reviews works as intended from episodes service layer
 def test_add(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     episodes_services.add_review(2, "This podcast is good!", 6, "Kumanan", in_memory_repo)
@@ -42,7 +42,7 @@ def test_add(in_memory_repo):
     assert reviews[0].comment == "This podcast is good!"
     assert reviews[0].reviewer.username == "Kumanan"
 
-# Tests to check if getting the podcast reviews works as intended
+# Tests to check if getting the podcast reviews works as intended from episodes service layer
 def test_get_podcast_review(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     episodes_services.add_review(2, "This podcast is good!", 7, "Kumanan", in_memory_repo)
@@ -68,7 +68,7 @@ def test_get_podcast_review(in_memory_repo):
     assert reviews[3].comment == "whatever you do please dont watch this podcast, i beg of you"
     assert reviews[3].reviewer.username == "Kumanan"
 
-# Tests to check if getting the average reviews works as intended
+# Tests to check if getting the average reviews works as intended from episode service layer
 def test_get_average_review(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     episodes_services.add_review(2, "This podcast is good!", 7, "Kumanan", in_memory_repo)
@@ -80,11 +80,19 @@ def test_get_average_review(in_memory_repo):
 
     assert average_rating == 3.8
 
-
-def test_get_playlist(in_memory_repo):
+# Tests the service function add_playlist from playlist service layer works as intended
+def test_add_playlist(in_memory_repo):
     auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
     playlist = playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
     assert playlist.owner.username == "Kumanan"
     assert playlist.title == "Kumanan's Playlist"
 
 
+# Tests the service function get_playlist from playlist service layer works as intended
+def test_get_playlist(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    playlists_services.add_playlist(in_memory_repo, "Kumanan", "Kumanan's Playlist")
+    playlists = playlists_services.get_user_playlist(in_memory_repo, 0)
+
+    assert playlists.owner.username == "Kumanan"
+    assert playlists.title == "Kumanan's Playlist"
