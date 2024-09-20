@@ -25,9 +25,9 @@ def test_get_episodes(in_memory_repo):
     episode3 = Episode(3, 3, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
 
     in_memory_repo.add_podcast(podcast1)
-    in_memory_repo.add_episode(episode1, podcast1)
-    in_memory_repo.add_episode(episode2, podcast1)
-    in_memory_repo.add_episode(episode3, podcast1)
+    in_memory_repo.add_episode(episode1)
+    in_memory_repo.add_episode(episode2)
+    in_memory_repo.add_episode(episode3)
 
     list_of_episodes = episode_services.get_episodes(in_memory_repo, 1)
     assert episode1 in list_of_episodes

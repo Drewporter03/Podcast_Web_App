@@ -11,7 +11,7 @@ class CSVDataReader:
         info_list = []
         with path.open() as csvfile:
             reader = csv.reader(csvfile)
-            for row in reader:
+            for row in filter(None, reader):
                 row = [info.strip() for info in row]
                 info_list.append(row)
         # return everything except first, first row is just identifiers

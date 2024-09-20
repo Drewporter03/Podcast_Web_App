@@ -43,9 +43,9 @@ def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
     playlist = repo.get_playlist(playlist_id)
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
-    episode = repo.get_episode(episode_id)
-    if not episode:
+    if repo.get_episode(episode_id) == None:
         raise EpisodeNotFoundException(f"Episode with ID {episode_id} not found.")
+    episode = repo.get_episode(episode_id)
 
     playlist.add_episode(episode)
 
@@ -55,8 +55,9 @@ def add_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
     podcast = repo.get_podcast(podcast_id)
-    if not podcast:
+    if repo.get_podcast(podcast_id) == None:
         raise NonExistentPodcastException(f"podcast with ID {podcast_id} not found.")
+    podcast = repo.get_podcast(podcast_id)
     episodes = get_episodes(repo, podcast_id)
     for episode in episodes:
         add_episode(repo, playlist_id, episode._id)
@@ -76,7 +77,8 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
 def get_episodes(repo: AbstractRepository, podcast_id):
     list_of_episodes = []
     for i in range(1, repo.get_episodes() + 1):
-        episode = repo.get_episode(i)
-        if episode.podcast_id == podcast_id:
-            list_of_episodes.append(episode)
+        if repo.get_episode(i) != None:
+            episode = repo.get_episode(i)
+            if episode.podcast_id == podcast_id:
+                list_of_episodes.append(episode)
     return list_of_episodes

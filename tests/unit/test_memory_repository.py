@@ -39,9 +39,9 @@ def test_repository_can_add_and_retrieve_episode(in_memory_repo):
     episode2 = Episode(2, 2, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
     episode3 = Episode(3, 3, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
 
-    in_memory_repo.add_episode(episode1, podcast1)
-    in_memory_repo.add_episode(episode2, podcast1)
-    in_memory_repo.add_episode(episode3, podcast1)
+    in_memory_repo.add_episode(episode1)
+    in_memory_repo.add_episode(episode2)
+    in_memory_repo.add_episode(episode3)
 
     assert in_memory_repo.get_episode(1) is episode1
     assert in_memory_repo.get_episode(2) is episode2

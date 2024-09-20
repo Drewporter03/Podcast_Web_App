@@ -24,10 +24,12 @@ def get_podcasts(repo: AbstractRepository):
 def get_episodes(repo: AbstractRepository, podcast_id):
     list_of_episodes = []
     for i in range(1, repo.get_episodes() + 1):
-        episode = repo.get_episode(i)
-        if episode.podcast_id == podcast_id:
-            list_of_episodes.append(episode)
+        if repo.get_episode(i) != None:
+            episode = repo.get_episode(i)
+            if episode.podcast_id == podcast_id:
+                list_of_episodes.append(episode)
     return list_of_episodes
+
 
 
 def sorted_episodes_by_date(repo: AbstractRepository, podcast_id):
