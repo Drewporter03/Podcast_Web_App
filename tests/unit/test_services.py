@@ -124,3 +124,21 @@ def test_to_remove_episode(in_memory_repo):
     playlists_services.remove_episode(in_memory_repo, 0, 1)
     playlists = playlists_services.get_user_playlist(in_memory_repo, 0)
     assert playlists.podcast_list == []
+
+# Tests to check service function add_user from authentication service layer works as intended
+def test_to_add_user(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    assert  in_memory_repo.get_user("Kumanan").username == "Kumanan"
+
+
+# Tests to check service function add_user from authentication service layer works as intended
+def test_to_get_user(in_memory_repo):
+    auth_services.add_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+    user = auth_services.get_user("Kumanan", in_memory_repo)
+    assert user.username == "Kumanan"
+
+# Tests to check service function auth_user from authentication service layer works as intended
+def test_to_authenticate_user(in_memory_repo):
+    with pytest.raises(Exception) as auth_error:
+        auth = auth_services.authenticate_user("Kumanan", "NotAGoodPassword1", in_memory_repo)
+        assert str(auth_error.value) == "AuthenticationException"
