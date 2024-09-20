@@ -870,3 +870,8 @@ input[type="radio"]:checked+label {
 .empty-page-subtitle {
     font-size: 1.2rem;
 }
+
+audio{
+    margin: 0 1rem;
+    width: 35%;
+}

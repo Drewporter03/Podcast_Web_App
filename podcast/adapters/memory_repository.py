@@ -55,8 +55,14 @@ class MemoryRepository(AbstractRepository, ABC):
             podcast = None
 
         return podcast
+    
+    def get_podcasts(self):
+        return len(self.__podcasts)
+    
+    def get_episodes(self):
+        return len(self.__episodes)
 
-    def add_episode(self, episode: Episode, podcast: Podcast):
+    def add_episode(self, episode: Episode):
         insort_left(self.__episodes, episode)
         self.__episode_index[episode.id] = episode
 
@@ -202,7 +208,7 @@ def load_episode(data_path: Path, repo: MemoryRepository):
     csv_episode = list_episodes
     csv_podcast = list_podcasts
     for episode in csv_episode:
-        repo.add_episode(episode, csv_podcast[episode.podcast_id])
+        repo.add_episode(episode)
 
 def populate(data_path: Path, repo: MemoryRepository):
     # load objects author to podcasts.

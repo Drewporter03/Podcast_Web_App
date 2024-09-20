@@ -1,7 +1,5 @@
-import podcast.episodes.services
 from podcast.adapters.repository import AbstractRepository
-
-from podcast.domainmodel.model import Playlist, User, Podcast, Episode
+from podcast.domainmodel.model import Playlist
 
 
 class PlaylistNotFoundException(Exception):
@@ -77,7 +75,7 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
 
 def get_episodes(repo: AbstractRepository, podcast_id):
     list_of_episodes = []
-    for i in range(1, 5633):
+    for i in range(1, repo.get_episodes() + 1):
         episode = repo.get_episode(i)
         if episode.podcast_id == podcast_id:
             list_of_episodes.append(episode)
