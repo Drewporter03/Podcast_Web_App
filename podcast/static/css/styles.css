@@ -766,6 +766,7 @@ input[type="radio"]:checked+label {
 
 .rating-label:hover {
     color: aliceblue;
+    transition: 0.3s;
 }
 
 
@@ -911,10 +912,10 @@ audio {
 }
 
 .search-label {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0.25rem;
-    padding: 0.5rem 0.25rem 0.25rem;
+    padding: 0.75rem;
     display: block;
     text-align: center;
     background-color: var(--section);
@@ -924,6 +925,7 @@ audio {
 
 .search-label:hover {
     color: aliceblue;
+    transition: 0.3s;
 }
 
 .teitei2 {

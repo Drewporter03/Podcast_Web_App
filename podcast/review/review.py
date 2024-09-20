@@ -17,18 +17,8 @@ def review():
     podcast_id = request.args.get('podcast_id', type=int)
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
     average = services.get_average_reviews(podcast_id, repo.repository)
-    reviews = services.get_podcast_reviews(podcast_id, repo.repository)[::-1]
-
-    count = 0
-    for episode in list_of_episodes:
-        if episode.podcast_id == podcast_id:
-            count += 1
-
-    max_pages = (count // 10)
 
     podcast = list_of_podcasts[podcast_id]
-
-    list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
     new_review = reviewForm()
 
@@ -37,8 +27,7 @@ def review():
         return redirect(url_for('episode_bp.episodes', podcast_id = podcast_id))
 
     return render_template('main.html', content_right='review.html', podcast=podcast, podcast_id=podcast_id,
-                           episodes=list_of_episodes, max_page=max_pages,
-                           reviews=reviews, average=average, new_review=new_review)
+                           episodes=list_of_episodes, average=average, new_review=new_review)
     
 
 class reviewForm(FlaskForm):
