@@ -24,11 +24,11 @@ def sorted_podcasts_by_title(repo: AbstractRepository):
 def filter_podcasts(podcasts, query, parameter):
     searched_podcasts = []
     for podcast in podcasts:
-        if parameter == "title" and query in podcast.title:
+        if parameter == "title" and query.lower() in podcast.title.lower():
             searched_podcasts.append(podcast)
-        elif parameter == "author" and query in podcast.author.name:
+        elif parameter == "author" and query.lower() in podcast.author.name.lower():
             searched_podcasts.append(podcast)
-        elif parameter == "category" and query in podcast.categories[0].name:
+        elif parameter == "category" and query.lower() in podcast.categories[0].name.lower():
             searched_podcasts.append(podcast)
 
     return searched_podcasts
