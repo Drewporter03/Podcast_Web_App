@@ -22,7 +22,7 @@
             <div class="teitei">
                 <p>Rating:</p>
                 {% for subfield in new_review.rating %}
-                    {{ subfield }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
+                    {{ subfield(class_="hehe") }}{{ subfield.label(class_="rating-label", tabindex_="0")}}
                 {% endfor %}
             </div>
             {{new_review.comment(class_="comment-input", placeholder_="Add a comment...")}}

@@ -20,6 +20,8 @@
     --podcast-hover: #8c52ff;
     --theme-name: aliceblue;
     --toggle-hover: aliceblue;
+    --lightmode-label: #8c52ff;
+    --average: aliceblue;
 }
 
 .lightMode {
@@ -35,6 +37,8 @@
     --podcast-hover: #cdb4ff;
     --theme-name: #8c52ff;
     --toggle-hover: #cdb4ff;
+    --lightmode-label: aliceblue;
+    --average: #8c52ff;
 }
 
 /* ------------------------ General ------------------------  */
@@ -743,12 +747,20 @@ input:-webkit-autofill:active {
 
 }
 
-input[type=radio] {
+.hehe {
     display: none;
 }
 
-input[type="radio"]:checked+label {
+.hehe:checked+label {
     color: var(--highlight);
+}
+
+.hehe2 {
+    display: none;
+}
+
+.hehe2:checked+label {
+    color: var(--lightmode-label);
 }
 
 .rating-label {
@@ -888,6 +900,7 @@ audio {
     padding: 1rem;
     background-color: var(--background);
     border-radius: 1rem;
+    color: var(--average);
 }
 
 .average p {
