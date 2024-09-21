@@ -748,7 +748,7 @@ input[type=radio] {
 }
 
 input[type="radio"]:checked+label {
-    color: var(--highlight);
+    color: var(--navbar-logo);
 }
 
 .rating-label {
