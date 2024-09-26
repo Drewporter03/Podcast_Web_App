@@ -48,7 +48,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_playlist(self, playlist: Playlist):
         with self._session_cm.session() as scm:
-            scm.session.add(playlist)
+            scm.session.merge(playlist)
             scm.commit()
 
     def get_playlist(self, playlist_id: int) -> Playlist:
@@ -62,7 +62,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_author(self, author: Author):
         with self._session_cm.session() as scm:
-            scm.session.add(author)
+            scm.session.merge(author)
             scm.commit()
 
     def get_author(self, author_id: int) -> Author:
@@ -76,7 +76,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_podcast(self, podcast: Podcast):
         with self._session_cm.session() as scm:
-            scm.session.add(podcast)
+            scm.session.merge(podcast)
             scm.commit()
 
     def get_podcast(self, podcast_id: int) -> Podcast:
@@ -96,7 +96,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_episode(self, episode: Episode):
         with self._session_cm.session() as scm:
-            scm.session.add(episode)
+            scm.session.merge(episode)
             scm.commit()
 
 
@@ -111,7 +111,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_category(self, category: Category):
         with self._session_cm.session() as scm:
-            scm.session.add(category)
+            scm.session.merge(category)
             scm.commit()
 
     def get_category(self):
@@ -129,12 +129,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_user(self, user: User):
         with self._session_cm.session() as scm:
-            scm.session.add(user)
+            scm.session.merge(user)
             scm.commit()
 
     def add_review(self, reviews: Review):
         with self._session_cm.session() as scm:
-            scm.session.add(reviews)
+            scm.session.merge(reviews)
             scm.commit()
     def get_review(self, podcast_id: int):
         reviews = None
