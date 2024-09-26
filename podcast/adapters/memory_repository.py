@@ -136,22 +136,28 @@ def load_objects():
     counter = 0
 
     for row in podcast_csv:
+        # if author has name
         if row[7] != "":
             temp_author = Author((counter + 1), row[7])
+        # if author has no name
         else:
             temp_author = Author((counter + 1), "unknown")
         set_authors.add(temp_author)
 
         for author in set_authors:
+            # if author is already created
             if temp_author.name == author.name:
                 break
 
+        # if there is a category
         if row[5] != "":
             temp_category = Category(counter + 1, row[5])
+        # if there is no category
         else:
             temp_category = Category(counter + 1, "Unknown")
         set_categories.add(temp_category)
 
+        # NEEDS TO BE CHANGED
         for category in set_categories:
             if temp_category.name == category.name:
                 temp_category = category

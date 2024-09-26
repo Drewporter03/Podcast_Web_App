@@ -41,7 +41,7 @@ class AbstractRepository(abc.ABC):
 
 
     @abc.abstractmethod
-    def add_episode(self, episode: Episode, podcast: Podcast):
+    def add_episode(self, episode: Episode):
         # Adds an Episode to a podcasts to the repository
         raise NotImplementedError
 

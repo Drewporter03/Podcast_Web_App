@@ -4,7 +4,8 @@ from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 from pathlib import Path
 import podcast.adapters.repository as repo
-from podcast.adapters.memory_repository import MemoryRepository, populate
+from podcast.adapters.memory_repository import MemoryRepository
+from podcast.adapters.repo_populate import populate
 
 
 def create_app(test_config=None):

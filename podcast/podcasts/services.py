@@ -8,11 +8,14 @@ def get_episodes(repo: AbstractRepository):
         list_of_episodes.append(episode)
     return list_of_episodes
 
+
 def get_podcasts(repo: AbstractRepository):
     list_of_podcasts = []
-    for i in range(1, repo.get_podcasts() + 1):
-        podcast = repo.get_podcast(i)
+    podcast_index = 1
+    while repo.get_podcast(podcast_index) is not None:
+        podcast = repo.get_podcast(podcast_index)
         list_of_podcasts.append(podcast)
+        podcast_index += 1
     return list_of_podcasts
 
 
@@ -48,6 +51,7 @@ def calculate_pagination(page, max_pages, list_of_podcasts):
     list_of_podcasts = list_of_podcasts[page * 10 - 10: page * 10]
 
     return start, stop, list_of_podcasts
+
 
 def calculate_pages(list_of_podcasts):
     number_of_episodes = len(list_of_podcasts)
