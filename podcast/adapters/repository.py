@@ -131,19 +131,19 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def add_multiple_podcasts(self, podcast: List[Podcast]):
-        """ Add multiple podcasts to the repository of podcast. """
+        # adds multiple podcasts to the repository of podcast
         raise NotImplementedError
 
     def add_multiple_authors(self, author: set[Author]):
-        """ Add multiple authors to the repository. """
+        # adds multiple authors to the repository
         raise NotImplementedError
 
     @abc.abstractmethod
     def add_multiple_episodes(self, episode: List[Episode]):
-        """ Add multiple episodes to the repository of episode. """
+        # adds multiple episodes to the repository of episode
         raise NotImplementedError
 
     @abc.abstractmethod
     def add_multiple_categories(self, categories: set[Category]):
-        """ Add many categories to the repository. """
+        # adds many categories to the repository
         raise NotImplementedError
