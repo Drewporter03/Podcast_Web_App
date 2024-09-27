@@ -1,12 +1,15 @@
 from podcast.adapters.repository import AbstractRepository
+from podcast.adapters import memory_repository
 
 
 def get_episodes(repo: AbstractRepository):
-    list_of_episodes = []
-    for i in range(1, repo.get_episodes() + 1):
+    """list_of_episodes = []
+    for i in range(1, repo.get_number_of_episodes() + 1):
         episode = repo.get_episode(i)
         list_of_episodes.append(episode)
-    return list_of_episodes
+    return list_of_episodes"""
+    # NEED TO REMOVE - CAN JUST CALL FROM BP
+    return repo.get_episodes()
 
 
 def get_podcasts(repo: AbstractRepository):
@@ -21,6 +24,7 @@ def get_podcasts(repo: AbstractRepository):
 
 def sorted_podcasts_by_title(repo: AbstractRepository):
     list_of_podcasts = get_podcasts(repo)
+    print(list_of_podcasts)
     return sorted(list_of_podcasts, key=lambda podcast: podcast.title)
 
 

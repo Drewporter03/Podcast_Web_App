@@ -75,10 +75,5 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
 
 
 def get_episodes(repo: AbstractRepository, podcast_id):
-    list_of_episodes = []
-    for i in range(1, repo.get_episodes() + 1):
-        if repo.get_episode(i) != None:
-            episode = repo.get_episode(i)
-            if episode.podcast_id == podcast_id:
-                list_of_episodes.append(episode)
-    return list_of_episodes
+    # REMOVE - CAN CALL FROM BP
+    return repo.get_episodes_for_podcast(podcast_id)

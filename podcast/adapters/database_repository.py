@@ -36,6 +36,7 @@ class SessionContextManager:
         if not self.__session is None:
             self.__session.close()
 
+
 class SqlAlchemyRepository(AbstractRepository, ABC):
     def __init__(self, session_factory):
         self._session_cm = SessionContextManager(session_factory)
@@ -74,10 +75,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             print("No author found with id {}".format(author_id))
         return authors
 
-    def add_podcast(self, podcast: Podcast):
-        with self._session_cm.session() as scm:
-            scm.session.merge(podcast)
-            scm.commit()
+    # PODCASTS REGION
+
+    def get_podcasts(self):
+        podcasts = self._session_cm.session.query(Podcast).all()
+        return podcasts
 
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None
@@ -87,18 +89,24 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         except NoResultFound:
             print("No podcast found with id {}".format(podcast_id))
         return podcast
-    def get_podcasts(self):
-        podcasts = self._session_cm.session.query(Podcast).all()
-        return podcasts
-    def get_episodes(self):
-        len_episodes = self._session_cm.session.query(Episode).count()
-        return len_episodes
 
-    def add_episode(self, episode: Episode):
+    def add_podcast(self, podcast: Podcast):
         with self._session_cm.session() as scm:
-            scm.session.merge(episode)
+            scm.session.merge(podcast)
             scm.commit()
 
+    # MISSING ADD MULTIPLE PODCASTS
+
+    def get_number_of_podcasts(self) -> int:
+        num_podcasts = self._session_cm.session.query(Podcast).count()
+        return num_podcasts
+
+    # END REGION
+
+    # EPISODES REGION
+    def get_episodes(self) -> list[Type[Episode]]:
+        episodes = self._session_cm.session.query(Episode).all()
+        return episodes
 
     def get_episode(self, episode_id: int) -> Episode:
         episode = None
@@ -109,14 +117,44 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             print("No episode found with id {}".format(episode_id))
         return episode
 
+    def add_episode(self, episode: Episode):
+        with self._session_cm.session() as scm:
+            scm.session.merge(episode)
+            scm.commit()
+
+    # MISSING ADD MULTIPLE EPISODES
+
+    def get_number_of_episodes(self):
+        len_episodes = self._session_cm.session.query(Episode).count()
+        return len_episodes
+
+    def get_episodes_for_podcast(self, podcast_id: int) -> List[Episode]:
+        """Get all episodes for a specific podcast by podcast_id."""
+        episodes = self._session_cm.session.query(Episode).filter_by(podcast_id=podcast_id).all()
+        return episodes
+
+    def get_number_of_episodes_for_podcast(self, podcast_id: int) -> int:
+        """ Returns the number of episodes for a particular podcast by podcast_id. """
+        return len(self.get_episodes_for_podcast(podcast_id))
+
+    # END REGION
+
+    # CATEGORY REGION
+
+    def get_category(self):
+        categories = self._session_cm.session.query(Category).all()
+        return categories
+
     def add_category(self, category: Category):
         with self._session_cm.session() as scm:
             scm.session.merge(category)
             scm.commit()
 
-    def get_category(self):
-        categories = self._session_cm.session.query(Category).all()
-        return categories
+    # MISSING ADD MULTIPLE CATEGORY
+
+    # END REGION
+
+    # USER REGION
 
     def get_user(self, username: str):
         user = None
@@ -136,6 +174,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         with self._session_cm.session() as scm:
             scm.session.merge(reviews)
             scm.commit()
+
     def get_review(self, podcast_id: int):
         reviews = None
         try:
@@ -144,3 +183,24 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         except NoResultFound:
             print("No Review found with podcast id {}".format(podcast_id))
         return reviews
+
+    # END REGION
+
+    # SEARCH REGION
+
+    def search_podcast_by_title(self, title_string: str) -> List[Podcast]:
+        podcasts = self._session_cm.session.query(Podcast).filter(Podcast.title.ilike(f"%{title_string}%")).all()
+        # Retrieve podcast whose title contains the title_string passed by the user.
+        # This is a case-insensitive search without trailing spaces.
+        return podcasts
+
+    def search_podcast_by_author(self, author_name: str) -> List[Podcast]:
+
+        author = self._session_cm.session.query(Author).filter(Author.name == author_name).all().one()
+        podcasts = self._session_cm.session.query(Podcast).filter(author_id == author.id).all()
+        return podcasts
+
+    def search_podcast_by_category(self, category_string: str) -> List[Podcast]:
+        category = self._session_cm.session.query(Category).filter(Category.name == category_string).all()
+        podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
+        return podcasts

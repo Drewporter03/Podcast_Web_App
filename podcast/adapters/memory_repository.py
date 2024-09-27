@@ -44,8 +44,11 @@ class MemoryRepository(AbstractRepository, ABC):
         return author
 
     def add_podcast(self, podcast: Podcast):
-            insort_left(self.__podcasts, podcast)
+
+        insort_left(self.__podcasts, podcast)
+        if podcast in self.__podcasts:
             self.__podcast_index[podcast.id] = podcast
+
 
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None
@@ -55,12 +58,30 @@ class MemoryRepository(AbstractRepository, ABC):
             podcast = None
 
         return podcast
-    
+
     def get_podcasts(self):
+        # NEEDS TO BE FIXED NOT SURE WHAT IT REALLY DOES
+        return self.__podcast_index
+
+    def get_number_of_podcasts(self):
         return len(self.__podcasts)
-    
+
     def get_episodes(self):
+        return self.__episodes
+
+    def get_number_of_episodes(self):
         return len(self.__episodes)
+
+    def get_episodes_for_podcast(self, podcast_id: int):
+        podcast_episodes = []
+        episodes = self.get_episodes()
+        for episode in episodes:
+            if episode.podcast_id == podcast_id:
+                podcast_episodes.append(episode)
+        return podcast_episodes
+
+    def get_number_of_episodes_for_podcast(self, podcast_id: int):
+        return len(self.get_episodes_for_podcast(podcast_id))
 
     def add_episode(self, episode: Episode):
         insort_left(self.__episodes, episode)
@@ -82,7 +103,6 @@ class MemoryRepository(AbstractRepository, ABC):
     def get_category(self):
         return self.__categories
 
-
     def get_user(self, username: str):
         for user in self.__users:
             if user.username == username:
@@ -102,6 +122,31 @@ class MemoryRepository(AbstractRepository, ABC):
                 reviews.append(review)
         return reviews
 
+    def search_podcast_by_author(self, search: str):
+        podcasts = self.get_podcasts()
+        search_podcasts = []
+        for podcast in podcasts:
+            if podcast.author.name[0].lower() == search.lower():
+                search_podcasts.append(podcast)
+        return search_podcasts
+
+    def search_podcast_by_category(self, search: str):
+        podcasts = self.get_podcasts()
+        search_podcasts = []
+        for podcast in podcasts:
+            for category in podcast.author.categories:
+                if category.name.lower() == search.lower():
+                    search_podcasts.append(podcast)
+        return search_podcasts
+
+    def search_podcast_by_title(self, search: str):
+        podcasts = self.get_podcasts()
+        search_podcasts = []
+        for podcast in podcasts:
+            if podcast.title.lower == search.lower():
+                search_podcasts.append(podcast)
+        return search_podcasts
+
 csv = csvreader()
 list_podcasts = []
 list_episodes = []
@@ -119,6 +164,7 @@ def get_podcastcsv():
         podcast_list.append([int(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7], int(row[8])])
     return podcast_list
 
+
 def get_episodecsv():
     file_path = Path(__file__).resolve().parents[0] / 'data' / 'episodes.csv'
     info_list = csv.csv_read(file_path)
@@ -128,7 +174,6 @@ def get_episodecsv():
         # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
         episode_list.append([int(row[0]), int(row[1]), row[2], row[3], int(row[4]), row[5], row[6]])
     return episode_list
-
 
 
 def load_objects():
@@ -194,21 +239,25 @@ def load_objects():
 
 load_objects()
 
+
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_podcast = list_podcasts
 
     for podcast in csv_podcast:
         repo.add_podcast(podcast)
 
+
 def load_author(data_path: Path, repo: MemoryRepository):
     csv_authors = set_authors
     for author in csv_authors:
         repo.add_author(author)
 
+
 def load_category(data_path: Path, repo: MemoryRepository):
     csv_category = set_categories
     for category in csv_category:
         repo.add_category(category)
+
 
 def load_episode(data_path: Path, repo: MemoryRepository):
     csv_episode = list_episodes
@@ -216,10 +265,10 @@ def load_episode(data_path: Path, repo: MemoryRepository):
     for episode in csv_episode:
         repo.add_episode(episode)
 
+
 def populate(data_path: Path, repo: MemoryRepository):
     # load objects author to podcasts.
     load_author(data_path, repo)
     load_category(data_path, repo)
     load_episode(data_path, repo)
     load_podcasts(data_path, repo)
-
