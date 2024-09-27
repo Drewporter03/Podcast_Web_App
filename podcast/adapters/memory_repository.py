@@ -148,11 +148,21 @@ class MemoryRepository(AbstractRepository, ABC):
         return search_podcasts
 
 
+    def add_multiple_podcasts(self, podcasts: List[Podcast]):
+        for podcast in podcasts:
+            self.add_podcast(podcast)
 
+    def add_multiple_authors(self, authors: List[Author]):
+        for author in authors:
+            self.add_author(author)
 
+    def add_multiple_categories(self, categories: List[Category]):
+        for category in categories:
+            self.add_category(category)
 
-
-
+    def add_multiple_episodes(self, episode: List[Episode]):
+        for episode in episode:
+            self.add_episode(episode)
 
 
 ################ CODE BELOW IS THERE FOR CONFTEST.PY FILE #########################

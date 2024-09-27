@@ -7,6 +7,7 @@ from podcast.domainmodel.model import Podcast, Episode, Author, Category, User, 
 from pathlib import Path
 from bisect import bisect_left, insort_left
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
+from typing import List
 
 repository = None
 
@@ -128,3 +129,21 @@ class AbstractRepository(abc.ABC):
         # returns podcasts with some search parameter
         raise NotImplementedError
 
+    @abc.abstractmethod
+    def add_multiple_podcasts(self, podcast: List[Podcast]):
+        """ Add multiple podcasts to the repository of podcast. """
+        raise NotImplementedError
+
+    def add_multiple_authors(self, author: set[Author]):
+        """ Add multiple authors to the repository. """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_episodes(self, episode: List[Episode]):
+        """ Add multiple episodes to the repository of episode. """
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_multiple_categories(self, categories: set[Category]):
+        """ Add many categories to the repository. """
+        raise NotImplementedError

@@ -29,13 +29,14 @@ class SessionContextManager:
         self.__session.rollback()
 
     def reset_session(self):
+        # this method can be used e.g. to allow Flask to start a new session for each http request,
+        # via the 'before_request' callback
         self.close_current_session()
         self.__session = scoped_session(self.__session_factory)
 
     def close_current_session(self):
         if not self.__session is None:
             self.__session.close()
-
 
 class SqlAlchemyRepository(AbstractRepository, ABC):
     def __init__(self, session_factory):
@@ -66,6 +67,16 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(author)
             scm.commit()
 
+    def add_multiple_authors(self, authors: List[Author]):
+        with self._session_cm as scm:
+            with scm.session.no_autoflush:
+                for author in authors:
+                    if author.name is None:
+                        raise ValueError("Author name cannot be None")
+                    scm.session.add(author)
+            scm.commit()
+
+
     def get_author(self, author_id: int) -> Author:
         authors = None
         try:
@@ -95,8 +106,11 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(podcast)
             scm.commit()
 
-    # MISSING ADD MULTIPLE PODCASTS
-
+    def add_multiple_podcasts(self, podcasts: List[Podcast]):
+        with self._session_cm as scm:
+            for podcast in podcasts:
+                scm.session.add(podcast)
+            scm.commit()
     def get_number_of_podcasts(self) -> int:
         num_podcasts = self._session_cm.session.query(Podcast).count()
         return num_podcasts
@@ -122,7 +136,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(episode)
             scm.commit()
 
-    # MISSING ADD MULTIPLE EPISODES
+    def add_multiple_episodes(self, episode: List[Episode]):
+        with self._session_cm as scm:
+            for episode in episode:
+                scm.session.merge(episode)
+            scm.commit()
+
 
     def get_number_of_episodes(self):
         len_episodes = self._session_cm.session.query(Episode).count()
@@ -150,7 +169,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(category)
             scm.commit()
 
-    # MISSING ADD MULTIPLE CATEGORY
+    def add_multiple_categories(self, categories: List[Category]):
+        with self._session_cm as scm:
+            with scm.session.no_autoflush:
+                for category in categories:
+                    scm.session.add(category)
+            scm.commit()
 
     # END REGION
 

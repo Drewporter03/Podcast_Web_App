@@ -89,14 +89,19 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
     podcasts = list_podcasts
     episodes = list_episodes
 
-    for author in authors:
-        repo.add_author(author)
+    # for author in authors:
+    #     repo.add_author(author)
+    #
+    # for episode in episodes:
+    #     repo.add_episode(episode)
+    #
+    # for podcast in podcasts:
+    #     repo.add_podcast(podcast)
+    #
+    # for category in categories:
+    #     repo.add_category(category)
 
-    for episode in episodes:
-        repo.add_episode(episode)
-
-    for podcast in podcasts:
-        repo.add_podcast(podcast)
-
-    for category in categories:
-        repo.add_category(category)
+    repo.add_multiple_authors(authors)
+    repo.add_multiple_categories(categories)
+    repo.add_multiple_podcasts(podcasts)
+    repo.add_multiple_episodes(episodes)
