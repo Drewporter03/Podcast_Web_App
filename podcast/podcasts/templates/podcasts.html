@@ -20,7 +20,7 @@
                     <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
                     <div class="podcast-content">
                         <div class="podcast-title">{{ podcast.title }}</div>
-                        <div class="podcast-categories">{{ podcast.categories[0].name }}</div>
+                        <!-- categories missing -->
                         <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
                     </div>
                     {% if 'user_name' in session %}

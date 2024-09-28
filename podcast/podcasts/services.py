@@ -1,5 +1,4 @@
 from podcast.adapters.repository import AbstractRepository
-from podcast.adapters import memory_repository
 
 
 def get_episodes(repo: AbstractRepository):
@@ -13,13 +12,8 @@ def get_episodes(repo: AbstractRepository):
 
 
 def get_podcasts(repo: AbstractRepository):
-    list_of_podcasts = []
-    podcast_index = 1
-    while repo.get_podcast(podcast_index) is not None:
-        podcast = repo.get_podcast(podcast_index)
-        list_of_podcasts.append(podcast)
-        podcast_index += 1
-    return list_of_podcasts
+    return repo.get_podcasts()
+
 
 
 def sorted_podcasts_by_title(repo: AbstractRepository):

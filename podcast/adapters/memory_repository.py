@@ -61,7 +61,7 @@ class MemoryRepository(AbstractRepository, ABC):
 
     def get_podcasts(self):
         # NEEDS TO BE FIXED NOT SURE WHAT IT REALLY DOES
-        return self.__podcast_index
+        return self.__podcasts
 
     def get_number_of_podcasts(self):
         return len(self.__podcasts)

@@ -12,7 +12,7 @@ mapper_registry = registry()
 authors_table = Table(
     'authors', mapper_registry.metadata,
     Column('author_id', Integer, primary_key=True),
-    Column('name', String(255), nullable=False, unique=True)
+    Column('name', String(255), nullable=False, unique=False)
 )
 
 podcast_table = Table(
