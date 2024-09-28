@@ -16,7 +16,7 @@
         {% if episodes %}
             <div class="scrollbox">
                 {% for episode in episodes %}
-                    {% if episode.podcast_id == podcast.id %}
+                    {% if episode.podcast.id == podcast.id %}
                         <article class="episode block block-hover">
                             <div class="episode-title">{{ episode.title }}</div>
                             <div class="episode-side">

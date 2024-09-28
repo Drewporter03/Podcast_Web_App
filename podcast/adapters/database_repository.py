@@ -125,8 +125,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_episode(self, episode_id: int) -> Episode:
         episode = None
         try:
-            query = self._session_cm.session.query(Episode).filter(Episode.id == episode_id)
-            episode = query.one()
+            episode = self._session_cm.session.query(Episode).get(episode_id)
+
         except NoResultFound:
             print("No episode found with id {}".format(episode_id))
         return episode
