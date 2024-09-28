@@ -23,7 +23,7 @@ def get_episodes(repo: AbstractRepository, podcast_id):
     for i in range(1, repo.get_number_of_episodes() + 1):
         if repo.get_episode(i) != None:
             episode = repo.get_episode(i)
-            if episode.podcast_id == podcast_id:
+            if episode.podcast.id == podcast_id:
                 list_of_episodes.append(episode)
     return list_of_episodes
     # SHOULD BE THIS: return repo.get_episodes_for_podcast(podcast_id)
@@ -33,7 +33,7 @@ def get_episodes(repo: AbstractRepository, podcast_id):
 
 def sorted_episodes_by_date(repo: AbstractRepository, podcast_id):
     list_of_episodes = get_episodes(repo, podcast_id)
-    return sorted(list_of_episodes, key=lambda episode: episode.date1)
+    return sorted(list_of_episodes, key=lambda episode: episode.pub_date)
 
 def get_podcast_reviews(podcast_id, repo: AbstractRepository):
     podcast = repo.get_podcast(podcast_id)

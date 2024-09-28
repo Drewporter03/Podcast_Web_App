@@ -23,7 +23,7 @@ def episodes():
 
     count = 0
     for episode in list_of_episodes:
-        if episode.podcast_id == podcast_id:
+        if episode.podcast.id == podcast_id:
             count += 1
 
     podcast = repo.repository.get_podcast(podcast_id)
