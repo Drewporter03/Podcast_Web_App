@@ -9,10 +9,10 @@
         {% endif %}
         {% for item in playlists.podcast_list %}
                 <article class="podcast block block-hover">
-                    <img src="{{ item._podcast.image }}" alt="Thumbnail for {{ item.title }}">
+                    <img src="{{ item.podcast.image }}" alt="Thumbnail for {{ item.title }}">
                     <div class="podcast-content">
                         <div class="podcast-title">{{ item.title }}</div>
-                        <div class="podcast-categories">{{ item._podcast.title }}</div>
+                        <div class="podcast-categories">{{ item.podcast.title }}</div>
                     </div>
                     
                     <div class="episode-side">
