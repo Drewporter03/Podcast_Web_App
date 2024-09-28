@@ -26,7 +26,7 @@ def episodes():
         if episode.podcast_id == podcast_id:
             count += 1
 
-    podcast = list_of_podcasts[podcast_id]
+    podcast = repo.repository.get_podcast(podcast_id)
 
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
