@@ -1,5 +1,5 @@
 from __future__ import annotations
-from datetime import date
+from datetime import datetime
 
 
 def validate_non_negative_int(value):
@@ -328,97 +328,115 @@ class PodcastSubscription:
 
 
 class Episode:
-    def __init__(self, ep_id: int, podcast_id: int, title: str, audio_link: str, length: int, date1: str, desc: str,
-                 podcast: Podcast):
-        validate_non_negative_int(ep_id)
-        validate_non_negative_int(podcast_id)
-        validate_non_negative_int(length)
-        validate_non_empty_string(title, "Episode title")
-        validate_non_empty_string(desc, "Episode description")
-        validate_non_empty_string(audio_link, "Episode Link")
-        validate_non_empty_string(date1, "Episode Date")
-
-        if not isinstance(podcast, Podcast):
-            raise TypeError("Podcast must be a Podcast object.")
-
-        self._id = ep_id
-        self._podcast_id = podcast_id
-        self._title = title.strip()
-        self._podcast = podcast
-        self._description = desc.strip()
-        self._audio_length = length
-        self._audio_link = audio_link.strip()
-        self._date = date.fromisoformat(date1)
+    def __init__(self, id: int, podcast: Podcast, title: str = "Untitled", audio: str = "", audio_length: int = 0,
+                 description: str = "",
+                 pub_date=datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S+00")):
+        self.__id = id
+        self.__podcast = podcast
+        self.__title = title
+        self.__audio = audio
+        self.__audio_length = audio_length
+        self.__description = description
+        self.__pub_date = pub_date
 
     @property
     def id(self) -> int:
-        return self._id
+        return self.__id
+
+    @id.setter
+    def id(self, new_id: int):
+        if not isinstance(new_id, int):
+            raise TypeError("Episode.id must be an int type!")
+        if new_id < 0:
+            raise ValueError("To avoid confusion, Episode.id cannot be a negative integer.")
+        self.__id = new_id
 
     @property
-    def podcast_id(self) -> int:
-        return self._podcast_id
+    def podcast(self) -> Podcast:
+        return self.__podcast
+
+    @podcast.setter
+    def podcast(self, new_podcast: Podcast):
+        if not isinstance(new_podcast, Podcast):
+            raise TypeError("Episode.podcast must be a Podcast type!")
+        self.__podcast = new_podcast
 
     @property
     def title(self) -> str:
-        return self._title
-
-    @property
-    def description(self) -> str:
-        return self._description
-
-    @property
-    def audio_length(self) -> int:
-        validate_non_negative_int(self._audio_length)
-        return self._audio_length
-
-    @property
-    def audio_link(self) -> str:
-        validate_non_empty_string(self._audio_link, "Episode Link")
-        return self._audio_link
-
-    @property
-    def date1(self) -> date:
-        return self._date
+        return self.__title
 
     @title.setter
     def title(self, new_title: str):
-        validate_non_empty_string(new_title, "Episode title")
-        self._title = new_title.strip()
+        if not isinstance(new_title, str):
+            raise TypeError("Episode.title must be a str type!")
+        if len(new_title) == 0:
+            raise ValueError("Episode.title must not be an empty string.")
+        self.__title = new_title
 
-    @description.setter
-    def description(self, value):
-        self._description = value
+    @property
+    def audio(self) -> str:
+        return self.__audio
+
+    @audio.setter
+    def audio(self, new_audio: str):
+        if not isinstance(new_audio, str):
+            raise TypeError("Episode.audio must be a str type!")
+        self.__audio = new_audio
+
+    @property
+    def audio_length(self) -> int:
+        return self.__audio_length
 
     @audio_length.setter
-    def audio_length(self, value: int):
-        validate_non_negative_int(value)
-        self._audio_length = value
+    def audio_length(self, new_length: int):
+        if not isinstance(new_length, int):
+            raise TypeError("Episode.audio_length must be an int type!")
+        if new_length < 0:
+            raise ValueError("Episode.audio_length must not be less than 0.")
+        self.__audio_length = new_length
 
-    @date1.setter
-    def date1(self, new_date: str):
-        validate_non_empty_string(new_date, "Episode date")
-        self._date = date.fromisoformat(new_date)
+    @property
+    def description(self) -> str:
+        return self.__description
 
-    @audio_link.setter
-    def audio_link(self, value: str):
-        validate_non_empty_string(value, "Episode Link")
-        self._audio_link = value
+    @description.setter
+    def description(self, new_desc: str):
+        if not isinstance(new_desc, str):
+            raise TypeError("Episode.description must be a str type!")
+        self.__description = new_desc
 
-    def __repr__(self) -> str:
-        return f"<Episode {self._id}: from {self._podcast.title}>"
+    @property
+    def pub_date(self) -> str:
+        return self.__pub_date
 
-    def __eq__(self, other):
+    @pub_date.setter
+    def pub_date(self, new_date: str):
+        if not isinstance(new_date, str):
+            raise TypeError("Episode.pub_date must be a str type!")
+        try:
+            datetime.strptime(new_date, "%Y-%m-%d %H:%M:%S+00")
+        except ValueError:
+            raise ValueError("Episode.pub_date must be in the following format: YY-MM-DD HH:MM:SS+00!")
+
+    def __repr__(self):
+        return f"<Episode {self.id} | From \"{self.podcast}\">"
+
+    def __eq__(self, other: 'Episode'):
         if not isinstance(other, Episode):
             return False
-        return self._id == other.id
+        # Episodes are considered equal if both podcast id and episode id are the same
+        return self.podcast.id == other.podcast.id and self.id == other.id
+
+    def __lt__(self, other: 'Episode'):
+        if not isinstance(other, Episode):
+            return False
+        # First compare by podcast id, then by episode id within the same podcast
+        if self.podcast.id == other.podcast.id:
+            return self.id < other.id
+        return self.podcast.id < other.podcast.id
 
     def __hash__(self):
-        return hash(self._id)
-
-    def __lt__(self, other):
-        if not isinstance(other, Episode):
-            return False
-        return self.id < other.id
+        return hash((self.id, self.podcast.id))
 
 
 class Review:
