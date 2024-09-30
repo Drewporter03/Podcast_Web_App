@@ -80,8 +80,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_author(self, author_id: int) -> Author:
         authors = None
         try:
-            query = self._session_cm.session.query(Author).filter(Author.id == author_id)
-            authors = query.one()
+            author = self._session_cm.session.query(Author).get(author_id)
         except NoResultFound:
             print("No author found with id {}".format(author_id))
         return authors
@@ -183,8 +182,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_user(self, username: str):
         user = None
         try:
-            query = self._session_cm.session.query(User).filter(User.username == username)
-            user = query.one()
+            user = self._session_cm.session.query(User).get(username)
         except NoResultFound:
             print("No User found with username {}".format(username))
         return user
@@ -202,8 +200,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_review(self, podcast_id: int):
         reviews = None
         try:
-            query = self._session_cm.session.query(Review).filter(Review.id == podcast_id)
-            reviews = query.all()
+            reviews = self._session_cm.session.query(Review).get(podcast_id)
         except NoResultFound:
             print("No Review found with podcast id {}".format(podcast_id))
         return reviews
