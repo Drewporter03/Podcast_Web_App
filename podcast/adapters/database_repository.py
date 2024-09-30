@@ -95,8 +95,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None
         try:
-            query = self._session_cm.session.query(Podcast).filter(Podcast.id == podcast_id)
-            podcast = query.one()
+            podcast = self._session_cm.session.query(Podcast).get(podcast_id)
+
         except NoResultFound:
             print("No podcast found with id {}".format(podcast_id))
         return podcast
