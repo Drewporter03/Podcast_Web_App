@@ -15,11 +15,12 @@ episodes_bp = Blueprint('episode_bp', __name__, template_folder='templates')
 
 @episodes_bp.route('/episodes', methods=['GET', 'POST'])
 def episodes():
-    list_of_podcasts = get_podcasts(repo.repository)
     podcast_id = request.args.get('podcast_id', type=int)
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
-    average = services.get_average_reviews(podcast_id, repo.repository)
-    reviews = services.get_podcast_reviews(podcast_id, repo.repository)
+    # average = services.get_average_reviews(podcast_id, repo.repository)
+    average = 0
+    # reviews = services.get_podcast_reviews(podcast_id, repo.repository)
+    reviews = None
 
     count = 0
     for episode in list_of_episodes:
@@ -27,8 +28,6 @@ def episodes():
             count += 1
 
     podcast = repo.repository.get_podcast(podcast_id)
-
-    list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
 
     new_review = reviewForm()
 
