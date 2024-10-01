@@ -54,6 +54,18 @@ users_table = Table(
     Column('password', String(64), nullable=False)
 )
 
+reviews_table = Table(
+    'reviews', mapper_registry.metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('podcast_id', ForeignKey('podcasts.podcast_id')),
+    Column('rating', Integer),
+    Column('comment', Text)
+)
+
+
+
+
 # TODO : Table reviews_table
 # Resolve definition for Review table and the necessary code that maps the table to its domain model class
 # Reviews should have links to its podcast and user through its foreign keys
@@ -96,3 +108,12 @@ def map_model_to_tables():
         '_username': users_table.c.username,
         '_password': users_table.c.password
     })
+
+    mapper_registry.map_imperatively(Review, reviews_table, properties={
+        '_Review__id': reviews_table.c.id,
+        '_Review__user_id': reviews_table.c.user_id,
+        '_Review__podcast_id': reviews_table.c.podcast_id,
+        '_Review__rating': reviews_table.c.rating,
+        '_Review__comment': reviews_table.c.comment,
+    })
+
