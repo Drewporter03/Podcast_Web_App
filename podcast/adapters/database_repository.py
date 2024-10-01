@@ -56,8 +56,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_playlist(self, playlist_id: int) -> Playlist:
         playlist = None
         try:
-            query = self._session_cm.session.query(Playlist).filter(Playlist.id == playlist_id)
-            playlist = query.one()
+            playlist = self._session_cm.session.query(Playlist).get(playlist_id)
         except NoResultFound:
             print("No playlist found with id {}".format(playlist_id))
         return playlist
