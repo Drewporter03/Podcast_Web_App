@@ -27,6 +27,7 @@ def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
     except PlaylistNotFoundException:
         playlist = Playlist(0, playlist_name, user)
         repo.add_playlist(playlist)
+
     return playlist
 
 

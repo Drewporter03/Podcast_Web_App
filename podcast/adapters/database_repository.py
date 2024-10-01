@@ -184,7 +184,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             user = self._session_cm.session.query(User).get(username)
         except NoResultFound:
             print("No User found with username {}".format(username))
-        print(user)
         return user
 
     def add_user(self, user: User):

@@ -12,10 +12,9 @@ playlists_bp = Blueprint('playlists_bp', __name__, template_folder='templates')
 @login_required
 def playlists():
     user_name = session['user_name']
-
     # create a generic user playlist
     user_playlist = services.add_playlist(repo.repository, user_name, f"{user_name}'s Playlist")
-
+    print(user_playlist)
     remove_episode_from_playlist = RemoveEpisodeForm()
     if remove_episode_from_playlist.validate_on_submit():
         if remove_episode_from_playlist.episode_id.data is not None:

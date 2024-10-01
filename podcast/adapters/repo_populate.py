@@ -85,7 +85,6 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
         # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
         temp_episode = Episode(row[0], temp_podcast, row[2], row[3], row[4], row[5], (row[6])[0:10])
         list_episodes.append(temp_episode)
-    print(list_episodes[0:10])
     repo.add_multiple_authors(set_authors)
     repo.add_multiple_categories(set_categories)
     repo.add_multiple_podcasts(list_podcasts)
