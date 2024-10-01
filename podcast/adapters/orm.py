@@ -49,8 +49,8 @@ categories_table = Table(
 
 users_table = Table(
     'users', mapper_registry.metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('username', String(64), nullable=False),
+    Column('id', Integer, autoincrement=True),
+    Column('username', String(64), primary_key = True ,nullable=False),
     Column('password', String(64), nullable=False)
 )
 
