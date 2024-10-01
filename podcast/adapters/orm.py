@@ -64,18 +64,13 @@ reviews_table = Table(
 )
 
 
-
-
-# TODO : Table reviews_table
-# Resolve definition for Review table and the necessary code that maps the table to its domain model class
-# Reviews should have links to its podcast and user through its foreign keys
-
 playlist_table = Table(
     'playlist', mapper_registry.metadata,
     Column('id', Integer, autoincrement=True, primary_key=True),
     Column('title', String(64), nullable=False),
     Column('owner', String(64), ForeignKey('users.username'), nullable=False),
-    Column('image', String(256))
+    Column('image', String(256)),
+    Column('podcast_list', String(528))
 
 )
 
