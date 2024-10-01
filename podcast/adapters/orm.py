@@ -4,7 +4,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import registry, relationship
 from datetime import datetime
 
-from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode
+from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist
 
 # Global variable giving access to the MetaData (schema) information of the database
 mapper_registry = registry()
@@ -70,7 +70,23 @@ reviews_table = Table(
 # Resolve definition for Review table and the necessary code that maps the table to its domain model class
 # Reviews should have links to its podcast and user through its foreign keys
 
+playlist_table = Table(
+    'playlist', mapper_registry.metadata,
+    Column('id', Integer, autoincrement=True, primary_key=True),
+    Column('title', String(64), nullable=False),
+    Column('owner', String(64), ForeignKey('users.username'), nullable=False),
+    Column('image', String(256))
+
+)
+
 def map_model_to_tables():
+
+    mapper_registry.map_imperatively(Playlist, playlist_table, properties={
+        '_id': playlist_table.c.id,
+        '_title': playlist_table.c.title,
+        '_owner': relationship(User, back_populates='playlists'),
+        '_image': playlist_table.c.image,
+    })
 
     mapper_registry.map_imperatively(Author, authors_table, properties={
         '_id': authors_table.c.author_id,
@@ -106,7 +122,8 @@ def map_model_to_tables():
     mapper_registry.map_imperatively(User, users_table, properties={
         '_id': users_table.c.id,
         '_username': users_table.c.username,
-        '_password': users_table.c.password
+        '_password': users_table.c.password,
+        'playlists': relationship(Playlist, back_populates='_owner'),
     })
 
     mapper_registry.map_imperatively(Review, reviews_table, properties={
