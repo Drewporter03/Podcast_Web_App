@@ -37,12 +37,12 @@
                             <form method="post">
                                 {{ playlist_form.hidden_tag() }}
                                 <input type="hidden" name="podcast_id" value="{{ podcast.id }}">
-                                {% if add_to_playlist.value %}
-                                    <input type="hidden" name="action" value="ADD">
-                                    <input type="submit" name="submit" value="+" class="add-to-playlist">
-                                {% else %}
+                                {% if status[podcast.id] == True%}
                                     <input type="hidden" name="action" value="REMOVE">
                                     <input type="submit" name="submit" value="−" class="add-to-playlist">
+                                {% else %}
+                                    <input type="hidden" name="action" value="ADD">
+                                    <input type="submit" name="submit" value="+" class="add-to-playlist">
                                 {% endif %}
                             </form>
                         </div>

@@ -76,7 +76,7 @@ class MemoryRepository(AbstractRepository, ABC):
         podcast_episodes = []
         episodes = self.get_episodes()
         for episode in episodes:
-            if episode.podcast_id == podcast_id:
+            if episode.podcast.id == podcast_id:
                 podcast_episodes.append(episode)
         return podcast_episodes
 

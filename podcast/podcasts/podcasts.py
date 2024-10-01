@@ -41,7 +41,7 @@ def podcasts():
         if action == 'REMOVE':
             episodes_to_remove = [episode for episode in
                                   playlist_services.get_user_playlist(repo.repository, 0).podcast_list if
-                                  episode.podcast_id == podcast_id]
+                                  episode.podcast.id == podcast_id]
 
             for episode in episodes_to_remove:
                 playlist_services.remove_episode(repo.repository, 0, episode.id)
@@ -53,10 +53,19 @@ def podcasts():
         playlist_episodes = playlist_services.get_user_playlist(repo.repository, 0).podcast_list
     else:
         playlist_episodes = None
+    
+    status = {}
+    for podcast in list_of_podcasts:
+        status[podcast.id] = True
+        for episode in list_of_episodes:
+            if episode.podcast.id == podcast.id:
+                if episode not in playlist_episodes:
+                    status[podcast.id] = False
+
 
     return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start=start,
                            stop=stop, page=page, max_pages=max_pages, playlist_form=playlist_form,
-                           playlist_episodes=playlist_episodes, list_of_episodes=list_of_episodes)
+                           playlist_episodes=playlist_episodes, list_of_episodes=list_of_episodes, status = status)
 
 
 class playlistForm(FlaskForm):

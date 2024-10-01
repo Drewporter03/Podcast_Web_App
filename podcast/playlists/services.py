@@ -60,7 +60,7 @@ def add_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
     podcast = repo.get_podcast(podcast_id)
     episodes = get_episodes(repo, podcast_id)
     for episode in episodes:
-        add_episode(repo, playlist_id, episode._id)
+        add_episode(repo, playlist_id, episode.id)
 
 
 def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
