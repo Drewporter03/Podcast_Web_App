@@ -188,7 +188,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return user
 
     def add_user(self, user: User):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             scm.session.merge(user)
             scm.commit()
 

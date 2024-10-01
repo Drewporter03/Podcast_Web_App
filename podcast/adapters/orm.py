@@ -47,8 +47,12 @@ categories_table = Table(
 # TODO : Association table podcast_categories
 # Resolve many-to-many relationship between podcast and categories
 
-# TODO : Table users_table
-# Resolve definition for User table and the necessary code that maps the table to its domain model class
+users_table = Table(
+    'users', mapper_registry.metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('username', String(64), nullable=False),
+    Column('password', String(64), nullable=False)
+)
 
 # TODO : Table reviews_table
 # Resolve definition for Review table and the necessary code that maps the table to its domain model class
@@ -85,4 +89,10 @@ def map_model_to_tables():
         '_Episode__audio': episode_table.c.audio_url,
         '_Episode__description': episode_table.c.description,
         '_Episode__pub_date': episode_table.c.pub_date,
+    })
+
+    mapper_registry.map_imperatively(User, users_table, properties={
+        '_id': users_table.c.id,
+        '_username': users_table.c.username,
+        '_password': users_table.c.password
     })
