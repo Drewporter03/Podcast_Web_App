@@ -18,24 +18,29 @@ class NonExistentPodcastException(Exception):
     pass
 
 
+
+
 def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
     user = repo.get_user(user_name)
+
     if not user:
         raise UnknownUserException(f"{user_name} not found.")
     try:
-        playlist = get_user_playlist(repo, 0)
+        user_id = user.id
+        playlist = get_user_playlist(repo, user_id)
+
     except PlaylistNotFoundException:
-        playlist = Playlist(0, playlist_name, user)
+        user_id = user.id
+        playlist = Playlist(user_id, playlist_name, user)
         repo.add_playlist(playlist)
 
     return playlist
 
 
 def get_user_playlist(repo: AbstractRepository, playlist_id: int):
-    try:
-        playlist = repo.get_playlist(0)
-    # if the playlist has not been created yet there will be an index error
-    except IndexError:
+    playlist = repo.get_playlist(playlist_id)
+    # if the playlist has not been created yet it will be none
+    if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
     return playlist
 
@@ -78,3 +83,7 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
 def get_episodes(repo: AbstractRepository, podcast_id):
     # REMOVE - CAN CALL FROM BP
     return repo.get_episodes_for_podcast(podcast_id)
+
+
+def get_user(repo: AbstractRepository, user_name: str):
+    return repo.get_user(user_name)

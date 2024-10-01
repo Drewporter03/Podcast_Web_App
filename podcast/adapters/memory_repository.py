@@ -26,9 +26,12 @@ class MemoryRepository(AbstractRepository, ABC):
     def add_playlist(self, playlist: Playlist):
         insort_left(self.__playlists, playlist)
         self.__playlists.append(playlist)
+        print("playlist added", playlist)
 
     def get_playlist(self, playlist_id: int) -> Playlist:
-        return self.__playlists[playlist_id]
+        for playlist in self.__playlists:
+            if playlist.id == playlist_id:
+                return playlist
 
     def add_author(self, author: Author):
         insort_left(self.__author, author)
@@ -107,6 +110,7 @@ class MemoryRepository(AbstractRepository, ABC):
         for user in self.__users:
             if user.username == username:
                 return user
+
         return None
 
     def add_user(self, user: User):

@@ -39,16 +39,21 @@ def episodes():
     playlist_form = PlaylistForm()
 
     if playlist_form.validate_on_submit():
+        user = playlist_services.get_user(repo.repository, session['user_name'])
+        user_id = user.id
+
         episode_id = playlist_form.episode_id.data
         action = playlist_form.action.data
         if action == "REMOVE":
             episode_id = playlist_form.episode_id.data
-            playlist_services.remove_episode(repo.repository, 0, episode_id)
+            playlist_services.remove_episode(repo.repository, user_id, episode_id)
         elif action == "ADD":
-            playlist_services.add_episode(repo.repository, 0, episode_id)
+            playlist_services.add_episode(repo.repository, user_id, episode_id)
 
     if 'user_name' in session:
-        playlist_episodes = playlist_services.get_user_playlist(repo.repository, 0).podcast_list
+        user = playlist_services.get_user(repo.repository, session['user_name'])
+        user_id = user.id
+        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user_id).podcast_list
     else:
         playlist_episodes = None
 

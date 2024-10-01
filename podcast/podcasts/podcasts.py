@@ -3,6 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, IntegerField, StringField
 
 import podcast.adapters.repository as repo
+
 import podcast.playlists
 import podcast.podcasts.services as services
 import podcast.playlists.services as playlist_services
@@ -36,22 +37,27 @@ def podcasts():
 
     playlist_form = playlistForm()
     if playlist_form.validate_on_submit():
+        user = playlist_services.get_user(repo.repository, session['user_name'])
+        user_id = user.id
         podcast_id = playlist_form.podcast_id.data
         action = playlist_form.action.data
 
         if action == 'REMOVE':
             episodes_to_remove = [episode for episode in
-                                  playlist_services.get_user_playlist(repo.repository, 0).podcast_list if
+                                  playlist_services.get_user_playlist(repo.repository, user_id).podcast_list if
                                   episode.podcast.id == podcast_id]
 
             for episode in episodes_to_remove:
-                playlist_services.remove_episode(repo.repository, 0, episode.id)
+                playlist_services.remove_episode(repo.repository, user_id, episode.id)
 
         elif action == 'ADD':
-            playlist_services.add_podcast(repo.repository, 0, podcast_id)
+            playlist_services.add_podcast(repo.repository, user_id, podcast_id)
 
     if 'user_name' in session:
-        playlist_episodes = playlist_services.get_user_playlist(repo.repository, 0).podcast_list
+        username = session['user_name']
+        user = services.get_user(repo.repository, username)
+        playlist = playlist_services.get_user_playlist(repo.repository, user.id)
+        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id).podcast_list
         for podcast in list_of_podcasts:
             status[podcast.id] = True
             for episode in list_of_episodes:

@@ -508,7 +508,7 @@ class Review:
         return hash(self.id)
 
 
-class Playlist:
+class  Playlist:
     def __init__(self, playlist_id: int, title: str = "Untitled", owner: User = None, image: str = None):
         validate_non_negative_int(playlist_id)
         validate_non_empty_string(title, "Playlist title")

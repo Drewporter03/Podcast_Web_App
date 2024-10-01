@@ -93,7 +93,6 @@ class AbstractRepository(abc.ABC):
         # adds a category to the repository
         raise NotImplementedError
 
-
     @abc.abstractmethod
     def get_user(self, username: str):
         # returns the user in the repository
@@ -147,3 +146,5 @@ class AbstractRepository(abc.ABC):
     def add_multiple_categories(self, categories: set[Category]):
         # adds many categories to the repository
         raise NotImplementedError
+
+

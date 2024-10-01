@@ -53,3 +53,8 @@ def calculate_pagination(page, max_pages, list_of_podcasts):
 def calculate_pages(list_of_podcasts):
     number_of_episodes = len(list_of_podcasts)
     return int(round(number_of_episodes / 10))
+
+
+def get_user(repo: AbstractRepository, user_name: str):
+    user = repo.get_user(user_name)
+    return user
