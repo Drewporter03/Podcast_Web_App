@@ -17,6 +17,7 @@ def podcasts():
     list_of_podcasts = services.sorted_podcasts_by_title(repo.repository)
     list_of_episodes = services.get_episodes(repo.repository)
     max_pages = services.calculate_pages(list_of_podcasts)
+    status = {}
 
     if request.args:
         query = request.args.get('q')
@@ -51,16 +52,15 @@ def podcasts():
 
     if 'user_name' in session:
         playlist_episodes = playlist_services.get_user_playlist(repo.repository, 0).podcast_list
+        for podcast in list_of_podcasts:
+            status[podcast.id] = True
+            for episode in list_of_episodes:
+                if episode.podcast.id == podcast.id:
+                    if episode not in playlist_episodes:
+                        status[podcast.id] = False
     else:
         playlist_episodes = None
-    
-    status = {}
-    for podcast in list_of_podcasts:
-        status[podcast.id] = True
-        for episode in list_of_episodes:
-            if episode.podcast.id == podcast.id:
-                if episode not in playlist_episodes:
-                    status[podcast.id] = False
+
 
 
     return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start=start,
