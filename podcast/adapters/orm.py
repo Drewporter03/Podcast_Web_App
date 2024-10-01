@@ -124,6 +124,7 @@ def map_model_to_tables():
         '_username': users_table.c.username,
         '_password': users_table.c.password,
         'playlists': relationship(Playlist, back_populates='_owner'),
+        '_User_reviews': relationship(Review, back_populates='_Review_user')
     })
 
     mapper_registry.map_imperatively(Review, reviews_table, properties={
@@ -132,5 +133,6 @@ def map_model_to_tables():
         '_Review__podcast_id': reviews_table.c.podcast_id,
         '_Review__rating': reviews_table.c.rating,
         '_Review__comment': reviews_table.c.comment,
+        '_Review_user': relationship(User, back_populates='_User_reviews'),
     })
 
