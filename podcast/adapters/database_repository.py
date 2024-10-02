@@ -57,8 +57,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_playlist(self, playlist_id: int) -> Playlist:
         playlist = None
         try:
-            playlist = self._session_cm.session.query(Playlist).all()
-            for playlist in playlist:
+            playlists = self._session_cm.session.query(Playlist).all()
+            for playlist in playlists:
                 if playlist.owner == playlist_id:
                     return playlist
         except NoResultFound:

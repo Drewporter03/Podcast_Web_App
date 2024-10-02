@@ -70,8 +70,15 @@ playlist_table = Table(
     Column('title', String(64), nullable=False),
     Column('owner_id', Integer, ForeignKey('users.id'), nullable=False),
     Column('image', String(256)),
-    Column('podcast_list', String(528))
+    # Column('podcast_list', String(528))
 
+)
+
+playlist_episodes_table = Table(
+    'playlist_episodes', mapper_registry.metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('playlist_id', ForeignKey('playlist.owner_id')),
+    Column('episode_id', ForeignKey('episodes.episode_id')),
 )
 
 def map_model_to_tables():
@@ -81,6 +88,7 @@ def map_model_to_tables():
         '_title': playlist_table.c.title,
         '_owner': relationship('User', back_populates='playlists'),
         '_image': playlist_table.c.image,
+        '_podcast_list': relationship(Episode, secondary=playlist_episodes_table),
     })
 
     mapper_registry.map_imperatively(Author, authors_table, properties={
