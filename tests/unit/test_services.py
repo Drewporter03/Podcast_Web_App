@@ -19,17 +19,18 @@ def test_get_podcast(in_memory_repo):
 # Tests to check the retrieval of episodes from episodes service layer
 def test_get_episodes(in_memory_repo):
     author1 = Author(1, "Joe Toste")
-    podcast1 = Podcast(1, author1, "Joe Toste Podcast - Sales Training Expert")
-    episode1 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
-    episode2 = Episode(2, 2, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
-    episode3 = Episode(3, 3, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
+    podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
+
+    episode1 = Episode(1, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
+    episode2 = Episode(2, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
+    episode3 = Episode(3, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
 
     in_memory_repo.add_podcast(podcast1)
     in_memory_repo.add_episode(episode1)
     in_memory_repo.add_episode(episode2)
     in_memory_repo.add_episode(episode3)
 
-    list_of_episodes = episode_services.get_episodes(in_memory_repo, 1)
+    list_of_episodes = episode_services.get_episodes(in_memory_repo, 100)
     assert episode1 in list_of_episodes
 
 
