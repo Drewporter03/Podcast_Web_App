@@ -1,5 +1,5 @@
 from __future__ import annotations
-from datetime import datetime
+from datetime import date
 
 
 def validate_non_negative_int(value):
@@ -329,15 +329,16 @@ class PodcastSubscription:
 
 class Episode:
     def __init__(self, id: int, podcast: Podcast, title: str = "Untitled", audio: str = "", audio_length: int = 0,
-                 description: str = "",
-                 pub_date=datetime.strftime(datetime.now(), "%Y-%m-%d %H:%M:%S+00")):
+                 description: str = "", pub_date: str = " "):
+        validate_non_empty_string(pub_date, "Episode Date")
+
         self.__id = id
         self.__podcast = podcast
         self.__title = title
         self.__audio = audio
         self.__audio_length = audio_length
         self.__description = description
-        self.__pub_date = pub_date
+        self.__pub_date = date.fromisoformat(pub_date)
 
     @property
     def id(self) -> int:
@@ -411,12 +412,7 @@ class Episode:
 
     @pub_date.setter
     def pub_date(self, new_date: str):
-        if not isinstance(new_date, str):
-            raise TypeError("Episode.pub_date must be a str type!")
-        try:
-            datetime.strptime(new_date, "%Y-%m-%d %H:%M:%S+00")
-        except ValueError:
-            raise ValueError("Episode.pub_date must be in the following format: YY-MM-DD HH:MM:SS+00!")
+        self.__pub_date = new_date.strip()
 
     def __repr__(self):
         return f"<Episode {self.id} | From \"{self.podcast}\">"

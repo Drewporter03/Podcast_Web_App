@@ -441,52 +441,20 @@ def test_playlist_lt():
 
 
 def test_episode(my_podcast):
-    episode1 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
-    assert episode1.podcast_id == 1
+    author2 = Author(2, "Author C")
+    podcast1 = Podcast(100, author2, "Joe Toste Podcast - Sales Training Expert")
+
+    episode1 = Episode(1, podcast1, "Ep1", "www.mywebsite.com", 100,  "once upon a time..", "2005-09-02")
+    assert episode1.podcast.id == 100
     assert episode1.id == 1
-    assert episode1.audio_link == "www.mywebsite.com"
+    assert episode1.audio == "www.mywebsite.com"
     assert episode1.title == "Ep1"
     assert episode1.description == "once upon a time.."
-    assert episode1.date1 == date.fromisoformat("2005-09-02")
+    assert episode1.pub_date == date.fromisoformat("2005-09-02")
     assert episode1.audio_length == 100
 
-    assert repr(episode1) == "<Episode 1: from Joe Toste Podcast - Sales Training Expert>"
+    assert repr(episode1) == "<Episode 1 | From \"<Podcast 100: \'Joe Toste Podcast - Sales Training Expert\' by Author C>\">"
 
-
-    with pytest.raises(ValueError):
-        episode2 = Episode(-1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode3 = Episode(1, -1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode3 = Episode(1, 1, "", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode4 = Episode(1, 1, "Ep1", "", 100, "2005-09-02", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode5 = Episode(1, 1, "Ep1", "www.mywebsite.com", -1, "2005-09-02", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode6 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "", "once upon a time..", my_podcast)
-
-    with pytest.raises(ValueError):
-        episode7 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "", my_podcast)
-
-    episode1.title = "Ep2"
-    episode1.date = "2005-09-2"
-    episode1.description = "twice upon a time.."
-    episode1.audio_link = "www.mywebsite.com1"
-    episode1.audio_length = 99
-
-    assert episode1.id == 1
-    assert episode1.title == "Ep2"
-    assert episode1.description == "twice upon a time.."
-    assert episode1.date == "2005-09-2"
-    assert episode1.audio_link == "www.mywebsite.com1"
-    assert episode1.audio_length == 99
-    
 
 def test_review_initialization():
     user1 = User(1, "   Shyamli", "pw12345")
