@@ -534,6 +534,10 @@ class  Playlist:
     def image(self):
         return self._image
 
+    @property
+    def podcast_list(self):
+        return self._podcast_list
+
     @title.setter
     def title(self, new_name: str):
         validate_non_empty_string(new_name, "New title")
@@ -544,6 +548,8 @@ class  Playlist:
         if new_image is not None and not isinstance(new_image, str):
             raise ValueError("Playlist image must be an string or None.")
         self._image = new_image
+
+
 
     def add_episode(self, episode: Episode):
         if not isinstance(episode, Episode):
@@ -581,6 +587,4 @@ class  Playlist:
             return False
         return self._playlist_id < other._playlist_id
 
-    @property
-    def podcast_list(self):
-        return self._podcast_list
+

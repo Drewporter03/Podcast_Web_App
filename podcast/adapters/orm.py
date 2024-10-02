@@ -66,9 +66,9 @@ reviews_table = Table(
 
 playlist_table = Table(
     'playlist', mapper_registry.metadata,
-    Column('id', Integer, autoincrement=True, primary_key=True),
+    Column('id', Integer, primary_key=True),
     Column('title', String(64), nullable=False),
-    Column('owner', String(64), ForeignKey('users.username'), nullable=False),
+    Column('owner_id', Integer, ForeignKey('users.id'), nullable=False),
     Column('image', String(256)),
     Column('podcast_list', String(528))
 
@@ -79,7 +79,7 @@ def map_model_to_tables():
     mapper_registry.map_imperatively(Playlist, playlist_table, properties={
         '_id': playlist_table.c.id,
         '_title': playlist_table.c.title,
-        '_owner': relationship(User, back_populates='playlists'),
+        '_owner': relationship('User', back_populates='playlists'),
         '_image': playlist_table.c.image,
     })
 

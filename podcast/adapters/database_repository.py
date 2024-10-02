@@ -49,14 +49,18 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         self._session_cm.reset_session()
 
     def add_playlist(self, playlist: Playlist):
-        with self._session_cm.session() as scm:
-            scm.session.merge(playlist)
+        with self._session_cm as scm:
+            scm.session.add(playlist)
             scm.commit()
+            print(scm.session.query(Playlist).all())
 
     def get_playlist(self, playlist_id: int) -> Playlist:
         playlist = None
         try:
-            playlist = self._session_cm.session.query(Playlist).get(playlist_id)
+            playlist = self._session_cm.session.query(Playlist).all()
+            for playlist in playlist:
+                if playlist.owner == playlist_id:
+                    return playlist
         except NoResultFound:
             print("No playlist found with id {}".format(playlist_id))
         return playlist
