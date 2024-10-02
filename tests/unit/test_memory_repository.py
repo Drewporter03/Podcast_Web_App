@@ -35,9 +35,12 @@ def test_repository_can_add_and_retrieve_author(in_memory_repo):
 def test_repository_can_add_and_retrieve_episode(in_memory_repo):
     author1 = Author(1, "Joe Toste")
     podcast1 = Podcast(100, author1, "Joe Toste Podcast - Sales Training Expert")
-    episode1 = Episode(1, 1, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
-    episode2 = Episode(2, 2, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
-    episode3 = Episode(3, 3, "Ep1", "www.mywebsite.com", 100, "2005-09-02", "once upon a time..", podcast1)
+
+    episode1 = Episode(1, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
+    episode2 = Episode(2, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
+    episode3 = Episode(3, podcast1, "Ep1", "www.mywebsite.com", 100, "once upon a time..", "2005-09-02")
+
+
 
     in_memory_repo.add_episode(episode1)
     in_memory_repo.add_episode(episode2)
