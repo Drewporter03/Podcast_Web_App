@@ -3,8 +3,9 @@ from typing import List, Type
 from sqlalchemy import func
 from sqlalchemy.orm import scoped_session
 from podcast.adapters.repository import AbstractRepository
-from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist
+from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist, playlist_to_episode
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy import insert
 
 
 class SessionContextManager:
@@ -228,3 +229,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         category = self._session_cm.session.query(Category).filter(Category.name == category_string).all()
         podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
         return podcasts
+
+    def add_episode_to_playlist(self, episode: Episode, playlist: Playlist):
+        with self._session_cm as scm:
+            print(episode)
+            print(playlist)
+            print(episode.id)
+            print(playlist.id)
+            scm.session.merge(playlist_to_episode(playlist.id, episode.id))
+            scm.commit()

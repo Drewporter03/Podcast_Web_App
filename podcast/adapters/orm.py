@@ -4,7 +4,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import registry, relationship
 from datetime import datetime
 
-from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist
+from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist, playlist_to_episode
 
 # Global variable giving access to the MetaData (schema) information of the database
 mapper_registry = registry()
@@ -47,6 +47,13 @@ categories_table = Table(
 # TODO : Association table podcast_categories
 # Resolve many-to-many relationship between podcast and categories
 
+podcast_categories_table = Table(
+    'podcast_categories', mapper_registry.metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('podcast_id', ForeignKey('podcasts.podcast_id')),
+    Column('category_id', ForeignKey('categories.category_id'))
+)
+
 users_table = Table(
     'users', mapper_registry.metadata,
     Column('id', Integer, autoincrement=True),
@@ -77,7 +84,7 @@ playlist_table = Table(
 playlist_episodes_table = Table(
     'playlist_episodes', mapper_registry.metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('playlist_id', ForeignKey('playlist.owner_id')),
+    Column('playlist_id', ForeignKey('playlist.id')),
     Column('episode_id', ForeignKey('episodes.episode_id')),
 )
 
@@ -138,4 +145,11 @@ def map_model_to_tables():
         '_Review__comment': reviews_table.c.comment,
         '_Review_user': relationship(User, back_populates='_User_reviews'),
     })
+
+    mapper_registry.map_imperatively(playlist_to_episode, playlist_episodes_table, properties={
+        '_playlist_to_episode__id':playlist_episodes_table.c.id,
+        '_playlist_to_episode__playlist_id': playlist_episodes_table.c.playlist_id,
+        '_playlist_to_episode__episode_id': playlist_episodes_table.c.episode_id,
+    })
+
 

@@ -187,7 +187,6 @@ def get_podcastcsv():
         podcast_list.append([int(row[0]), row[1], row[2], row[3], row[4], row[5], row[6], row[7], int(row[8])])
     return podcast_list
 
-
 def get_episodecsv():
     file_path = Path(__file__).resolve().parents[0] / 'data' / 'episodes.csv'
     info_list = csv.csv_read(file_path)
@@ -197,9 +196,6 @@ def get_episodecsv():
         # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
         episode_list.append([int(row[0]), int(row[1]), row[2], row[3], int(row[4]), row[5], row[6]])
     return episode_list
-
-
-
 
 def load_podcasts(data_path: Path, repo: MemoryRepository):
     csv_podcast = list_podcasts

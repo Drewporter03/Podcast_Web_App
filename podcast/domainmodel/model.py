@@ -503,12 +503,11 @@ class Review:
     def __hash__(self):
         return hash(self.id)
 
-
 class  Playlist:
     def __init__(self, playlist_id: int, title: str = "Untitled", owner: User = None, image: str = None):
         validate_non_negative_int(playlist_id)
         validate_non_empty_string(title, "Playlist title")
-        self._playlist_id = playlist_id
+        self._id = playlist_id
         self._title = title.strip()
         self._podcast_list = []
         self._owner = owner
@@ -516,7 +515,7 @@ class  Playlist:
 
     @property
     def id(self):
-        return self._playlist_id
+        return self._id
 
     @property
     def title(self):
@@ -545,8 +544,6 @@ class  Playlist:
             raise ValueError("Playlist image must be an string or None.")
         self._image = new_image
 
-
-
     def add_episode(self, episode: Episode):
         if not isinstance(episode, Episode):
             raise TypeError("Expected a Episode instance.")
@@ -568,7 +565,7 @@ class  Playlist:
             self._podcast_list.remove(podcast)
 
     def __repr__(self) -> str:
-        return f"<Playlist {self._playlist_id}: {self.title}>"
+        return f"<Playlist {self._id}: {self.title}>"
 
     def __hash__(self) -> int:
         return hash(self._playlist_id)
@@ -584,3 +581,8 @@ class  Playlist:
         return self._playlist_id < other._playlist_id
 
 
+class playlist_to_episode:
+    def __init__(self, playlist_id:int, episode_id:int):
+        self.playlist_id = playlist_id
+        self.episode_id = episode_id
+        
