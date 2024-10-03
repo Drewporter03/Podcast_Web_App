@@ -45,22 +45,23 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
             set_authors.add(temp_author)
 
         podcast_categories = row[5]
-        temp_category = Category(categories_count, podcast_categories)
+        print(podcast_categories)
+        temp_podcast = Podcast(row[0], temp_author, row[1], row[2], row[3], row[6], row[8], row[4])
         if podcast_categories:
             # Split into individual
             categories_split = podcast_categories.split('|')
             for category in categories_split:
                 category = category.strip()
+                temp_category = Category(categories_count, category)
+                temp_podcast.add_category(temp_category)
+                # temp_category.add_podcast(temp_podcast) doesnt work
                 if category not in categories_dict.keys():
                     # add individual category to dict
                     categories_dict[category] = categories_count
                     categories_count += 1
                     # create temp category
-                    temp_category = Category(categories_count, category)
                     set_categories.add(temp_category)
 
-        temp_podcast = Podcast(row[0], temp_author, row[1], row[2], row[3], row[6], row[8], row[4])
-        temp_podcast.add_category(temp_category)
         list_podcasts.append(temp_podcast)
 
         counter += 1
