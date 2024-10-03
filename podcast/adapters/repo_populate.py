@@ -28,7 +28,7 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
     authors_dict = {}
     authors_count = 0
     categories_dict = {}
-    categories_count = 0
+    categories_count = 1
 
     for row in podcast_csv:
         author_name = row[7]
@@ -60,9 +60,7 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
                     # create temp category
                     set_categories.add(temp_category)
                 else:
-                    for existing_category in categories_dict.values():
-                        if existing_category == temp_category:
-                            temp_category = existing_category
+                    temp_category = next((cat for cat in set_categories if cat.name == category), None)
                 temp_podcast.add_category(temp_category)
 
         list_podcasts.append(temp_podcast)
