@@ -45,7 +45,6 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
             set_authors.add(temp_author)
 
         podcast_categories = row[5]
-        print(podcast_categories)
         temp_podcast = Podcast(row[0], temp_author, row[1], row[2], row[3], row[6], row[8], row[4])
         if podcast_categories:
             # Split into individual
@@ -53,7 +52,6 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
             for category in categories_split:
                 category = category.strip()
                 temp_category = Category(categories_count, category)
-                temp_podcast.add_category(temp_category)
                 # temp_category.add_podcast(temp_podcast) doesnt work
                 if category not in categories_dict.keys():
                     # add individual category to dict
@@ -61,8 +59,14 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
                     categories_count += 1
                     # create temp category
                     set_categories.add(temp_category)
+                else:
+                    for existing_category in categories_dict.values():
+                        if existing_category == temp_category:
+                            temp_category = existing_category
+                temp_podcast.add_category(temp_category)
 
         list_podcasts.append(temp_podcast)
+
 
         counter += 1
     episode_csv = csv.get_episodecsv()
@@ -86,7 +90,12 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
         # row[0] = id, row[1] = podcast_id, row[2] = title, row[3] = audio, row[4] = audio_length, row[5] = description, row[6] = pubdate
         temp_episode = Episode(row[0], temp_podcast, row[2], row[3], row[4], row[5], (row[6])[0:10])
         list_episodes.append(temp_episode)
+
     repo.add_multiple_authors(set_authors)
     repo.add_multiple_categories(set_categories)
     repo.add_multiple_podcasts(list_podcasts)
     repo.add_multiple_episodes(list_episodes)
+
+
+    for podcast in list_podcasts:
+        print(podcast.id, "=", podcast.categories)

@@ -106,7 +106,6 @@ def map_model_to_tables():
     mapper_registry.map_imperatively(Category, categories_table, properties={
         '_id': categories_table.c.category_id,
         '_name': categories_table.c.category_name,
-        '_Category__podcasts': relationship(Podcast, secondary=podcast_categories_table, back_populates="_Podcast__categories")
     })
 
     mapper_registry.map_imperatively(Podcast, podcast_table, properties={
@@ -119,8 +118,7 @@ def map_model_to_tables():
         '_itunes_id': podcast_table.c.itunes_id,
         '_author': relationship(Author),
         '_Podcast_episodes': relationship(Episode, back_populates='_Episode__podcast'),
-        '_Podcast__categories':relationship(Category, secondary=podcast_categories_table,
-                                       back_populates='_Category__podcasts')
+        '_categories': relationship(Category, secondary=podcast_categories_table)
     })
 
     mapper_registry.map_imperatively(Episode, episode_table, properties={
