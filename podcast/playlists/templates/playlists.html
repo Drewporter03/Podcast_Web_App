@@ -1,24 +1,24 @@
 <section class="playlists container-a">
     <h1>{{ user_name }}'s Playlist</h1>
     <article class="scrollbox">
-        {%  if playlists.podcast_list|length == 0 %}
+        {%  if playlist_episodes|length == 0 %}
         <div class="empty-page">
             <p class="empty-page-title">Nothing here yet ( ˊ＿>ˋ )</p>
             <p class="empty-page-subtitle">Episodes will be shown here once you add them to your playlist!</p>
         </div>
         {% endif %}
-        {% for item in playlists.episodes %}
+        {% for episode in playlist_episodes %}
                 <article class="podcast block block-hover">
-                    <img src="{{ item.podcast.image }}" alt="Thumbnail for {{ item.title }}">
+                    <img src="{{ episode.podcast.image }}" alt="Thumbnail for {{ episode.title }}">
                     <div class="podcast-content">
-                        <div class="podcast-title">{{ item.title }}</div>
-                        <div class="podcast-categories">{{ item.podcast.title }}</div>
+                        <div class="podcast-title">{{ episode.title }}</div>
+                        <div class="podcast-categories">{{ episode.podcast.title }}</div>
                     </div>
                     
                     <div class="episode-side">
                         <form method="post">
                             {{ remove_episode_from_playlist.hidden_tag() }}
-                            <input type="hidden" name="episode_id" value="{{ item.id }}">
+                            <input type="hidden" name="episode_id" value="{{ episode.id }}">
                             {{ remove_episode_from_playlist.submit(class_="add-to-playlist") }}
                         </form>
                     </div>

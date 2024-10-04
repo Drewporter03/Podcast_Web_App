@@ -44,7 +44,7 @@ def podcasts():
 
         if action == 'REMOVE':
             episodes_to_remove = [episode for episode in
-                                  playlist_services.get_user_playlist(repo.repository, user_id).podcast_list if
+                                  playlist_services.get_user_playlist(repo.repository, user_id)._episodes if
                                   episode.podcast.id == podcast_id]
 
             for episode in episodes_to_remove:
@@ -56,7 +56,7 @@ def podcasts():
     if 'user_name' in session:
         username = session['user_name']
         user = services.get_user(repo.repository, username)
-        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id).episodes
+        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id)._episodes
         for podcast in list_of_podcasts:
             status[podcast.id] = True
             for episode in list_of_episodes:

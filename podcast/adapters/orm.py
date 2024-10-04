@@ -94,7 +94,7 @@ def map_model_to_tables():
         '_title': playlist_table.c.title,
         '_owner': relationship('User', back_populates='playlists'),
         '_image': playlist_table.c.image,
-        'episodes': relationship(Episode, secondary=playlist_episodes_table, back_populates='playlists')
+        '_episodes': relationship(Episode, secondary=playlist_episodes_table, back_populates='playlists')
     })
 
     mapper_registry.map_imperatively(Author, authors_table, properties={
@@ -128,7 +128,7 @@ def map_model_to_tables():
         '_Episode__audio': episode_table.c.audio_url,
         '_Episode__description': episode_table.c.description,
         '_Episode__pub_date': episode_table.c.pub_date,
-        'playlists': relationship(Playlist, secondary=playlist_episodes_table, back_populates='episodes')
+        'playlists': relationship(Playlist, secondary=playlist_episodes_table, back_populates='_episodes')
     })
 
     mapper_registry.map_imperatively(User, users_table, properties={

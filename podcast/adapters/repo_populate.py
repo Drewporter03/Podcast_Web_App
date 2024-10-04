@@ -93,7 +93,3 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
     repo.add_multiple_categories(set_categories)
     repo.add_multiple_podcasts(list_podcasts)
     repo.add_multiple_episodes(list_episodes)
-
-
-    for podcast in list_podcasts:
-        print(podcast.id, "=", podcast.categories)

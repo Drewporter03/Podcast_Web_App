@@ -52,6 +52,9 @@ class MemoryRepository(AbstractRepository, ABC):
         if podcast in self.__podcasts:
             self.__podcast_index[podcast.id] = podcast
 
+    def add_ep_to_playlist(self, playlist_id, episode_id):
+        pass
+
 
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None

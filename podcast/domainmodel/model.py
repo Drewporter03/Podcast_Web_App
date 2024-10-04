@@ -509,7 +509,7 @@ class  Playlist:
         validate_non_empty_string(title, "Playlist title")
         self._id = playlist_id
         self._title = title.strip()
-        self.episodes = []
+        self._episodes = []
         self._owner = owner
         self._image = image
 
@@ -531,7 +531,7 @@ class  Playlist:
 
     @property
     def episodes(self):
-        return self.episodes
+        return self._episodes
 
     @title.setter
     def title(self, new_name: str):
@@ -547,11 +547,11 @@ class  Playlist:
     def add_episode(self, episode: Episode):
         if not isinstance(episode, Episode):
             raise TypeError("Expected a Episode instance.")
-        if episode not in self.episodes:
+        if episode not in self._episodes:
             self.episodes.append(episode)
 
     def remove_episode(self, episode: Episode):
-        if episode in self.episodes:
+        if episode in self._episodes:
             self.episodes.remove(episode)
 
     def __repr__(self) -> str:

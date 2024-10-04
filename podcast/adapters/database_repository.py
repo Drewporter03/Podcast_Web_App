@@ -57,13 +57,10 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def get_playlist(self, playlist_id: int) -> Playlist:
         playlist = None
-        try:
-            playlists = self._session_cm.session.query(Playlist).all()
-            for playlist in playlists:
-                if playlist.owner == playlist_id:
-                    return playlist
-        except NoResultFound:
-            print("No playlist found with id {}".format(playlist_id))
+        playlists = self._session_cm.session.query(Playlist).all()
+        for playlist in playlists:
+            if playlist.id == playlist_id:
+                return playlist
         return playlist
 
     def add_author(self, author: Author):
