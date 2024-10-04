@@ -4,7 +4,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import registry, relationship
 from datetime import datetime
 
-from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist, playlist_to_episode
+from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist
 
 # Global variable giving access to the MetaData (schema) information of the database
 mapper_registry = registry()
@@ -77,7 +77,6 @@ playlist_table = Table(
     Column('title', String(64), nullable=False),
     Column('owner_id', Integer, ForeignKey('users.id'), nullable=False),
     Column('image', String(256)),
-    # Column('podcast_list', String(528))
 
 )
 
@@ -95,7 +94,7 @@ def map_model_to_tables():
         '_title': playlist_table.c.title,
         '_owner': relationship('User', back_populates='playlists'),
         '_image': playlist_table.c.image,
-        'episodes': relationship(Episode, secondary=playlist_episodes_table, back_populates='playlist')
+        'episodes': relationship(Episode, secondary=playlist_episodes_table, back_populates='playlists')
     })
 
     mapper_registry.map_imperatively(Author, authors_table, properties={
@@ -129,7 +128,7 @@ def map_model_to_tables():
         '_Episode__audio': episode_table.c.audio_url,
         '_Episode__description': episode_table.c.description,
         '_Episode__pub_date': episode_table.c.pub_date,
-        'playlist': relationship(Playlist, secondary=playlist_episodes_table, back_populates='episodes')
+        'playlists': relationship(Playlist, secondary=playlist_episodes_table, back_populates='episodes')
     })
 
     mapper_registry.map_imperatively(User, users_table, properties={

@@ -569,10 +569,3 @@ class  Playlist:
         if not isinstance(other, Playlist):
             return False
         return self._playlist_id < other._playlist_id
-
-
-class playlist_to_episode:
-    def __init__(self, playlist_id:int, episode_id:int):
-        self.playlist_id = playlist_id
-        self.episode_id = episode_id
-        

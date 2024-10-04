@@ -147,4 +147,7 @@ class AbstractRepository(abc.ABC):
         # adds many categories to the repository
         raise NotImplementedError
 
-
+    @abc.abstractmethod
+    def add_ep_to_playlist(self, playlist_id, episode_id):
+        # adds many categories to the repository
+        raise NotImplementedError

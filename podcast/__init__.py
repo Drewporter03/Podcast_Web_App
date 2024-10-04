@@ -1,6 +1,6 @@
 """Initialize Flask app."""
 from flask import Flask, render_template, redirect
-from podcast.domainmodel.model import Podcast, Episode, Author, Category, playlist_to_episode
+from podcast.domainmodel.model import Podcast, Episode, Author, Category
 from podcast.adapters.datareader.csvdatareader import CSVDataReader
 from pathlib import Path
 import podcast.adapters.repository as repo
@@ -102,6 +102,8 @@ def create_app(test_config=None):
     @app.errorhandler(404)
     def page_not_found(e):
         return render_template('main.html', content_right='404.html'), 404
-
-    repo.repository.get_playlist(5732178328516120769).add_episode(repo.repository.get_episode(3))
+    # print(repo.repository.get_episode(3))
+    # print(repo.repository.get_playlist(5732178328516120769).episodes)
+    # repo.repository.get_playlist(5732178328516120769).add_episode(repo.repository.get_episode(3))
+    # print(repo.repository.get_playlist(5732178328516120769).episodes)
     return app

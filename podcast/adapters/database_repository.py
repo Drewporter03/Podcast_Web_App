@@ -3,7 +3,7 @@ from typing import List, Type
 from sqlalchemy import func
 from sqlalchemy.orm import scoped_session
 from podcast.adapters.repository import AbstractRepository
-from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist, playlist_to_episode
+from podcast.domainmodel.model import Podcast, Author, Category, User, Review, Episode, Playlist
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy import insert
 
@@ -135,7 +135,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return episode
 
     def add_episode(self, episode: Episode):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             scm.session.merge(episode)
             scm.commit()
 
@@ -177,6 +177,12 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                 for category in categories:
                     scm.session.add(category)
             scm.commit()
+
+    def add_ep_to_playlist(self, playlist_id, episode_id):
+        with self._session_cm.session() as scm:
+            self.get_playlist(playlist_id).add_episode(self.get_episode(episode_id))
+            scm.commit()
+
 
     # END REGION
 
@@ -228,12 +234,3 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         category = self._session_cm.session.query(Category).filter(Category.name == category_string).all()
         podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
         return podcasts
-
-    def add_episode_to_playlist(self, episode: Episode, playlist: Playlist):
-        with self._session_cm as scm:
-            print(episode)
-            print(playlist)
-            print(episode.id)
-            print(playlist.id)
-            scm.session.merge(playlist_to_episode(playlist.id, episode.id))
-            scm.commit()
