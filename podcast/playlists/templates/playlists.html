@@ -7,7 +7,7 @@
             <p class="empty-page-subtitle">Episodes will be shown here once you add them to your playlist!</p>
         </div>
         {% endif %}
-        {% for item in playlists.podcast_list %}
+        {% for item in playlists.episodes %}
                 <article class="podcast block block-hover">
                     <img src="{{ item.podcast.image }}" alt="Thumbnail for {{ item.title }}">
                     <div class="podcast-content">

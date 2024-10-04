@@ -2,7 +2,11 @@
     <div class=" episodes-left block">
         <img src="{{ podcast.image }}" alt="{{ podcast.title }}">
         <article class="podcast-info">
-            <div class="podcast-info-categories">{{ podcast.categories[0].name }}</div>
+            <div class="podcast-info-categories">
+                {% for category in podcast.categories %}
+                {{ category.name }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
             <h1>{{ podcast.title }}</h1>
             <h2>Presented by {{ podcast.author.name }}</h2>
             <p>{{ podcast.description }}</p>

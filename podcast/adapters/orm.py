@@ -73,7 +73,7 @@ reviews_table = Table(
 
 playlist_table = Table(
     'playlist', mapper_registry.metadata,
-    Column('id', Integer, primary_key=True),
+    Column('playlist_id', Integer, primary_key=True),
     Column('title', String(64), nullable=False),
     Column('owner_id', Integer, ForeignKey('users.id'), nullable=False),
     Column('image', String(256)),
@@ -84,18 +84,18 @@ playlist_table = Table(
 playlist_episodes_table = Table(
     'playlist_episodes', mapper_registry.metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('playlist_id', ForeignKey('playlist.id')),
+    Column('playlist_id', ForeignKey('playlist.playlist_id')),
     Column('episode_id', ForeignKey('episodes.episode_id')),
 )
 
 def map_model_to_tables():
 
     mapper_registry.map_imperatively(Playlist, playlist_table, properties={
-        '_id': playlist_table.c.id,
+        '_id': playlist_table.c.playlist_id,
         '_title': playlist_table.c.title,
         '_owner': relationship('User', back_populates='playlists'),
         '_image': playlist_table.c.image,
-        '_podcast_list': relationship(Episode, secondary=playlist_episodes_table),
+        'episodes': relationship(Episode, secondary=playlist_episodes_table, back_populates='playlist')
     })
 
     mapper_registry.map_imperatively(Author, authors_table, properties={
@@ -129,6 +129,7 @@ def map_model_to_tables():
         '_Episode__audio': episode_table.c.audio_url,
         '_Episode__description': episode_table.c.description,
         '_Episode__pub_date': episode_table.c.pub_date,
+        'playlist': relationship(Playlist, secondary=playlist_episodes_table, back_populates='episodes')
     })
 
     mapper_registry.map_imperatively(User, users_table, properties={
@@ -147,11 +148,3 @@ def map_model_to_tables():
         '_Review__comment': reviews_table.c.comment,
         '_Review_user': relationship(User, back_populates='_User_reviews'),
     })
-
-    mapper_registry.map_imperatively(playlist_to_episode, playlist_episodes_table, properties={
-        '_playlist_to_episode__id':playlist_episodes_table.c.id,
-        '_playlist_to_episode__playlist_id': playlist_episodes_table.c.playlist_id,
-        '_playlist_to_episode__episode_id': playlist_episodes_table.c.episode_id,
-    })
-
-

@@ -23,6 +23,7 @@ def register():
             services.add_user(form.user_name.data, form.password.data, repo.repository)
 
             playlist_services.add_playlist(repo.repository, form.user_name.data, f"{form.user_name.data}'s playlist")
+            repo.repository.get_playlist(repo.repository.get_user(form.user_name.data).id).add_episode(repo.repository.get_episode(3))
             return redirect(url_for('authentication_bp.login'))
         except services.NameNotUniqueException:
             error_msg = 'Username is not unique'

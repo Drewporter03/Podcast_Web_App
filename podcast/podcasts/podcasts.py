@@ -56,7 +56,7 @@ def podcasts():
     if 'user_name' in session:
         username = session['user_name']
         user = services.get_user(repo.repository, username)
-        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id).podcast_list
+        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id).episodes
         for podcast in list_of_podcasts:
             status[podcast.id] = True
             for episode in list_of_episodes:

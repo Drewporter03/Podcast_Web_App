@@ -53,7 +53,7 @@ def episodes():
     if 'user_name' in session:
         user = playlist_services.get_user(repo.repository, session['user_name'])
         user_id = user.id
-        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user_id).podcast_list
+        playlist_episodes = playlist_services.get_user_playlist(repo.repository, user_id).episodes
     else:
         playlist_episodes = None
 

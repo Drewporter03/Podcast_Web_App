@@ -328,11 +328,11 @@ class PodcastSubscription:
 
 
 class Episode:
-    def __init__(self, id: int, podcast: Podcast, title: str = "Untitled", audio: str = "", audio_length: int = 0,
+    def __init__(self, episode_id: int, podcast: Podcast, title: str = "Untitled", audio: str = "", audio_length: int = 0,
                  description: str = "", pub_date: str = " "):
         validate_non_empty_string(pub_date, "Episode Date")
 
-        self.__id = id
+        self.__id = episode_id
         self.__podcast = podcast
         self.__title = title
         self.__audio = audio
@@ -509,7 +509,7 @@ class  Playlist:
         validate_non_empty_string(title, "Playlist title")
         self._id = playlist_id
         self._title = title.strip()
-        self._podcast_list = []
+        self.episodes = []
         self._owner = owner
         self._image = image
 
@@ -530,8 +530,8 @@ class  Playlist:
         return self._image
 
     @property
-    def podcast_list(self):
-        return self._podcast_list
+    def episodes(self):
+        return self.episodes
 
     @title.setter
     def title(self, new_name: str):
@@ -547,22 +547,12 @@ class  Playlist:
     def add_episode(self, episode: Episode):
         if not isinstance(episode, Episode):
             raise TypeError("Expected a Episode instance.")
-        if episode not in self._podcast_list:
-            self._podcast_list.append(episode)
+        if episode not in self.episodes:
+            self.episodes.append(episode)
 
     def remove_episode(self, episode: Episode):
-        if episode in self._podcast_list:
-            self._podcast_list.remove(episode)
-
-    def add_podcast(self, podcast: Podcast):
-        if not isinstance(podcast, Podcast):
-            raise TypeError("Expected a Playlist instance.")
-        if podcast not in self._podcast_list:
-            self._podcast_list.append(podcast)
-
-    def remove_podcast(self, podcast: Podcast):
-        if podcast in self._podcast_list:
-            self._podcast_list.remove(podcast)
+        if episode in self.episodes:
+            self.episodes.remove(episode)
 
     def __repr__(self) -> str:
         return f"<Playlist {self._id}: {self.title}>"
