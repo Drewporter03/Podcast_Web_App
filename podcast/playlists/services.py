@@ -39,7 +39,6 @@ def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
 
 def get_user_playlist(repo: AbstractRepository, playlist_id: int):
     playlist = repo.get_playlist(playlist_id)
-    print(playlist.id)
     # if the playlist has not been created yet it will be none
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")

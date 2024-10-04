@@ -103,7 +103,8 @@ def create_app(test_config=None):
     def page_not_found(e):
         return render_template('main.html', content_right='404.html'), 404
     # print(repo.repository.get_episode(3))
-    # print(repo.repository.get_playlist(5732178328516120769).episodes)
-    # repo.repository.get_playlist(5732178328516120769).add_episode(repo.repository.get_episode(3))
-    # print(repo.repository.get_playlist(5732178328516120769).episodes)
+    # print(repo.repository.get_playlist(1693337450283234971).episodes)
+    # repo.repository.add_ep_to_playlist(1693337450283234971, 3)
+    # print(repo.repository.get_playlist(1693337450283234971).episodes)
+    # repo.repository.add_ep_to_playlist(1693337450283234971, 5)
     return app
