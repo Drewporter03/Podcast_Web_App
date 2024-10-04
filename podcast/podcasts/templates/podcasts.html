@@ -20,7 +20,11 @@
                     <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
                     <div class="podcast-content">
                         <div class="podcast-title">{{ podcast.title }}</div>
-                        <!-- categories missing -->
+                        <div class="podcast-categories">
+                            {% for category in podcast.categories %}
+                            {{ category.name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
                         <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
                     </div>
                     {% if 'user_name' in session %}

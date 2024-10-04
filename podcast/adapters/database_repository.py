@@ -145,7 +145,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                 scm.session.merge(episode)
             scm.commit()
 
-
     def get_number_of_episodes(self):
         len_episodes = self._session_cm.session.query(Episode).count()
         return len_episodes
