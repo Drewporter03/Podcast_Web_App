@@ -107,4 +107,5 @@ def create_app(test_config=None):
     # repo.repository.add_ep_to_playlist(1693337450283234971, 3)
     # print(repo.repository.get_playlist(1693337450283234971).episodes)
     # repo.repository.add_ep_to_playlist(1693337450283234971, 5)
+    # test code, replace 169.... with playlist id. refer to database_repository for full method
     return app
