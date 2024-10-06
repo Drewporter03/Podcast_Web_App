@@ -176,7 +176,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.commit()
 
     def add_ep_to_playlist(self, playlist_id, episode_id):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             self.get_playlist(playlist_id).add_episode(self.get_episode(episode_id))
             scm.commit()
 

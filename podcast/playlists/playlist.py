@@ -20,7 +20,7 @@ def playlists():
 
     #whoopsie
     playlist_episodes = user_playlist._episodes
-
+    print(playlist_episodes)
     remove_episode_from_playlist = RemoveEpisodeForm()
     if remove_episode_from_playlist.validate_on_submit():
         if remove_episode_from_playlist.episode_id.data is not None:
@@ -29,6 +29,7 @@ def playlists():
 
     return render_template('main.html', content_right='playlists.html', playlist_episodes=playlist_episodes, user_name=user_name,
                            remove_episode_from_playlist=remove_episode_from_playlist)
+
 
 
 class RemoveEpisodeForm(FlaskForm):

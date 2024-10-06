@@ -53,7 +53,7 @@ def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
     if repo.get_episode(episode_id) == None:
         raise EpisodeNotFoundException(f"Episode with ID {episode_id} not found.")
     episode = repo.get_episode(episode_id)
-
+    repo.add_ep_to_playlist()
     playlist.add_episode(episode)
 
 

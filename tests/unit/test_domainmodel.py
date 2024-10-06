@@ -156,7 +156,7 @@ def my_subscription(my_user, my_podcast):
 
 @pytest.fixture
 def my_episode(my_podcast):
-    return Episode(1, 1, "Episode 1","www.drewwhyyoudothistome.co", 60, "2005-09-02", "First Episode", my_podcast)
+    return Episode(1, my_podcast, "Episode 1","www.drewwhyyoudothistome.co", 60, "First Episode", "2005-09-02")
 
 
 def test_podcast_initialization():
