@@ -18,9 +18,12 @@ def database_engine():
     clear_mappers()
     engine = create_engine(TEST_DATABASE_URI_FILE)
     mapper_registry.metadata.create_all(engine)  # Conditionally create database tables.
-    with engine.connect() as connection:
-        for table in reversed(list(mapper_registry.metadata.tables.values())):  # Remove any data from the tables.
-            connection.execute(table.delete())
+
+    for table in reversed(mapper_registry.metadata.sorted_tables):
+        with engine.connect() as conn:
+            conn.execute(table.delete())
+
+
     map_model_to_tables()
     # Create the database session factory using sessionmaker (this has to be done once, in a global manner)
     session_factory = sessionmaker(autocommit=False, autoflush=True, bind=engine)
@@ -35,9 +38,11 @@ def session_factory():
     clear_mappers()
     engine = create_engine(TEST_DATABASE_URI_IN_MEMORY)
     mapper_registry.metadata.create_all(engine)
-    with engine.connect() as connection:
-        for table in reversed(list(mapper_registry.metadata.tables.values())):
-            connection.execute(table.delete())
+
+    for table in reversed(mapper_registry.metadata.sorted_tables):
+        with engine.connect() as conn:
+            conn.execute(table.delete())
+
     map_model_to_tables()
     # Create the database session factory using sessionmaker (this has to be done once, in a global manner)
     session_factory = sessionmaker(autocommit=False, autoflush=True, bind=engine)
@@ -52,9 +57,11 @@ def empty_session():
     clear_mappers()
     engine = create_engine(TEST_DATABASE_URI_IN_MEMORY)
     mapper_registry.metadata.create_all(engine)
-    with engine.connect() as connection:
-        for table in reversed(list(mapper_registry.metadata.tables.values())):
-            connection.execute(table.delete())
+
+    for table in reversed(mapper_registry.metadata.sorted_tables):
+        with engine.connect() as conn:
+            conn.execute(table.delete())
+
     map_model_to_tables()
     session_factory = sessionmaker(bind=engine)
     yield session_factory()
