@@ -1,5 +1,7 @@
 from abc import ABC
 from typing import List, Type
+
+import sqlalchemy.orm.session
 from sqlalchemy import func
 from sqlalchemy.orm import scoped_session
 from podcast.adapters.repository import AbstractRepository
@@ -171,6 +173,10 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                     scm.session.add(category)
             scm.commit()
 
+    # END REGION
+
+    # PLAYLIST REGION
+
     def add_ep_to_playlist(self, playlist_id, episode_id):
         with self._session_cm as scm:
             episode = self.get_episode(episode_id)
@@ -183,7 +189,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             self.get_playlist(playlist_id).remove_episode(episode)
             scm.commit()
             print("called")
-
 
     # END REGION
 
@@ -202,18 +207,19 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             scm.session.merge(user)
             scm.commit()
 
-    def add_review(self, reviews: Review):
-        with self._session_cm.session() as scm:
-            scm.session.merge(reviews)
+    def add_review(self, review: Review):
+        with self._session_cm as scm:
+            scm.session.add(review)
             scm.commit()
 
+
     def get_review(self, podcast_id: int):
-        reviews = None
-        try:
-            reviews = self._session_cm.session.query(Review).get(podcast_id)
-        except NoResultFound:
-            print("No Review found with podcast id {}".format(podcast_id))
-        return reviews
+                reviews = None
+                try:
+                    reviews = self._session_cm.session.query(Review).get(podcast_id)
+                except NoResultFound:
+                    print("No Review found with podcast id {}".format(podcast_id))
+                return reviews
 
     # END REGION
 
@@ -235,3 +241,4 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         category = self._session_cm.session.query(Category).filter(Category.name == category_string).all()
         podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
         return podcasts
+

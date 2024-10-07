@@ -44,9 +44,6 @@ categories_table = Table(
     Column('category_name', String(64)) #, nullable=False)
 )
 
-# TODO : Association table podcast_categories
-# Resolve many-to-many relationship between podcast and categories
-
 podcast_categories_table = Table(
     'podcast_categories', mapper_registry.metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
@@ -77,7 +74,6 @@ playlist_table = Table(
     Column('title', String(64), nullable=False),
     Column('owner_id', Integer, ForeignKey('users.id'), nullable=False),
     Column('image', String(256)),
-
 )
 
 playlist_episodes_table = Table(
@@ -118,7 +114,8 @@ def map_model_to_tables():
         '_itunes_id': podcast_table.c.itunes_id,
         '_author': relationship(Author),
         '_Podcast_episodes': relationship(Episode, back_populates='_Episode__podcast'),
-        'categories': relationship(Category, secondary=podcast_categories_table, back_populates='podcasts')
+        'categories': relationship(Category, secondary=podcast_categories_table, back_populates='podcasts'),
+        '_Podcast_reviews': relationship(Review, back_populates='_Review__podcast_id'),
     })
 
     mapper_registry.map_imperatively(Episode, episode_table, properties={
@@ -142,8 +139,10 @@ def map_model_to_tables():
     mapper_registry.map_imperatively(Review, reviews_table, properties={
         '_Review__id': reviews_table.c.id,
         '_Review__user_id': reviews_table.c.user_id,
-        '_Review__podcast_id': reviews_table.c.podcast_id,
+        '_Review__podcast_id': relationship(Podcast, back_populates='_Podcast_reviews'),
         '_Review__rating': reviews_table.c.rating,
         '_Review__comment': reviews_table.c.comment,
         '_Review_user': relationship(User, back_populates='_User_reviews'),
     })
+
+

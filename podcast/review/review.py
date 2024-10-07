@@ -15,10 +15,10 @@ def review():
     list_of_podcasts = get_podcasts(repo.repository)
 
     podcast_id = request.args.get('podcast_id', type=int)
-    list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
+    list_of_episodes = services.get_episodes(repo.repository, podcast_id)
     average = services.get_average_reviews(podcast_id, repo.repository)
 
-    podcast = list_of_podcasts[podcast_id]
+    podcast = repo.repository.get_podcast(podcast_id)
 
     new_review = reviewForm()
 
