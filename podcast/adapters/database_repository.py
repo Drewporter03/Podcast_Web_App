@@ -56,11 +56,8 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
             print(scm.session.query(Playlist).all())
 
     def get_playlist(self, playlist_id: int) -> Playlist:
-        playlist = None
-        playlists = self._session_cm.session.query(Playlist).all()
-        for playlist in playlists:
-            if playlist.id == playlist_id:
-                return playlist
+        with self._session_cm as scm:
+            playlist = scm.session.query(Playlist).get(playlist_id)
         return playlist
 
     def add_author(self, author: Author):
@@ -126,7 +123,6 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         episode = None
         try:
             episode = self._session_cm.session.query(Episode).get(episode_id)
-
         except NoResultFound:
             print("No episode found with id {}".format(episode_id))
         return episode
@@ -177,8 +173,16 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def add_ep_to_playlist(self, playlist_id, episode_id):
         with self._session_cm as scm:
-            self.get_playlist(playlist_id).add_episode(self.get_episode(episode_id))
+            episode = self.get_episode(episode_id)
+            self.get_playlist(playlist_id).add_episode(episode)
             scm.commit()
+
+    def remove_ep_from_playlist(self, playlist_id, episode_id):
+        with self._session_cm as scm:
+            episode = self.get_episode(episode_id)
+            self.get_playlist(playlist_id).remove_episode(episode)
+            scm.commit()
+            print("called")
 
 
     # END REGION

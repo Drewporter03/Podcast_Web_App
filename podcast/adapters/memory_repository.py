@@ -55,6 +55,8 @@ class MemoryRepository(AbstractRepository, ABC):
     def add_ep_to_playlist(self, playlist_id, episode_id):
         pass
 
+    def remove_ep_from_playlist(self, playlist_id, episode_id):
+        pass
 
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None

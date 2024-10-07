@@ -26,7 +26,6 @@ def add_playlist(repo: AbstractRepository, user_name: str, playlist_name: str):
     if not user:
         raise UnknownUserException(f"{user_name} not found.")
     try:
-
         user_id = user.id
         playlist = get_user_playlist(repo, user_id)
 
@@ -53,7 +52,7 @@ def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
     if repo.get_episode(episode_id) == None:
         raise EpisodeNotFoundException(f"Episode with ID {episode_id} not found.")
     episode = repo.get_episode(episode_id)
-    repo.add_ep_to_playlist()
+    repo.add_ep_to_playlist(playlist_id, episode_id)
     playlist.add_episode(episode)
 
 
@@ -79,6 +78,7 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
     if episode in playlist._episodes:
+        repo.remove_ep_from_playlist(playlist_id, episode_id)
         playlist.remove_episode(episode)
 
 

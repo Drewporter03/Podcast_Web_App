@@ -14,6 +14,7 @@ def playlists():
     user_name = session['user_name']
     user = services.get_user(repo.repository, user_name)
     user_id = user.id
+    print(user_id)
     user_playlist = services.get_user_playlist(repo.repository, user_id)
     # user_playlist = services.get_user_playlist(repo.repository, user_id)
     # playlist_episodes = services.get_episodes(repo.repository, user_id)
