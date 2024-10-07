@@ -19,8 +19,7 @@ def episodes():
     list_of_episodes = services.sorted_episodes_by_date(repo.repository, podcast_id)
     # average = services.get_average_reviews(podcast_id, repo.repository)
     average = 0
-    # reviews = services.get_podcast_reviews(podcast_id, repo.repository)
-    reviews = None
+    reviews = services.get_podcast_reviews(podcast_id, repo.repository)
 
     count = 0
     for episode in list_of_episodes:

@@ -58,16 +58,6 @@ users_table = Table(
     Column('password', String(64), nullable=False)
 )
 
-reviews_table = Table(
-    'reviews', mapper_registry.metadata,
-    Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('user_id', ForeignKey('users.id')),
-    Column('podcast_id', ForeignKey('podcasts.podcast_id')),
-    Column('rating', Integer),
-    Column('comment', Text)
-)
-
-
 playlist_table = Table(
     'playlist', mapper_registry.metadata,
     Column('playlist_id', Integer, primary_key=True),
@@ -83,7 +73,24 @@ playlist_episodes_table = Table(
     Column('episode_id', ForeignKey('episodes.episode_id')),
 )
 
+reviews_table = Table(
+    'reviews', mapper_registry.metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('podcast_id', ForeignKey('podcasts.podcast_id')),
+    Column('rating', Integer),
+    Column('comment', Text)
+)
+
 def map_model_to_tables():
+
+    mapper_registry.map_imperatively(Review, reviews_table, properties={
+        '_id': reviews_table.c.id,
+        '_podcast': relationship(Podcast, back_populates='_Podcast_reviews'),
+        '_rating': reviews_table.c.rating,
+        '_comment': reviews_table.c.comment,
+        '_reviewer': relationship(User, back_populates='_User_reviews'),
+    })
 
     mapper_registry.map_imperatively(Playlist, playlist_table, properties={
         '_id': playlist_table.c.playlist_id,
@@ -115,7 +122,7 @@ def map_model_to_tables():
         '_author': relationship(Author),
         '_Podcast_episodes': relationship(Episode, back_populates='_Episode__podcast'),
         'categories': relationship(Category, secondary=podcast_categories_table, back_populates='podcasts'),
-        '_Podcast_reviews': relationship(Review, back_populates='_Review__podcast_id'),
+        '_Podcast_reviews': relationship(Review, back_populates='_podcast'),
     })
 
     mapper_registry.map_imperatively(Episode, episode_table, properties={
@@ -125,7 +132,7 @@ def map_model_to_tables():
         '_Episode__audio': episode_table.c.audio_url,
         '_Episode__description': episode_table.c.description,
         '_Episode__pub_date': episode_table.c.pub_date,
-        'playlists': relationship(Playlist, secondary=playlist_episodes_table, back_populates='_episodes')
+        'playlists': relationship(Playlist, secondary=playlist_episodes_table, back_populates='_episodes'),
     })
 
     mapper_registry.map_imperatively(User, users_table, properties={
@@ -133,16 +140,8 @@ def map_model_to_tables():
         '_username': users_table.c.username,
         '_password': users_table.c.password,
         'playlists': relationship(Playlist, back_populates='_owner'),
-        '_User_reviews': relationship(Review, back_populates='_Review_user')
+        '_User_reviews': relationship(Review, back_populates='_reviewer')
     })
 
-    mapper_registry.map_imperatively(Review, reviews_table, properties={
-        '_Review__id': reviews_table.c.id,
-        '_Review__user_id': reviews_table.c.user_id,
-        '_Review__podcast_id': relationship(Podcast, back_populates='_Podcast_reviews'),
-        '_Review__rating': reviews_table.c.rating,
-        '_Review__comment': reviews_table.c.comment,
-        '_Review_user': relationship(User, back_populates='_User_reviews'),
-    })
 
 
