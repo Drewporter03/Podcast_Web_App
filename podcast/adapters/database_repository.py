@@ -217,7 +217,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_review(self, podcast_id: int):
                 reviews = None
                 try:
-                    reviews = self._session_cm.session.query(Review).get(podcast_id)
+                    reviews = self._session_cm.session.query(Review).filter(Review.podcast_id == podcast_id).all()
                 except NoResultFound:
                     print("No Review found with podcast id {}".format(podcast_id))
                 return reviews
