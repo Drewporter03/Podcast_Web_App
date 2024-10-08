@@ -215,31 +215,36 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
 
     def get_review(self, podcast_id: int):
-                reviews = None
-                try:
-                    reviews = self._session_cm.session.query(Review).filter(Review.podcast_id == podcast_id).all()
-                except NoResultFound:
-                    print("No Review found with podcast id {}".format(podcast_id))
-                return reviews
+        reviews = None
+        try:
+            reviews = self._session_cm.session.query(Review).filter(Review.podcast.id == podcast_id).all()
+        except NoResultFound:
+            print("No Review found with podcast id {}".format(podcast_id))
+        return reviews
 
     # END REGION
 
     # SEARCH REGION
 
     def search_podcast_by_title(self, title_string: str) -> List[Podcast]:
-        podcasts = self._session_cm.session.query(Podcast).filter(Podcast.title.ilike(f"%{title_string}%")).all()
+        podcasts = self._session_cm.session.query(Podcast).filter(Podcast._title.ilike(f"%{title_string}%")).all()
         # Retrieve podcast whose title contains the title_string passed by the user.
         # This is a case-insensitive search without trailing spaces.
         return podcasts
 
     def search_podcast_by_author(self, author_name: str) -> List[Podcast]:
+        try:
+            author = self._session_cm.session.query(Author).filter(Author._name == author_name).all()
+            podcasts = self._session_cm.session.query(Podcast).filter(Podcast._author == author[0]).all()
+            return podcasts
 
-        author = self._session_cm.session.query(Author).filter(Author.name == author_name).all().one()
-        podcasts = self._session_cm.session.query(Podcast).filter(author_id == author.id).all()
-        return podcasts
+        except IndexError:
+            print("No Author found with name {}".format(author_name))
+
+        return []
 
     def search_podcast_by_category(self, category_string: str) -> List[Podcast]:
-        category = self._session_cm.session.query(Category).filter(Category.name == category_string).all()
+        category = self._session_cm.session.query(Category).filter(Category._name == category_string).all()
         podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
         return podcasts
 

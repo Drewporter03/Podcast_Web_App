@@ -26,7 +26,7 @@ def podcasts():
         page = (request.args.get('page', default=1, type=int))
 
         if query is not None:
-            list_of_podcasts = services.filter_podcasts(list_of_podcasts, query, parameter)
+            list_of_podcasts = services.filter_podcasts(query, parameter, repo.repository)
             max_pages = services.calculate_pages(list_of_podcasts)
 
         start, stop, list_of_podcasts = services.calculate_pagination(page, max_pages, list_of_podcasts)

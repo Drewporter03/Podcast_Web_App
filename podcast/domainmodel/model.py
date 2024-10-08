@@ -168,6 +168,9 @@ class Podcast:
         if episode in self.episodes:
             self.episodes.remove(episode)
 
+    def __contains__(self, item):
+        return item in self.categories
+
     def __repr__(self):
         return f"<Podcast {self.id}: '{self.title}' by {self.author.name}>"
 

@@ -2,35 +2,28 @@ from podcast.adapters.repository import AbstractRepository
 
 
 def get_episodes(repo: AbstractRepository):
-    """list_of_episodes = []
-    for i in range(1, repo.get_number_of_episodes() + 1):
-        episode = repo.get_episode(i)
-        list_of_episodes.append(episode)
-    return list_of_episodes"""
-    # NEED TO REMOVE - CAN JUST CALL FROM BP
     return repo.get_episodes()
 
 
 def get_podcasts(repo: AbstractRepository):
     return repo.get_podcasts()
 
-
-
 def sorted_podcasts_by_title(repo: AbstractRepository):
     list_of_podcasts = get_podcasts(repo)
     return sorted(list_of_podcasts, key=lambda podcast: podcast.title)
 
 
-def filter_podcasts(podcasts, query, parameter):
+def filter_podcasts(query, parameter, repo: AbstractRepository):
     searched_podcasts = []
-    for podcast in podcasts:
-        if parameter == "title" and query.lower() in podcast.title.lower():
-            searched_podcasts.append(podcast)
-        elif parameter == "author" and query.lower() in podcast.author.name.lower():
-            searched_podcasts.append(podcast)
-        elif parameter == "category" and query.lower() in podcast.categories[0].name.lower():
-            searched_podcasts.append(podcast)
-
+    if parameter == "title":
+        searched_podcasts = repo.search_podcast_by_title(query)
+    elif parameter == "author":
+        searched_podcasts = repo.search_podcast_by_author(query)
+    elif parameter == "category":
+        query = query.strip()
+        searched_podcasts = repo.search_podcast_by_category(query)
+    else:
+        searched_podcasts = repo.search_podcast_by_title(query)
     return searched_podcasts
 
 
