@@ -6,7 +6,6 @@ from podcast import create_app
 from podcast.authentication.authentication import services
 import podcast.adapters.repository as repo
 import podcast.adapters.repo_populate as repository_populate
-
 # Using data from a different directory -- so we can test with fewer data
 TEST_DATA_PATH = Path(__file__).parent / 'tests' / 'data'
 
