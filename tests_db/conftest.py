@@ -3,9 +3,12 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, clear_mappers
 from pathlib import Path
+import podcast.adapters.repository as repo
+from podcast.adapters.database_repository import SqlAlchemyRepository
 
 from podcast.adapters import database_repository, repo_populate
 from podcast.adapters.orm import mapper_registry, map_model_to_tables
+
 
 TEST_DATA_PATH_DATABASE_FULL = Path(__file__).parent / 'adapters' / 'data'
 TEST_DATA_PATH_DATABASE_LIMITED = Path(__file__).parent / "tests" / "data"
@@ -69,3 +72,4 @@ def empty_session():
     session_factory = sessionmaker(bind=engine)
     yield session_factory()
     mapper_registry.metadata.drop_all(engine)
+
