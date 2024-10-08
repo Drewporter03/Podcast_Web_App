@@ -65,10 +65,13 @@ def test_database_populate_reviews(database_engine):
         # checks if the columns in the review table initiated correctly
         assert column_names == ['id', 'user_id', 'podcast_id', 'rating', 'comment']
 
+# Tests to see if the podcast table populates properly
 def test_database_populate_podcast(database_engine):
     inspector = inspect(database_engine)
     podcast_table = inspector.get_table_names()[6]
 
+    columns = inspector.get_columns(podcast_table)
+    column_names = [column['name'] for column in columns]
     with database_engine.connect() as connection:
         select_statement = select(mapper_registry.metadata.tables[podcast_table])
         result = connection.execute(select_statement)
@@ -80,3 +83,26 @@ def test_database_populate_podcast(database_engine):
         num_of_podcast = len(all_podcast)
         assert num_of_podcast == 1001
         assert all_podcast[0] == (1, 'D-Hour Radio Network')
+        assert column_names == ['podcast_id', 'title', 'image_url', 'description', 'language', 'website_url', 'author_id', 'itunes_id']
+
+# Tests to see if episodes table populates properly
+def test_database_populate_episodes(database_engine):
+    inspector = inspect(database_engine)
+    episode_table = inspector.get_table_names()[2]
+
+    columns = inspector.get_columns(episode_table)
+    column_names = [column['name'] for column in columns]
+    with database_engine.connect() as connection:
+        select_statement = select(mapper_registry.metadata.tables[episode_table])
+        result = connection.execute(select_statement)
+
+        all_episodes = []
+        for row in result:
+            all_episodes.append((row[1], row[2]))
+
+        num_of_episodes = len(all_episodes)
+        assert num_of_episodes == 5634
+        assert all_episodes[0] == (14, 'The Mandarian Orange Show Episode 74- Bad Hammer Time, or: 30 Day MoviePass Challenge Part 3')
+        assert column_names == ['episode_id', 'podcast_id', 'title', 'audio_url', 'description', 'pub_date']
+
+
