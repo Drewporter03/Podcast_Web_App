@@ -26,3 +26,4 @@ def test_database_populate_categories(database_engine):
             categories_name.append(row[1])
         assert categories_name[0:4] == ['Society & Culture', 'Personal Journals', 'Professional', 'News & Politics']
 
+
