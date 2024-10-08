@@ -1,9 +1,5 @@
 from sqlalchemy import select, inspect
-
 from podcast.adapters.orm import mapper_registry
-
-from podcast.authentication import services as auth_services
-
 
 
 # Test case to see if the tables name are bieng populated properly
@@ -45,7 +41,7 @@ def test_database_populate_users(database_engine):
         result = connection.execute(select_statement)
         all_users = []
         for row in result:
-            all_users.append(row[8])
+            all_users.append(row[1])
         # file should be empty as no user has been created yet
         assert all_users == []
         # checking if all column are being initiated properly
@@ -61,12 +57,26 @@ def test_database_populate_reviews(database_engine):
     with database_engine.connect() as connection:
         select_statement = select(mapper_registry.metadata.tables[reviews_table])
         result = connection.execute(select_statement)
-
         reviews_table = []
         for row in result:
-            reviews_table.append((row['id'], row['user_id'], row['article_id'], row['comment']))
-
+            reviews_table.append((row[0], row[1], row[2], row[3], row[4]))
         # reviews table content should be empty since there will be no review on startup
         assert reviews_table == []
         # checks if the columns in the review table initiated correctly
         assert column_names == ['id', 'user_id', 'podcast_id', 'rating', 'comment']
+
+def test_database_populate_podcast(database_engine):
+    inspector = inspect(database_engine)
+    podcast_table = inspector.get_table_names()[6]
+
+    with database_engine.connect() as connection:
+        select_statement = select(mapper_registry.metadata.tables[podcast_table])
+        result = connection.execute(select_statement)
+
+        all_podcast = []
+        for row in result:
+            all_podcast.append((row[0], row[1]))
+
+        num_of_podcast = len(all_podcast)
+        assert num_of_podcast == 1001
+        assert all_podcast[0] == (1, 'D-Hour Radio Network')
