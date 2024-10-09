@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import List, Type
 
+import sqlalchemy.orm
 import sqlalchemy.orm.session
 from sqlalchemy import func
 from sqlalchemy.orm import scoped_session
@@ -240,11 +241,18 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
         except IndexError:
             print("No Author found with name {}".format(author_name))
-
         return []
 
     def search_podcast_by_category(self, category_string: str) -> List[Podcast]:
-        category = self._session_cm.session.query(Category).filter(Category._name == category_string).all()
-        podcasts = self._session_cm.session.query(Podcast).filter(category in Podcast.categories).all()
-        return podcasts
+        try:
+            category = self._session_cm.session.query(Category).filter(Category._name == category_string)[0]
+            podcasts_list = []
+            podcasts = self._session_cm.session.query(Podcast).all()
+            for podcast in podcasts:
+                if category in podcast.categories:
+                    podcasts_list.append(podcast)
+            return podcasts_list
+        except IndexError:
+            print("No Category found with name {}".format(category_string))
+            return []
 
