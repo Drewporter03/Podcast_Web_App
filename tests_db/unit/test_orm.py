@@ -89,15 +89,6 @@ def insert_playlist(empty_session):
     row = empty_session.execute(text('SELECT playlist_id, title, owner_id, image from playlist')).fetchone()
     return row[0]
 
-
-
-
-
-
-
-
-
-
 # Testing code to retrieve users from to the database
 def test_loading_users(empty_session):
     insert_user(empty_session, "Kumanan", "Password")
@@ -200,7 +191,7 @@ def test_save_reviewed_podcast(empty_session):
     rows = list(empty_session.execute(text('SELECT user_id, podcast_id, comment FROM reviews')))
     assert rows == [(user_id, podcast_id, comment_text)]
 
-# Test case to load authors
+# Test case  for loading authors
 def test_loading_author(empty_session):
     author_id = insert_author(empty_session)
     author = empty_session.query(Author).one()
@@ -208,7 +199,7 @@ def test_loading_author(empty_session):
     assert author_id == author.id
     assert author.name == "HawkTuah"
 
-# Test case to save authors
+# Test case for saving authors
 def test_saving_authors(empty_session):
     author = Author(1, "Kumanan")
     empty_session.add(author)
@@ -217,7 +208,7 @@ def test_saving_authors(empty_session):
     rows = list(empty_session.execute(text('SELECT author_id, name FROM authors ')))
     assert rows ==  [(1, "Kumanan")]
 
-# Test case to load episodes
+# Test case for loading load episodes
 def test_loading_episodes(empty_session):
     episode_id = insert_episode(empty_session)
     episode = empty_session.query(Episode).one()
@@ -225,7 +216,7 @@ def test_loading_episodes(empty_session):
     assert episode_id == episode.id
     assert episode.title == "Talktuah"
 
-# Test case to save episodes
+# Test case for saving  episodes
 def test_saving_episodes(empty_session):
     author = Author(1, "Kumanan")
     podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
@@ -236,7 +227,7 @@ def test_saving_episodes(empty_session):
     rows = list(empty_session.execute(text('SELECT episode_id, podcast_id, title, pub_date From episodes ')))
     assert rows ==   [(1, 1, '225 lines deep', '2009-02-02')]
 
-# Test case to load authors
+# Test case for loading authors
 def test_loading_playlist(empty_session):
     playlist_id = insert_playlist(empty_session)
     playlist = empty_session.query(Playlist).one()
@@ -244,7 +235,7 @@ def test_loading_playlist(empty_session):
     assert playlist_id == playlist.id
     assert playlist.title == "thisisthetrenches"
 
-# Test case to save authors
+# Test case for saving authors
 def test_saving_playlist(empty_session):
     user = User(1, "Kumanan", "Password")
     playlist = Playlist(1, "imtiredoftestcases", user,"")
@@ -253,3 +244,4 @@ def test_saving_playlist(empty_session):
 
     rows = list(empty_session.execute(text('SELECT playlist_id, title, owner_id, image FROM playlist ')))
     assert rows == [(1, 'imtiredoftestcases', 1, '')]
+
