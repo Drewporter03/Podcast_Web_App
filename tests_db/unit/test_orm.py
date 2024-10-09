@@ -24,7 +24,7 @@ def insert_user(empty_session, name=None, password=None):
     ).fetchone()
     return row[0]
 
-
+# Testing code to insert podcasts
 def insert_podcast(empty_session):
     empty_session.execute(
         text('INSERT INTO podcasts (podcast_id, title, description, language, author_id) VALUES (:podcast_id, :title, :description, :language, :author_id)'),
@@ -32,6 +32,26 @@ def insert_podcast(empty_session):
     )
     row = empty_session.execute(text('SELECT podcast_id from podcasts')).fetchone()
     return row[0]
+
+# Testing code to insert categories
+def insert_categories(empty_session):
+    empty_session.execute(
+        text('INSERT INTO categories (category_id, category_name) VALUES (:category_id, :category_name)'),
+        {'category_id': 1, 'category_name': 'Comedy'}
+    )
+    rows = list(empty_session.execute(text('SELECT category_id from categories')))
+    keys = tuple(row[0] for row in rows)
+    return keys
+
+# Testing code to insert podcast_categories association
+def insert_podcast_categories_associations(empty_session, podcast_id, categories_ids):
+    stmt = text('INSERT INTO podcast_categories (id, podcast_id, category_id) VALUES (:id, :podcast_id, :category_id)')
+    for categories_id in categories_ids:
+        empty_session.execute(stmt, {'id': 1, 'podcast_id': podcast_id, 'category_id': categories_id})
+
+
+
+
 
 # Testing code to retrieve users from to the database
 def test_loading_users(empty_session):
@@ -67,3 +87,16 @@ def test_saving_podcast(empty_session):
 
     rows = list(empty_session.execute(text('SELECT podcast_id, title, description, language, author_id FROM podcasts')))
     assert rows ==  [(1, 'HKT', 'dammdaniel', 'English', 1)]
+
+
+# Test case to check if categories is being applied to the podcast properly using the podcast_categories table
+def test_loading_of_tagged_article(empty_session):
+    podcast_id = insert_podcast(empty_session)
+    category_ids = insert_categories(empty_session)
+    insert_podcast_categories_associations(empty_session, podcast_id, category_ids)
+
+    podcast = empty_session.get(Podcast, podcast_id)
+    categories = [empty_session.get(Category, key) for key in category_ids]
+
+    for category in categories:
+        assert podcast.categories == [category]
