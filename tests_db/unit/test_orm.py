@@ -4,7 +4,7 @@ from podcast.domainmodel.model import Podcast, Review, User, Playlist, Episode, 
 from sqlalchemy import text
 
 
-# Testing code to insert users into database
+# code to insert users into database
 def insert_user(empty_session, name=None, password=None):
     new_name = "Kumanan"
     new_password = "Kumanan1"
@@ -24,7 +24,7 @@ def insert_user(empty_session, name=None, password=None):
     ).fetchone()
     return row[0]
 
-# Testing code to insert podcasts
+# code to insert podcasts
 def insert_podcast(empty_session):
     empty_session.execute(
         text('INSERT INTO podcasts (podcast_id, title, description, language, author_id) VALUES (:podcast_id, :title, :description, :language, :author_id)'),
@@ -33,7 +33,7 @@ def insert_podcast(empty_session):
     row = empty_session.execute(text('SELECT podcast_id from podcasts')).fetchone()
     return row[0]
 
-# Testing code to insert categories
+# code to insert categories
 def insert_categories(empty_session):
     empty_session.execute(
         text('INSERT INTO categories (category_id, category_name) VALUES (:category_id, :category_name)'),
@@ -43,13 +43,13 @@ def insert_categories(empty_session):
     keys = tuple(row[0] for row in rows)
     return keys
 
-# Testing code to insert podcast_categories association
+# code to insert podcast_categories association
 def insert_podcast_categories_associations(empty_session, podcast_id, categories_ids):
     stmt = text('INSERT INTO podcast_categories (id, podcast_id, category_id) VALUES (:id, :podcast_id, :category_id)')
     for categories_id in categories_ids:
         empty_session.execute(stmt, {'id': 1, 'podcast_id': podcast_id, 'category_id': categories_id})
 
-# Test case to insert review for podcasts
+# code to insert review for podcasts
 def insert_review(empty_session):
     podcast_id = insert_podcast(empty_session)
     user_id = insert_user(empty_session)
@@ -60,6 +60,15 @@ def insert_review(empty_session):
         {'id': 1, 'user_id': user_id, 'podcast_id': podcast_id, 'rating': 10, 'comment': "On brodie what do it deserve to watch this"}
     )
     row = empty_session.execute(text('SELECT podcast_id from podcasts')).fetchone()
+    return row[0]
+
+# code to insert author
+def insert_author(empty_session):
+    empty_session.execute(
+        text('INSERT INTO authors (author_id, name) VALUES (:author_id, :name)'),
+        {'author_id': 1, 'name': "HawkTuah"}
+    )
+    row = empty_session.execute(text('SELECT author_id from authors')).fetchone()
     return row[0]
 
 
@@ -164,3 +173,11 @@ def test_save_reviewed_podcast(empty_session):
 
     rows = list(empty_session.execute(text('SELECT user_id, podcast_id, comment FROM reviews')))
     assert rows == [(user_id, podcast_id, comment_text)]
+
+# Test case to load authors
+def test_loading_author(empty_session):
+    author_id = insert_author(empty_session)
+    author = empty_session.query(Author).one()
+
+    assert author_id == author.id
+    assert author.name == "HawkTuah"
