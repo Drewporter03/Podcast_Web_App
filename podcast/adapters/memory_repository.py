@@ -135,7 +135,7 @@ class MemoryRepository(AbstractRepository, ABC):
         podcasts = self.get_podcasts()
         search_podcasts = []
         for podcast in podcasts:
-            if podcast.author.name[0].lower() == search.lower():
+            if podcast.author.name.lower() == search.lower():
                 search_podcasts.append(podcast)
         return search_podcasts
 
@@ -144,6 +144,7 @@ class MemoryRepository(AbstractRepository, ABC):
         search_podcasts = []
         for podcast in podcasts:
             for category in podcast.categories:
+                print(category)
                 if category.name.lower() == search.lower():
                     search_podcasts.append(podcast)
         return search_podcasts
@@ -152,7 +153,7 @@ class MemoryRepository(AbstractRepository, ABC):
         podcasts = self.get_podcasts()
         search_podcasts = []
         for podcast in podcasts:
-            if podcast.title.lower == search.lower():
+            if podcast.title.lower() == search.lower().strip():
                 search_podcasts.append(podcast)
         return search_podcasts
 
