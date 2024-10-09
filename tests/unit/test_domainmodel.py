@@ -362,7 +362,7 @@ def test_playlist_initialization():
     assert playlist1._owner == user1
     assert playlist1._title == "My Podcasts 1"
     assert playlist1._image is None
-    assert playlist1._podcast_list == []
+    assert playlist1.episodes == []
 
     playlist2 = Playlist(3, "My Podcasts 2", user1)
     assert repr(playlist2) == "<Playlist 3: My Podcasts 2>"
@@ -390,19 +390,19 @@ def test_playlist_title_change():
 def test_add_episode(my_episode):
     user1 = User(1, "Shyamli", "pw12345")
     playlist1 = Playlist(1, "My podcasts", user1)
-    assert playlist1.podcast_list == []
+    assert playlist1.episodes == []
     playlist1.add_episode(my_episode)
-    assert playlist1.podcast_list == [my_episode]
+    assert playlist1.episodes == [my_episode]
 
 def test_remove_episode(my_episode):
     user1 = User(1, "Shyamli", "pw12345")
     playlist1 = Playlist(1, "My podcasts", user1)
-    assert playlist1.podcast_list == []
+    assert playlist1.episodes == []
 
     playlist1.add_episode(my_episode)
-    assert playlist1.podcast_list == [my_episode]
+    assert playlist1.episodes == [my_episode]
     playlist1.remove_episode(my_episode)
-    assert playlist1.podcast_list == []
+    assert playlist1.episodes == []
 
 
 def test_playlist_equality():

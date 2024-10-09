@@ -566,9 +566,9 @@ class  Playlist:
     def __eq__(self, other) -> bool:
         if not isinstance(other, Playlist):
             return False
-        return self._playlist_id == other._playlist_id
+        return self.id == other.id
 
     def __lt__(self, other) -> bool:
         if not isinstance(other, Playlist):
             return False
-        return self._playlist_id < other._playlist_id
+        return self.id < other.id
