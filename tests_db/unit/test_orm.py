@@ -142,3 +142,25 @@ def test_loading_of_reviewed_podcast(empty_session):
 
     for comment in podcast._Podcast_reviews:
         assert comment.id is podcast.id
+
+# Test case to check saving reviewed podcast
+def test_save_reviewed_podcast(empty_session):
+    author = Author(1, "Kumanan")
+    podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
+    user = User(1, "Kumanan", "Password")
+
+
+    comment_text = "Some comment text."
+    Review(1, user, podcast, 5,  comment_text)
+
+    empty_session.add(podcast)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT podcast_id FROM podcasts')))
+    podcast_id = rows[0][0]
+
+    rows = list(empty_session.execute(text('SELECT id FROM users')))
+    user_id = rows[0][0]
+
+    rows = list(empty_session.execute(text('SELECT user_id, podcast_id, comment FROM reviews')))
+    assert rows == [(user_id, podcast_id, comment_text)]
