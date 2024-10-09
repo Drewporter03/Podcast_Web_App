@@ -24,7 +24,17 @@ def insert_user(empty_session, name=None, password=None):
     ).fetchone()
     return row[0]
 
+
 # Testing code to retrieve users from to the database
 def test_loading_users(empty_session):
-    insert_user(empty_session, "Andrew", "Password")
-    assert empty_session.query(User).all() == [User(1, "Andrew", "Password")]
+    insert_user(empty_session, "Kumanan", "Password")
+    assert empty_session.query(User).all() == [User(1, "Kumanan", "Password")]
+
+# Test case to test whether users are being saved in the database properly
+def test_saving_users(empty_session):
+    user = User(1, "Kumanan", "Password")
+    empty_session.add(user)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT username, password FROM users')))
+    assert rows == [("Kumanan", "Password")]
