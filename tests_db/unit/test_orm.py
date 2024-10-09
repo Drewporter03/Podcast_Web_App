@@ -181,3 +181,11 @@ def test_loading_author(empty_session):
 
     assert author_id == author.id
     assert author.name == "HawkTuah"
+
+def test_saving_authors(empty_session):
+    author = Author(1, "Kumanan")
+    empty_session.add(author)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT author_id, name FROM authors ')))
+    assert rows ==  [(1, "Kumanan")]
