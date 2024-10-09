@@ -1,6 +1,6 @@
 import pytest
 from sqlalchemy.exc import IntegrityError
-from podcast.domainmodel.model import Podcast, Review, User, Playlist, Episode, Category
+from podcast.domainmodel.model import Podcast, Review, User, Playlist, Episode, Category, Author
 from sqlalchemy import text
 
 
@@ -47,8 +47,8 @@ def test_saving_users(empty_session):
     rows = list(empty_session.execute(text('SELECT username, password FROM users')))
     assert rows == [("Kumanan", "Password")]
 
-# Test case too see articles can be loaded properly from the database
-def test_loading_of_article(empty_session):
+# Test case too see podcast can be loaded properly from the database
+def test_loading_podcast(empty_session):
     podcast_id = insert_podcast(empty_session)
     podcast = empty_session.query(Podcast).one()
 
@@ -58,3 +58,12 @@ def test_loading_of_article(empty_session):
     assert podcast.language == "English"
     assert podcast.author_id == 2
 
+# Test case to check if podcasts are being saved properly
+def test_saving_podcast(empty_session):
+    author = Author(1, "Kumanan")
+    podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
+    empty_session.add(podcast)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT podcast_id, title, description, language, author_id FROM podcasts')))
+    assert rows ==  [(1, 'HKT', 'dammdaniel', 'English', 1)]
