@@ -100,3 +100,25 @@ def test_loading_of_tagged_article(empty_session):
 
     for category in categories:
         assert podcast.categories == [category]
+
+def test_saving_tagged_article(empty_session):
+    author = Author(1, "Kumanan")
+    podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
+    category = Category(1, "Comedy")
+    podcast.add_category(category)
+
+    empty_session.add(podcast)
+    empty_session.commit()
+    rows = list(empty_session.execute(text('SELECT podcast_id FROM podcasts')))
+    podcast_id = rows[0][0]
+
+    rows = list(empty_session.execute(text('SELECT category_id, category_name FROM categories')))
+    category_id = rows[0][0]
+    assert rows[0][1] == "Comedy"
+
+    rows = list(empty_session.execute(text('SELECT podcast_id, category_id from podcast_categories')))
+    podcast_foreign_key = rows[0][0]
+    category_foreign_key = rows[0][1]
+
+    assert podcast_id == podcast_foreign_key
+    assert category_id == category_foreign_key
