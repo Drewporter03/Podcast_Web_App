@@ -71,6 +71,25 @@ def insert_author(empty_session):
     row = empty_session.execute(text('SELECT author_id from authors')).fetchone()
     return row[0]
 
+def insert_episode(empty_session):
+    empty_session.execute(
+        text('INSERT INTO episodes (episode_id, podcast_id, title, pub_date) VALUES (:episode_id, :podcast_id, :title, :pub_date)'),
+        {'episode_id': 1, 'podcast_id': 1, 'title': 'Talktuah', 'pub_date': '2009-02-03'}
+    )
+    row = empty_session.execute(text('SELECT episode_id from episodes')).fetchone()
+    return row[0]
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Testing code to retrieve users from to the database
 def test_loading_users(empty_session):
@@ -182,6 +201,7 @@ def test_loading_author(empty_session):
     assert author_id == author.id
     assert author.name == "HawkTuah"
 
+# Test case to save authors
 def test_saving_authors(empty_session):
     author = Author(1, "Kumanan")
     empty_session.add(author)
@@ -189,3 +209,22 @@ def test_saving_authors(empty_session):
 
     rows = list(empty_session.execute(text('SELECT author_id, name FROM authors ')))
     assert rows ==  [(1, "Kumanan")]
+
+# Test case to load episodes
+def test_loading_episodes(empty_session):
+    episode_id = insert_episode(empty_session)
+    episode = empty_session.query(Episode).one()
+
+    assert episode_id == episode.id
+    assert episode.title == "Talktuah"
+
+# Test case to save episodes
+def test_saving_episodes(empty_session):
+    author = Author(1, "Kumanan")
+    podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
+    episode = Episode(1, podcast, "225 lines deep", "",1, "im gonna die", "2009-02-02")
+    empty_session.add(episode)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT episode_id, podcast_id, title, pub_date From episodes ')))
+    assert rows ==   [(1, 1, '225 lines deep', '2009-02-02')]
