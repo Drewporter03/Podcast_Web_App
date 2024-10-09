@@ -71,6 +71,7 @@ def insert_author(empty_session):
     row = empty_session.execute(text('SELECT author_id from authors')).fetchone()
     return row[0]
 
+# code to insert episodes
 def insert_episode(empty_session):
     empty_session.execute(
         text('INSERT INTO episodes (episode_id, podcast_id, title, pub_date) VALUES (:episode_id, :podcast_id, :title, :pub_date)'),
@@ -79,8 +80,14 @@ def insert_episode(empty_session):
     row = empty_session.execute(text('SELECT episode_id from episodes')).fetchone()
     return row[0]
 
-
-
+# code to insert playlist
+def insert_playlist(empty_session):
+    empty_session.execute(
+        text('INSERT INTO playlist (playlist_id, title, owner_id, image) VALUES (:playlist_id, :title, :owner_id, :image)'),
+        {'playlist_id': 1, 'title': "thisisthetrenches", 'owner_id': 1, 'image': "oblockguh"}
+    )
+    row = empty_session.execute(text('SELECT playlist_id, title, owner_id, image from playlist')).fetchone()
+    return row[0]
 
 
 
@@ -228,3 +235,21 @@ def test_saving_episodes(empty_session):
 
     rows = list(empty_session.execute(text('SELECT episode_id, podcast_id, title, pub_date From episodes ')))
     assert rows ==   [(1, 1, '225 lines deep', '2009-02-02')]
+
+# Test case to load authors
+def test_loading_playlist(empty_session):
+    playlist_id = insert_playlist(empty_session)
+    playlist = empty_session.query(Playlist).one()
+
+    assert playlist_id == playlist.id
+    assert playlist.title == "thisisthetrenches"
+
+# Test case to save authors
+def test_saving_playlist(empty_session):
+    user = User(1, "Kumanan", "Password")
+    playlist = Playlist(1, "imtiredoftestcases", user,"")
+    empty_session.add(playlist)
+    empty_session.commit()
+
+    rows = list(empty_session.execute(text('SELECT playlist_id, title, owner_id, image FROM playlist ')))
+    assert rows == [(1, 'imtiredoftestcases', 1, '')]
