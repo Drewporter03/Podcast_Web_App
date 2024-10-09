@@ -49,8 +49,18 @@ def insert_podcast_categories_associations(empty_session, podcast_id, categories
     for categories_id in categories_ids:
         empty_session.execute(stmt, {'id': 1, 'podcast_id': podcast_id, 'category_id': categories_id})
 
+# Test case to insert review for podcasts
+def insert_review(empty_session):
+    podcast_id = insert_podcast(empty_session)
+    user_id = insert_user(empty_session)
 
 
+    empty_session.execute(
+        text('INSERT INTO reviews (id, user_id, podcast_id, rating, comment) VALUES (:id , :user_id, :podcast_id, :rating, :comment)'),
+        {'id': 1, 'user_id': user_id, 'podcast_id': podcast_id, 'rating': 10, 'comment': "On brodie what do it deserve to watch this"}
+    )
+    row = empty_session.execute(text('SELECT podcast_id from podcasts')).fetchone()
+    return row[0]
 
 
 # Testing code to retrieve users from to the database
@@ -58,7 +68,7 @@ def test_loading_users(empty_session):
     insert_user(empty_session, "Kumanan", "Password")
     assert empty_session.query(User).all() == [User(1, "Kumanan", "Password")]
 
-# Test case too see if users can be saved properly to the database
+# Test case to see if users can be saved properly to the database
 def test_saving_users(empty_session):
     user = User(1, "Kumanan", "Password")
     empty_session.add(user)
@@ -67,7 +77,7 @@ def test_saving_users(empty_session):
     rows = list(empty_session.execute(text('SELECT username, password FROM users')))
     assert rows == [("Kumanan", "Password")]
 
-# Test case too see podcast can be loaded properly from the database
+# Test case to see podcast can be loaded properly from the database
 def test_loading_podcast(empty_session):
     podcast_id = insert_podcast(empty_session)
     podcast = empty_session.query(Podcast).one()
@@ -90,7 +100,7 @@ def test_saving_podcast(empty_session):
 
 
 # Test case to check if categories is being applied to the podcast properly using the podcast_categories table
-def test_loading_of_tagged_article(empty_session):
+def test_loading_of_podcast_category(empty_session):
     podcast_id = insert_podcast(empty_session)
     category_ids = insert_categories(empty_session)
     insert_podcast_categories_associations(empty_session, podcast_id, category_ids)
@@ -101,7 +111,8 @@ def test_loading_of_tagged_article(empty_session):
     for category in categories:
         assert podcast.categories == [category]
 
-def test_saving_tagged_article(empty_session):
+# Test case to check
+def test_saving_podcast_category(empty_session):
     author = Author(1, "Kumanan")
     podcast = Podcast(1, author, "HKT", "", "dammdaniel", "", "", "English")
     category = Category(1, "Comedy")
@@ -122,3 +133,12 @@ def test_saving_tagged_article(empty_session):
 
     assert podcast_id == podcast_foreign_key
     assert category_id == category_foreign_key
+
+# Test case to checking the loading of podcasts with reviews
+def test_loading_of_reviewed_podcast(empty_session):
+    insert_review(empty_session)
+    rows = empty_session.query(Podcast).all()
+    podcast = rows[0]
+
+    for comment in podcast._Podcast_reviews:
+        assert comment.id is podcast.id
