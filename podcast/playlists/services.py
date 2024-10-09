@@ -49,7 +49,7 @@ def add_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
     playlist = repo.get_playlist(playlist_id)
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
-    if repo.get_episode(episode_id) == None:
+    if repo.get_episode(episode_id) is None:
         raise EpisodeNotFoundException(f"Episode with ID {episode_id} not found.")
     episode = repo.get_episode(episode_id)
     repo.add_ep_to_playlist(playlist_id, episode_id)
@@ -61,10 +61,8 @@ def add_podcast(repo: AbstractRepository, playlist_id: int, podcast_id: int):
     playlist = repo.get_playlist(playlist_id)
     if not playlist:
         raise PlaylistNotFoundException(f"Playlist with ID {playlist_id} not found.")
-    podcast = repo.get_podcast(podcast_id)
-    if repo.get_podcast(podcast_id) == None:
+    if repo.get_podcast(podcast_id) is None:
         raise NonExistentPodcastException(f"podcast with ID {podcast_id} not found.")
-    podcast = repo.get_podcast(podcast_id)
     episodes = get_episodes(repo, podcast_id)
     for episode in episodes:
         add_episode(repo, playlist_id, episode.id)
@@ -83,10 +81,8 @@ def remove_episode(repo: AbstractRepository, playlist_id: int, episode_id: int):
 
 
 def get_episodes(repo: AbstractRepository, podcast_id):
-    # REMOVE - CAN CALL FROM BP
     return repo.get_episodes_for_podcast(podcast_id)
 
 
 def get_user(repo: AbstractRepository, user_name: str):
-    # used for creating user playlists
     return repo.get_user(user_name)
