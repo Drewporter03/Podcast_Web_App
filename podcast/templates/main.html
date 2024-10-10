@@ -12,29 +12,44 @@
 </head>
 <body>
     <header class="content_left">
-        <nav class=" container-a block">
+        <nav class=" navbar block">
             <a href="home">
                 <h1 class="logo">mixcast.</h1>
             </a>
             <aside class="author-upis">CS235 kpir887 |  dpor963 | ttu457</aside>
-            {% if 'user_name' in session %}
-            <a href="logout">
-                <button class="button-a">Log out</button>
-            </a>
-            {% endif %}
-            {% if 'user_name' not in session %}
-            <a href="login">
-                <button class="button-a">Log in</button>
-            </a>
-            {% endif %}
-            {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlist'), ('settings', 'Settings')]-%}
-            <ul>
-                {% for href, name in navbar_content %}
-                <a href="{{href}}">
-                    <li>{{name}}</li>
+            <div class="full">
+                {% if 'user_name' in session %}
+                <a href="logout">
+                    <button class="button-a">Log out</button>
                 </a>
-                {% endfor %}
-            </ul>
+                {% endif %}
+                {% if 'user_name' not in session %}
+                <a href="login">
+                    <button class="button-a">Log in</button>
+                </a>
+                {% endif %}
+                {% set navbar_content = [('home', 'Home'), ('podcasts', 'Podcasts'), ('subscriptions', 'Subscriptions'), ('playlists', 'Playlist'), ('settings', 'Settings')]-%}
+                <ul>
+                    {% for href, name in navbar_content %}
+                    <a href="{{href}}">
+                        <li>{{name}}</li>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="halfnav">
+                {% if 'user_name' in session %}
+                <a href="logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                {% endif %}
+                {% if 'user_name' not in session %}
+                <a href="login"><i class="fa-solid fa-right-to-bracket"></i></a>
+                {% endif %}
+                <a href="home"><i class="fa-solid fa-house"></i></a>
+                <a href="podcasts"><i class="fa-solid fa-podcast"></i></a>
+                <a href="subscriptions"><i class="fa-solid fa-newspaper"></i></a>
+                <a href="playlists"><i class="fa-solid fa-list"></i></a>
+                <a href="settings"><i class="fa-solid fa-gear"></i></a>
+            </div>
             <footer class="author-upis">
                 CS235 kpir887 |  dpor963 | ttu457
             </footer>
