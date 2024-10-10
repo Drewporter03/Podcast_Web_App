@@ -94,14 +94,14 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
     def get_podcast(self, podcast_id: int) -> Podcast:
         podcast = None
         try:
-            podcast = self._session_cm.session.query(Podcast).get(podcast_id)
+            podcast = self._session_cm.session.get(Podcast, podcast_id)
 
         except NoResultFound:
             print("No podcast found with id {}".format(podcast_id))
         return podcast
 
     def add_podcast(self, podcast: Podcast):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             scm.session.merge(podcast)
             scm.commit()
 
@@ -162,7 +162,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return categories
 
     def add_category(self, category: Category):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             scm.session.merge(category)
             scm.commit()
 
@@ -226,6 +226,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     # SEARCH REGION
 
+
     def search_podcast_by_title(self, title_string: str) -> List[Podcast]:
         podcasts = self._session_cm.session.query(Podcast).filter(Podcast._title.ilike(f"%{title_string}%")).all()
         # Retrieve podcast whose title contains the title_string passed by the user.
@@ -254,4 +255,3 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         except IndexError:
             print("No Category found with name {}".format(category_string))
             return []
-

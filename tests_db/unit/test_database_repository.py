@@ -1,5 +1,5 @@
 import pytest
-from podcast.domainmodel.model import Podcast, Episode, Category, Playlist, PodcastSubscription, User, Author
+from podcast.domainmodel.model import Podcast, Episode, Category, Playlist, PodcastSubscription, User, Author, Review
 from podcast.adapters.database_repository import SqlAlchemyRepository
 
 # Test case to add and get user from database
@@ -52,3 +52,70 @@ def test_add_and_multiple_author(session_factory):
 def test_get_number_of_episodes(session_factory):
     repo = SqlAlchemyRepository(session_factory)
     assert repo.get_number_of_episodes() == 5634
+
+# Test case to check number of eps for a specific podcast
+def test_get_number_of_episodes_for_podcast(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    assert len(repo.get_episodes_for_podcast(1)) == 10
+
+# Test case to get eps for specific podcast
+def test_get_episodes_for_podcast(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    episodes = repo.get_episodes_for_podcast(1)
+    assert len(episodes) == 10
+    assert episodes[1].title == 'Say It! Radio'
+
+# Testing adding and getting category
+def test_add_get_category(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    category = Category(1, "Comedy")
+    repo.add_category(category)
+    category2 = repo.get_category()
+    assert category2[0] == category
+
+# Testing adding multiple category
+def test_adding_multiple_categories(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    category = Category(70, "Hawk")
+    category_list = [category]
+
+    repo.add_multiple_categories(category_list)
+    category2 = repo.get_category()
+    assert category2[67] == category_list[0]
+
+
+# Code test for adding and getting reviews
+def test_adding_and_getting_review(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    author = Author(7000, "Kumanan")
+    user = User(1, "Kumanan", "Password")
+    podcast = Podcast(1002, author, "HKT", "", "dammdaniel", "", "", "English")
+    review = Review(1, user, podcast, 2, "sucks")
+    repo.add_review(review)
+    review2 = repo.get_review(1002)
+    assert review2[0] == review
+
+# Code test for searching podcast by title
+def test_search_podcast_by_title(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    author = Author(7000, "Kumanan")
+    podcast = Podcast(1002, author, "HKT", "", "dammdaniel", "", "", "English")
+    repo.add_podcast(podcast)
+    podcast2 = repo.search_podcast_by_title("HKT")
+    assert podcast2[0] == podcast
+
+# Code test for searching podcast by author
+def test_search_podcast_by_author(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    author = Author(7000, "Kumanan")
+    podcast = Podcast(1002, author, "HKT", "", "dammdaniel", "", "", "English")
+    repo.add_podcast(podcast)
+    podcast2 = repo.search_podcast_by_author("Kumanan")
+    assert podcast2[0] == podcast
+
+# Code test for searching podcast by categories
+def test_search_podcast_by_category(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    podcast = repo.get_podcast(1)
+    podcast2 =repo.search_podcast_by_category("Society & Culture")
+    assert podcast2[0] == podcast
