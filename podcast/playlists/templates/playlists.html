@@ -16,7 +16,7 @@
                     </div>
                     
                     <div class="episode-side">
-                        <form method="post" action="playlists.html">
+                        <form method="post" action="{{ url_for('playlists_bp.playlists') }}">
                             {{ remove_episode_from_playlist.hidden_tag() }}
                             <input type="hidden" name="episode_id" value="{{ episode.id }}">
                             {{ remove_episode_from_playlist.submit(class_="add-to-playlist") }}

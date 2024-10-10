@@ -18,12 +18,9 @@ def database_engine():
     clear_mappers()
     engine = create_engine(TEST_DATABASE_URI_FILE)
     mapper_registry.metadata.create_all(engine)  # Conditionally create database tables.
-
     for table in reversed(mapper_registry.metadata.sorted_tables):
         with engine.connect() as conn:
             conn.execute(table.delete())
-
-
     map_model_to_tables()
     # Create the database session factory using sessionmaker (this has to be done once, in a global manner)
     session_factory = sessionmaker(autocommit=False, autoflush=True, bind=engine)

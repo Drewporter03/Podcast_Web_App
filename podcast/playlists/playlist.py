@@ -4,7 +4,7 @@ import podcast.playlists.services as services
 import podcast.adapters.repository as repo
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, SubmitField, RadioField, IntegerField
-
+from flask import redirect, url_for
 playlists_bp = Blueprint('playlists_bp', __name__, template_folder='templates')
 
 
@@ -19,7 +19,7 @@ def playlists():
     remove_episode_from_playlist = RemoveEpisodeForm()
     if remove_episode_from_playlist.validate_on_submit():
         services.remove_episode(repo.repository, user_id, remove_episode_from_playlist.episode_id.data)
-
+        return redirect(url_for('playlists_bp.playlists'))
     return render_template('main.html', content_right='playlists.html', playlist_episodes=playlist_episodes,
                            user_name=user_name,
                            remove_episode_from_playlist=remove_episode_from_playlist)
