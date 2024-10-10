@@ -60,7 +60,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
 
     def get_playlist(self, playlist_id: int) -> Playlist:
         with self._session_cm as scm:
-            playlist = scm.session.query(Playlist).get(playlist_id)
+            playlist = scm.session.get(Playlist, playlist_id)
         return playlist
 
     def add_author(self, author: Author):

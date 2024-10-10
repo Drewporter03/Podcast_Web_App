@@ -16,3 +16,12 @@ def test_repository_does_not_retrieve_a_non_existent_user(session_factory):
     user = repo.get_user('KumananisNotCool')
     assert user is None
 
+# Test case to add and get playlist from database
+def test_add_and_get_playlist(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    user = User(1, 'Kumanan', 'Kumanan!1')
+    playlist = Playlist(1, "Hawktuah", user, "",)
+    repo.add_playlist(playlist)
+    playlist2 = repo.get_playlist(playlist.id)
+    assert playlist == playlist2
+
