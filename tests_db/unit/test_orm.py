@@ -28,7 +28,7 @@ def insert_user(empty_session, name=None, password=None):
 def insert_podcast(empty_session):
     empty_session.execute(
         text('INSERT INTO podcasts (podcast_id, title, description, language, author_id) VALUES (:podcast_id, :title, :description, :language, :author_id)'),
-        {'podcast_id': 1, 'title': "HawkTuah", 'description': "TalkTuahMe", 'language': "English", 'author_id': 2}
+            {'podcast_id': 1, 'title': "HawkTuah", 'description': "TalkTuahMe", 'language': "English", 'author_id': 2}
     )
     row = empty_session.execute(text('SELECT podcast_id from podcasts')).fetchone()
     return row[0]
