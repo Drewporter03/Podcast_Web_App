@@ -64,7 +64,7 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
         return playlist
 
     def add_author(self, author: Author):
-        with self._session_cm.session() as scm:
+        with self._session_cm as scm:
             scm.session.merge(author)
             scm.commit()
 
@@ -77,11 +77,10 @@ class SqlAlchemyRepository(AbstractRepository, ABC):
                     scm.session.add(author)
             scm.commit()
 
-
     def get_author(self, author_id: int) -> Author:
         authors = None
         try:
-            author = self._session_cm.session.query(Author).get(author_id)
+            authors = self._session_cm.session.get(Author, author_id)
         except NoResultFound:
             print("No author found with id {}".format(author_id))
         return authors

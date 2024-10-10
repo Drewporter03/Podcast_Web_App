@@ -1,5 +1,5 @@
 import pytest
-from podcast.domainmodel.model import Podcast, Episode, Category, Playlist, PodcastSubscription, User
+from podcast.domainmodel.model import Podcast, Episode, Category, Playlist, PodcastSubscription, User, Author
 from podcast.adapters.database_repository import SqlAlchemyRepository
 
 # Test case to add and get user from database
@@ -24,4 +24,11 @@ def test_add_and_get_playlist(session_factory):
     repo.add_playlist(playlist)
     playlist2 = repo.get_playlist(playlist.id)
     assert playlist == playlist2
+
+def test_add_and_get_author(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    author = Author(2, "Kumanan")
+    repo.add_author(author)
+    author2 = repo.get_author(2)
+    assert author2 == author
 
