@@ -15,6 +15,8 @@ def populate(data_path: Path, repo: AbstractRepository, testing: bool = False):
     else:
         podcast_filename = os.path.join(dir_name, str(Path(data_path) / "podcasts.csv"))
         episode_filename = os.path.join(dir_name, str(Path(data_path) / "episodes.csv"))
+    print(f"Podcast CSV: {podcast_filename}")
+    print(f"Episode CSV: {episode_filename}")
 
     csv = CSVDataReader()
     podcast_csv = csv.get_podcastcsv()

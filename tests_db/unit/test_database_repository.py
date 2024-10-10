@@ -47,3 +47,8 @@ def test_add_and_multiple_author(session_factory):
         author_list2.append(repo.get_author(7000+i))
     for j in range(len(author_list1)):
         assert author_list1[j] == author_list2[j]
+
+# Test case to check number of eps
+def test_get_number_of_episodes(session_factory):
+    repo = SqlAlchemyRepository(session_factory)
+    assert repo.get_number_of_episodes() == 5634
