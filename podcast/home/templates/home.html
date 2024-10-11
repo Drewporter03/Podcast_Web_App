@@ -1,11 +1,38 @@
 
 
-<section class="textbox">
-    <h1>{% if 'user_name' in session %} Hello again, {{ session['user_name'] }}. {% endif %}{% if 'user_name' not in session %}Welcome to <a href="home" class="highlight logo">mixcast.</a>{% endif %}</h1>
-    <p>CS235 Podcast Library Web App built with Flask by Kumanan (kpir887), Drew (dpor963) and Justin (ttu457).
-        Check out the <a href="podcasts" class="highlight"><strong>Podcasts</strong></a> page for a list of all available podcasts.
-        {% if 'user_name' not in session %}
-        <a href="login" class="highlight"><strong>Log in</strong></a> or <a href="register" class="highlight"><strong>Create an Account</strong></a>.
-        {% endif %}
-    </p>
-</section>  
+<div class="center">
+    <div class="idk">
+        <section class="textbox-inner">
+            <h1>{% if 'user_name' in session %} Hello again, {{ session['user_name'] }}. {% endif %}{% if 'user_name' not in session %}Welcome to <a href="home" class="highlight logo">mixcast.</a>{% endif %}</h1>
+            <p>CS235 Podcast Library Web App built with Flask by Kumanan (kpir887), Drew (dpor963) and Justin (ttu457).
+                Check out the <a href="podcasts" class="highlight"><strong>Podcasts</strong></a> page for a list of all available podcasts.
+                {% if 'user_name' not in session %}
+                <a href="login" class="highlight"><strong>Log in</strong></a> or <a href="register" class="highlight"><strong>Create an Account</strong></a>.
+                {% endif %}
+            </p>
+        </section>
+        <h1 class="subbb">Here's something different.</h1>
+    </div>
+
+    {% for podcast in podcasts %}
+        <a href="{{ url_for('episode_bp.episodes', podcast_id = podcast.id) }}" class="amasd">
+            <article class="podcast-home block block-hover">
+                <img src="{{ podcast.image }}" alt="Thumbnail for {{ podcast.title }}">
+                <div class="podcast-content">
+                    <div class="podcast-categories-h">
+                        {% for category in podcast.categories %}
+                        {{ category.name }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="podcast-title-h">{{ podcast.title }}</div>
+                    <div class="podcast-authors-h">Presented by {{ podcast.author.name }}</div>
+                </div>
+                <div class="home-podcast-info">
+                    <p>{{ podcast.description }}</p>
+                </div>
+
+            </article>
+        </a>
+    {% endfor %}
+
+</div>
