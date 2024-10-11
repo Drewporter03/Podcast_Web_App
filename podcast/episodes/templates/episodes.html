@@ -25,7 +25,7 @@
                             <div class="episode-title">{{ episode.title }}</div>
                             <div class="episode-side">
                                 <audio controls>
-                                    <source src="{{ episode.audio_link }}" type="audio/mpeg">
+                                    <source src="{{ episode.audio }}" type="audio/mpeg">
                                 </audio>
                                 {% if 'user_name' in session %}
                                     <form method="post">
@@ -46,7 +46,7 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <div class="scrollbox">
+        <div class="robx scrollbox">
             <a href="{{ url_for('review_bp.review', podcast_id = podcast_id) }}">
                 <article class="review block block-hover">
                     <div class="write-review"><i class="fa-solid fa-pen"></i>Write a Review</div>

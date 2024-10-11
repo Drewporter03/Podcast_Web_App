@@ -591,19 +591,19 @@ nav footer {
 }
 
 .podcast-info {
-    width: 50vw;
+    width: 50%;
 }
 
 .podcast-info h1 {
     max-width: 50vw;
-    font-size: 2vw;
+    font-size: 2.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .podcast-info-categories {
-    font-size: 1vw;
+    font-size: 1.5rem;
     color: var(--navbar-content);
     margin: 0.5rem 0;
     font-weight: 500;
@@ -611,7 +611,7 @@ nav footer {
 
 .podcast-info p {
     font-style: italic;
-    font-size: 0.85vw;
+    font-size: 1rem;
     margin: 0.25rem 0 1rem;
     max-height: 16vh;
     overflow: hidden;
@@ -1039,6 +1039,7 @@ audio {
     background-color: var(--background);
     border-radius: 1rem;
     color: var(--average);
+    margin: auto;
 }
 
 .average p {
@@ -1258,11 +1259,16 @@ audio {
 }
 
 @media (max-height: 1280px) and (max-width:880px){
+
+    .robx{
+        display: none;
+    }
+
     .textbox-inner p {
         display: none
     }
     .podcast-title-h {
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         font-weight: 700;
         max-width: 70%;
         color: var(--navbar-content-hover);
