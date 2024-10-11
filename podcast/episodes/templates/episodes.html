@@ -22,11 +22,13 @@
                 {% for episode in episodes %}
                     {% if episode.podcast.id == podcast.id %}
                         <article class="episode block block-hover">
-                            <div class="episode-title">{{ episode.title }}</div>
-                            <div class="episode-side">
+                            <div class="episode-left">
+                                <div class="episode-title">{{ episode.title }}</div>
                                 <audio controls>
                                     <source src="{{ episode.audio }}" type="audio/mpeg">
                                 </audio>
+                            </div>
+                            <div class="episode-side">
                                 {% if 'user_name' in session %}
                                     <form method="post">
                                         {{ playlist_form.hidden_tag() }}

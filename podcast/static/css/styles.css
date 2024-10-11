@@ -101,6 +101,12 @@ main {
     margin: 0 2rem;
 }
 
+.episode-left{
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
 .halfnav i{
     font-size: 1.75rem;
     margin: 0.5rem;
@@ -602,6 +608,11 @@ nav footer {
     white-space: nowrap;
 }
 
+.podcast-info h2 {
+    font-size: 1.5rem;
+
+}
+
 .podcast-info-categories {
     font-size: 1.5rem;
     color: var(--navbar-content);
@@ -702,8 +713,8 @@ nav footer {
 }
 
 .episode-title {
-    margin: 2rem;
     font-size: 1rem;
+    margin: 0.5rem 0;
 }
 
 /* ------------------------ Subscriptions ------------------------  */
@@ -1026,9 +1037,8 @@ input:-webkit-autofill:active {
 }
 
 audio {
-    margin: 0 0 0 auto;
     width: 18rem;
-    height: 3rem;
+    height: 2rem;
 }
 
 .average {
@@ -1248,6 +1258,12 @@ audio {
         display: none;
     }
 
+    .episodes-left img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 1rem;
+        margin: 2rem;
+    }
 
 }
 
@@ -1307,6 +1323,44 @@ audio {
         border-radius: 1rem;
     }
     
+    .average {
+        display: none;
+    }
+
+    .podcast-info {
+        width: 80%;
+    }
+
+    .podcast-info h1 {
+        max-width: 50vw;
+        font-size: 2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .podcast-info h2 {
+
+        font-size: 1.22rem;
+
+    }
+    
+    .podcast-info-categories {
+        font-size: 1.2rem;
+        color: var(--navbar-content);
+        margin: 0.5rem 0;
+        font-weight: 500;
+    }
+    
+    .podcast-info p {
+        display: none;
+    }
+    
+    .podcast-info i {
+        font-size: 1.5rem;
+        margin: 0.5rem 1rem 0 0.2rem;
+    }
+    
 }
 
 @media (max-height: 1280px) and (max-width:740px){
@@ -1331,5 +1385,16 @@ audio {
     .podcast-authors {
         font-size: 0.8rem;
         font-weight: 600;
+    }
+    
+    .textbox h1 {
+        font-weight: 600;
+        font-size: 3rem;
+        margin: 0 0 0.5rem;
+    }
+    
+    .textbox p {
+        font-size: 1rem;
+        white-space: pre-line;
     }
 }
