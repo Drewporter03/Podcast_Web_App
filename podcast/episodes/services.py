@@ -14,20 +14,11 @@ class UnknownUserException(Exception):
 
 
 def get_podcasts(repo: AbstractRepository):
-    # NEED TO REMOVE - CAN CALL FROM BP
     return repo.get_podcasts()
 
 
 def get_episodes(repo: AbstractRepository, podcast_id):
-    # list_of_episodes = []
-    # for i in range(1, repo.get_number_of_episodes() + 1):
-    #     if repo.get_episode(i) != None:
-    #         episode = repo.get_episode(i)
-    #         if episode.podcast.id == podcast_id:
-    #             list_of_episodes.append(episode)
-    # return list_of_episodes
     return repo.get_episodes_for_podcast(podcast_id)
-    # SHOULD BE THIS: return repo.get_episodes_for_podcast(podcast_id)
 
 
 

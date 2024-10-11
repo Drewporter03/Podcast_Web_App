@@ -9,7 +9,6 @@ import podcast.podcasts.services as services
 import podcast.playlists.services as playlist_services
 import podcast.episodes.services as episodes_services
 
-
 podcasts_bp = Blueprint('podcasts_bp', __name__, template_folder='templates')
 
 
@@ -29,11 +28,11 @@ def podcasts():
             list_of_podcasts = services.filter_podcasts(query, parameter, repo.repository)
             max_pages = services.calculate_pages(list_of_podcasts)
 
-        start, stop, list_of_podcasts = services.calculate_pagination(page, max_pages, list_of_podcasts)
+        start, stop, page_podcasts = services.calculate_pagination(page, max_pages, list_of_podcasts)
 
     else:
         page = 1
-        start, stop, list_of_podcasts = services.calculate_pagination(page, max_pages, list_of_podcasts)
+        start, stop, page_podcasts = services.calculate_pagination(page, max_pages, list_of_podcasts)
 
     playlist_form = playlistForm()
     if playlist_form.validate_on_submit():
@@ -57,20 +56,17 @@ def podcasts():
         username = session['user_name']
         user = services.get_user(repo.repository, username)
         playlist_episodes = playlist_services.get_user_playlist(repo.repository, user.id)._episodes
-        for podcast in list_of_podcasts:
+        for podcast in page_podcasts:
             status[podcast.id] = True
-            for episode in list_of_episodes:
-                if episode.podcast.id == podcast.id:
-                    if episode not in playlist_episodes:
-                        status[podcast.id] = False
+            for episode in repo.repository.get_episodes_for_podcast(podcast.id):
+                if episode not in playlist_episodes:
+                    status[podcast.id] = False
     else:
         playlist_episodes = None
 
-
-
-    return render_template('main.html', content_right='podcasts.html', podcasts=list_of_podcasts, start=start,
+    return render_template('main.html', content_right='podcasts.html', podcasts=page_podcasts, start=start,
                            stop=stop, page=page, max_pages=max_pages, playlist_form=playlist_form,
-                           playlist_episodes=playlist_episodes, list_of_episodes=list_of_episodes, status = status)
+                           playlist_episodes=playlist_episodes, list_of_episodes=list_of_episodes, status=status)
 
 
 class playlistForm(FlaskForm):

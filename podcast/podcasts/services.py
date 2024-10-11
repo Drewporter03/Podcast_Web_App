@@ -8,13 +8,13 @@ def get_episodes(repo: AbstractRepository):
 def get_podcasts(repo: AbstractRepository):
     return repo.get_podcasts()
 
+
 def sorted_podcasts_by_title(repo: AbstractRepository):
     list_of_podcasts = get_podcasts(repo)
     return sorted(list_of_podcasts, key=lambda podcast: podcast.title)
 
 
 def filter_podcasts(query, parameter, repo: AbstractRepository):
-    searched_podcasts = []
     if parameter == "title":
         searched_podcasts = repo.search_podcast_by_title(query)
     elif parameter == "author":

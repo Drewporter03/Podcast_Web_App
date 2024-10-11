@@ -28,15 +28,6 @@
                         <div class="podcast-authors">Presented by {{ podcast.author.name }}</div>
                     </div>
                     {% if 'user_name' in session %}
-                        {% set add_to_playlist = namespace(value=false) %}
-                        {% for episode in list_of_episodes -%}
-                            {% if episode.podcast_id == podcast.id %}
-                                {% if episode not in playlist_episodes %}
-                                    {% set add_to_playlist.value = true %}
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-
                         <div class="episode-side">
                             <form method="post">
                                 {{ playlist_form.hidden_tag() }}
