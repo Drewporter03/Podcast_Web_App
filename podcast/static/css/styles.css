@@ -180,7 +180,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 5rem 0 0; 
+    margin: 2rem 0 0; 
     width: 100%;
 }
 
@@ -437,7 +437,7 @@ nav footer {
 }
 
 .playlists h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin: 1rem auto 1rem 0;
 }
 
@@ -529,6 +529,12 @@ nav footer {
 .podcast-title {
     font-size: 1.75rem;
     font-weight: 700;
+    color: var(--navbar-content-hover);
+}
+
+.ep-title {
+    font-size: 1.5rem;
+    font-weight: 500;
     color: var(--navbar-content-hover);
 }
 
@@ -1397,4 +1403,29 @@ audio {
         font-size: 1rem;
         white-space: pre-line;
     }
+}
+
+@media (max-height: 1120px) and (max-width:2560px){
+    .podcast-home {
+        height: 14rem;
+    }
+
+    .podcast-home img{
+        width: 14rem;
+        height: 14rem;
+    }
+    
+}
+
+
+@media (max-height: 920px) and (max-width:2560px){
+    .podcast-home {
+        height: 10rem;
+    }
+
+    .podcast-home img{
+        width: 10rem;
+        height: 10rem;
+    }
+    
 }
