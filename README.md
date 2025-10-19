@@ -1,64 +1,61 @@
-# COMPSCI 235 - Starter Repository for the CS235 Pod Library
-This is a starter repository for the podcasts webapp project of CompSci 235 in Semester 2, 2024.
+# 🎧 Podcast Web Application
 
-## Description
+A Flask-based platform for browsing, managing, and testing podcast data.
 
-This repository contains a partial implementation of the domain model. It contains unit tests which can be run through pytest. It also contains a simple Flask application that renders content of a Podcast object instance from our domain model on a blank HTML page. You'll be expanding the domain model implementation, and you have the freedom to modify or remove test cases as needed.
+## Overview
 
-## Installation
+This project is a full-stack web application developed with Flask and Python, designed to manage podcast data, perform CRUD operations, and demonstrate clean software architecture using the Model-View-Controller (MVC) pattern.
 
-**Installation via requirements.txt**
+It features a structured domain model, automated unit testing, and dynamic HTML rendering via Jinja2 templates. Originally developed as part of a university project, it has been expanded and refined to highlight practical software engineering principles.
 
-**Windows**
-```shell
-$ cd <project directory>
-$ py -3 -m venv venv
-$ venv\Scripts\activate
-$ pip install -r requirements.txt
-```
+## Features
 
-**MacOS**
-```shell
-$ cd <project directory>
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install -r requirements.txt
-```
+Podcast Management — Create, read, update, and delete podcast data entries.
 
-When using PyCharm, set the virtual environment using 'File or PyCharm'->'Settings' and select your project from the left menu. Select 'Project Interpreter', click on the gearwheel button and select 'Add Interpreter'. Click the 'Existing environment' radio button to select the virtual environment. 
+Domain Modeling — Structured object-oriented design representing podcasts, episodes, and creators.
 
-## Execution
+Dynamic Rendering — Jinja2 templates for rendering domain objects as interactive HTML pages.
 
-**Running the application**
+Testing Suite — Automated testing framework using pytest to ensure code reliability.
 
-From the *project directory*, and within the activated virtual environment (see *venv\Scripts\activate* above):
+Environment Configuration — Uses .env variables for development and production separation.
 
-````shell
-$ flask run
-```` 
+## Tech Stack
+- Category	Tools / Frameworks
+- Backend	Python, Flask
+- Templating	Jinja2
+- Database	SQLite
+- Testing	pytest
+- Version Control	Git, GitHub
 
-## Testing
+## Setup & Installation
 
-After you have configured pytest as the testing tool for PyCharm (File - Settings - Tools - Python Integrated Tools - Testing), you can then run tests from within PyCharm by right-clicking the tests folder and selecting "Run pytest in tests".
+Clone the repository:
 
-Alternatively, from a terminal in the root folder of the project, you can also call 'python -m pytest tests' to run all the tests. PyCharm also provides a built-in terminal, which uses the configured virtual environment. 
+`git clone https://github.com/yourusername/podcast-webapp.git
+cd podcast-webapp`
 
-## Configuration
+Create a virtual environment and install dependencies:
 
-The *project directory/.env* file contains variable settings. They are set with appropriate values.
+`python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+`
 
-* `FLASK_APP`: Entry point of the application (should always be `wsgi.py`).
-* `FLASK_ENV`: The environment in which to run the application (either `development` or `production`).
-* `SECRET_KEY`: Secret key used to encrypt session data.
-* `TESTING`: Set to False for running the application. Overridden and set to True automatically when testing the application.
-* `WTF_CSRF_SECRET_KEY`: Secret key used by the WTForm library.
- 
-## Data sources
+Run the application:
 
-The data files are modified excerpts downloaded from:
+`flask run
+`
 
-https://www.kaggle.com/code/switkowski/building-a-podcast-recommendation-engine/input
+Then open your browser and visit:
+
+`http://localhost:5000`
+
+## Running Tests
+
+Run the automated test suite with:
+
+`pytest`
 
 
-
-
+All tests are located in the /tests directory and validate domain logic, data access, and route handling.
