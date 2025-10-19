@@ -21,12 +21,19 @@ Testing Suite — Automated testing framework using pytest to ensure code reliab
 Environment Configuration — Uses .env variables for development and production separation.
 
 ## Tech Stack
-- Category	Tools / Frameworks
-- Backend	Python, Flask
-- Templating	Jinja2
-- Database	SQLite
-- Testing	pytest
-- Version Control	Git, GitHub
+Category	Tools / Frameworks
+- Backend
+  -   Python
+  -   Flask
+- Templating
+  -   Jinja2
+- Database
+  -   SQLite
+- Testing
+  -   pytest
+- Version Control
+  -   Git
+  -   GitHub
 
 ## Setup & Installation
 
